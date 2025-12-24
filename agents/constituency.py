@@ -34,4 +34,17 @@ class ConstituencyAgent(Agent):
         # Deliberate no-op: constituencies remain static in the baseline model.
         return
 
+    def evaluate_bill(self, bill) -> float:
+        """
+        Returns a utility score for the bill based on the constituency's ideological proximity.
+        Higher scores indicate stronger alignment (1 = perfect match, 0 = worst match).
+        """
+        dist = ((self.ideology[0] - bill.ideology[0])**2 +
+                (self.ideology[1] - bill.ideology[1])**2)**0.5
+        score = max(0.0, 1.0 - dist)  # Clamp to [0,1]
+        return score
+
+    def __repr__(self):
+        return f"Constituency(id={self.unique_id}, ideology={self.ideology}, population={self.population})"
+
 
