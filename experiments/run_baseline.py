@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from institutions.parliamentary import ParliamentaryModel
 from institutions.republican import RepublicanModel
+from mesa.datacollection import DataCollector
 
 
 def run_baseline_parliamentary(steps: int = 5) -> None:
