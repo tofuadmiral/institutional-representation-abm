@@ -36,4 +36,35 @@ class LegislatorAgent(Agent):
         # Deliberate no-op: behavior will be defined by institutional rules.
         return
 
+    def decide_vote(self, bill) -> bool:
+        """
+        Returns True if the legislator supports the bill, False otherwise.
+        Simple stub based on Euclidean distance to bill ideology.
+        """
+        dist = ((self.ideology[0] - bill.ideology_vector[0])**2 +
+                (self.ideology[1] - bill.ideology_vector[1])**2)**0.5
+        return dist < 1.0
+
+    def evaluate_constituency_alignment(self) -> float:
+        """
+        Returns the ideological distance to the legislator's constituency.
+        Requires the model to have `self.model.constituencies` dict.
+        """
+        constituency = self.model.constituencies[self.constituency_id]
+        dist = ((self.ideology[0] - constituency.ideology[0])**2 +
+                (self.ideology[1] - constituency.ideology[1])**2)**0.5
+        return dist
+
+    def record_vote(self, bill, vote) -> None:
+        """
+        Records the legislator's vote for a bill.
+        Requires the model to have `self.model.votes` dict.
+        """
+        if not hasattr(bill, 'votes'):
+            bill.votes = {}
+        bill.votes[self.unique_id] = vote
+
+    def __repr__(self):
+        return f"Legislator(id={self.unique_id}, ideology={self.ideology}, constituency={self.constituency_id}, party={self.party_id})"
+
 
