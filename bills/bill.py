@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Sequence
 
 
@@ -16,5 +16,5 @@ class Bill:
     bill_id: int
     ideology: Sequence[float]
     salience: float
-
-
+    votes: dict[int, bool] = field(default_factory=dict)   # legislator id -> vote
+    
