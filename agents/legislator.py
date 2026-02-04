@@ -41,8 +41,8 @@ class LegislatorAgent(Agent):
         Returns True if the legislator supports the bill, False otherwise.
         Simple stub based on Euclidean distance to bill ideology.
         """
-        dist = ((self.ideology[0] - bill.ideology_vector[0])**2 +
-                (self.ideology[1] - bill.ideology_vector[1])**2)**0.5
+        dist = ((self.ideology[0] - bill.ideology[0])**2 +
+                (self.ideology[1] - bill.ideology[1])**2)**0.5
         return dist < 1.0
 
     def evaluate_constituency_alignment(self) -> float:

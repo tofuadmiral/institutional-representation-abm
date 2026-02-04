@@ -87,6 +87,29 @@ class BaseInstitutionModel(Model):
             )
             self.schedule.add(legislator)
 
+    @property 
+    def legislators(self):
+        """Get all legislator agents."""
+        return [agent for agent in self.schedule.agents if hasattr(agent, 'ideology') and hasattr(agent, 'party_id')]
+    
+    @property
+    def constituencies(self):
+        """Get all constituency agents mapped by ID."""
+        constituency_dict = {}
+        for agent in self.schedule.agents:
+            if hasattr(agent, 'population'):  # ConstituencyAgent has population
+                constituency_dict[agent.unique_id] = agent
+        return constituency_dict
+    
+    @property
+    def parties(self):
+        """Get all party agents mapped by ID."""
+        party_dict = {}
+        for agent in self.schedule.agents:
+            if hasattr(agent, 'name') and not hasattr(agent, 'population'):  # PartyAgent has name but not population
+                party_dict[agent.unique_id] = agent
+        return party_dict
+
     def step(self) -> None:
         """
         Advance the model by one step.
