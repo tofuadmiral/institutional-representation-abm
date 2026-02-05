@@ -6,6 +6,7 @@ import random
 from institutions.base import BaseInstitutionModel
 from agents.legislator import LegislatorAgent
 from agents.party import PartyAgent
+from agents.committee import CommitteeAgent, CommitteeJurisdiction
 from bills.bill import Bill
 
 
@@ -28,6 +29,9 @@ class ParliamentaryModel(BaseInstitutionModel):
         num_parties: int = 2,
         confidence_threshold: float = 0.5,
         discipline_strength: float = 0.8,
+        num_committees: int = 3,
+        committee_size: int = 5,
+        committee_gatekeeping_power: float = 0.3,
         seed: Optional[int] = None,
     ) -> None:
         super().__init__(
@@ -41,6 +45,11 @@ class ParliamentaryModel(BaseInstitutionModel):
         self.confidence_threshold = confidence_threshold  # Fraction needed for confidence
         self.discipline_strength = discipline_strength    # Party discipline strength (0-1)
         
+        # Committee system parameters
+        self.num_committees = num_committees
+        self.committee_size = committee_size
+        self.committee_gatekeeping_power = committee_gatekeeping_power
+        
         # Government state
         self.government_party = None
         self.prime_minister = None
@@ -49,8 +58,77 @@ class ParliamentaryModel(BaseInstitutionModel):
         self.confidence_votes_passed = 0
         self.confidence_votes_failed = 0
         
-        # Form initial government
+        # Committee system
+        self.committees: List[CommitteeAgent] = []
+        self.bills_in_committee: Dict[int, int] = {}  # bill_id -> committee_id
+        
+        # Initialize committees and form government
+        self._initialize_committees()
         self._form_government()
+
+    def _initialize_committees(self) -> None:
+        """Create committees with specialized jurisdictions."""
+        # Define standard parliamentary committee jurisdictions
+        jurisdictions = [
+            CommitteeJurisdiction(
+                name="Finance Committee",
+                policy_area="economic",
+                ideology_center=(0.5, 0.0),  # Economic conservative center
+                ideology_radius=0.8
+            ),
+            CommitteeJurisdiction(
+                name="Social Affairs Committee", 
+                policy_area="social",
+                ideology_center=(-0.3, 0.7),  # Social liberal center
+                ideology_radius=0.9
+            ),
+            CommitteeJurisdiction(
+                name="Foreign Affairs Committee",
+                policy_area="foreign",
+                ideology_center=(0.0, -0.4),  # Neutral on economics, conservative on social
+                ideology_radius=0.7
+            ),
+            CommitteeJurisdiction(
+                name="Environment Committee",
+                policy_area="environment", 
+                ideology_center=(-0.6, 0.3),  # Liberal on economics, moderately liberal on social
+                ideology_radius=0.6
+            ),
+            CommitteeJurisdiction(
+                name="Justice Committee",
+                policy_area="justice",
+                ideology_center=(0.0, -0.6),  # Neutral economics, conservative social  
+                ideology_radius=0.8
+            )
+        ]
+        
+        # Create committees (limit to available jurisdictions)
+        actual_committees = min(self.num_committees, len(jurisdictions))
+        
+        for i in range(actual_committees):
+            committee = CommitteeAgent(
+                committee_id=i,
+                jurisdiction=jurisdictions[i],
+                size=self.committee_size,
+                gatekeeping_power=self.committee_gatekeeping_power
+            )
+            self.committees.append(committee)
+            
+    def _assign_committee_members(self) -> None:
+        """Assign legislators to committees after government formation."""
+        # Get all legislators and parties
+        legislators = []
+        parties = []
+        
+        for agent in self.schedule.agents:
+            if isinstance(agent, LegislatorAgent):
+                legislators.append(agent)
+            elif isinstance(agent, PartyAgent):
+                parties.append(agent)
+        
+        # Assign members to each committee
+        for committee in self.committees:
+            committee.assign_members(legislators, parties)
 
     def _form_government(self) -> None:
         """
@@ -103,6 +181,9 @@ class ParliamentaryModel(BaseInstitutionModel):
                     self.prime_minister = self.random.choice(government_mps)
                 
             self.government_formed = True
+            
+        # Assign committee members after government formation
+        self._assign_committee_members()
 
     def _conduct_confidence_vote(self, bill: Bill) -> bool:
         """
@@ -174,13 +255,27 @@ class ParliamentaryModel(BaseInstitutionModel):
 
     def pass_legislation(self, bill: Bill) -> bool:
         """
-        Pass legislation through parliamentary process.
+        Pass legislation through parliamentary process with committee stage.
         
-        Government bills are typically confidence matters in parliamentary systems.
+        Bills go through:
+        1. Committee consideration (can amend or kill)
+        2. Floor vote with party discipline 
+        3. Confidence votes for government bills
         """
         if not self.government_formed:
             return False
-            
+        
+        # Stage 1: Committee consideration
+        committee_result = self._route_to_committee(bill)
+        
+        if committee_result["action"] == "kill":
+            return False
+        elif committee_result["action"] == "amend":
+            # Use the amended bill for floor vote
+            bill = committee_result["bill"]
+        # If "approve", proceed with original bill
+        
+        # Stage 2: Floor vote
         # Treat major bills as confidence votes
         is_confidence_matter = self.random.random() < 0.3  # 30% of bills are confidence matters
         
@@ -200,6 +295,31 @@ class ParliamentaryModel(BaseInstitutionModel):
                         votes_against += 1
             
             return votes_for > votes_against
+    
+    def _route_to_committee(self, bill: Bill) -> Dict[str, Any]:
+        """Route bill to appropriate committee for consideration."""
+        # Find committee with jurisdiction
+        relevant_committee = None
+        for committee in self.committees:
+            if committee.jurisdiction.covers_bill(bill):
+                relevant_committee = committee
+                break
+        
+        if relevant_committee is None:
+            # No committee jurisdiction - approve by default
+            return {"action": "approve", "bill": bill}
+        
+        # Track bill in committee
+        self.bills_in_committee[bill.bill_id] = relevant_committee.committee_id
+        
+        # Get legislator lookup dict
+        legislators = {}
+        for agent in self.schedule.agents:
+            if isinstance(agent, LegislatorAgent):
+                legislators[agent.unique_id] = agent
+        
+        # Committee considers bill
+        return relevant_committee.consider_bill(bill, legislators)
 
     def get_government_stats(self) -> Dict[str, Any]:
         """Return current government statistics for analysis."""
@@ -210,6 +330,34 @@ class ParliamentaryModel(BaseInstitutionModel):
             'confidence_votes_passed': self.confidence_votes_passed,
             'confidence_votes_failed': self.confidence_votes_failed,
             'prime_minister_id': self.prime_minister.unique_id if self.prime_minister else None
+        }
+    
+    def get_committee_stats(self) -> Dict[str, Any]:
+        """Return committee system statistics for analysis."""
+        if not self.committees:
+            return {
+                'num_committees': 0,
+                'avg_committee_size': 0,
+                'total_bills_considered': 0,
+                'total_bills_killed': 0,
+                'total_amendments': 0,
+                'committee_details': []
+            }
+        
+        total_bills_considered = sum(c.bills_considered for c in self.committees)
+        total_bills_killed = sum(c.bills_killed for c in self.committees)  
+        total_amendments = sum(c.amendments_made for c in self.committees)
+        avg_size = sum(len(c.members) for c in self.committees) / len(self.committees)
+        
+        return {
+            'num_committees': len(self.committees),
+            'avg_committee_size': avg_size,
+            'total_bills_considered': total_bills_considered,
+            'total_bills_killed': total_bills_killed,
+            'total_amendments': total_amendments,
+            'avg_kill_rate': (total_bills_killed / total_bills_considered) if total_bills_considered > 0 else 0,
+            'avg_amendment_rate': (total_amendments / total_bills_considered) if total_bills_considered > 0 else 0,
+            'committee_details': [c.get_stats() for c in self.committees]
         }
 
     def step(self) -> None:
