@@ -40,11 +40,27 @@ def test_run_multiseed_comparison_smoke():
         n_seeds=3,
         n_jobs=1,
     )
-    assert len(df) == 3 * 2  # 3 seeds × 2 institutions
-    assert set(df["institution"].unique()) == {"parliamentary", "republican"}
+    assert len(df) == 3 * 4  # 3 seeds × 4 institutions
+    assert set(df["institution"].unique()) == {
+        "parliamentary",
+        "republican",
+        "premier_presidential",
+        "president_parliamentary",
+    }
     assert set(df["seed"].unique()) == {0, 1, 2}
     assert (df["passage_rate"] >= 0).all()
     assert (df["passage_rate"] <= 1).all()
+
+
+def test_run_multiseed_restricted_to_two_institutions():
+    df = run_multiseed_comparison(
+        scenarios=[BASELINE],
+        institutions=("parliamentary", "republican"),
+        n_seeds=3,
+        n_jobs=1,
+    )
+    assert len(df) == 3 * 2
+    assert set(df["institution"].unique()) == {"parliamentary", "republican"}
 
 
 def test_run_multiseed_is_deterministic():

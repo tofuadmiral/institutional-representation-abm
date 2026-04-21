@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Iterable, Optional, Tuple
+from itertools import combinations
+from typing import Iterable, Optional, Sequence, Tuple
 
 import numpy as np
 import pandas as pd
@@ -155,3 +156,19 @@ def pairwise_tests(
                 }
             )
     return pd.DataFrame(rows)
+
+
+def all_pairwise_tests(
+    df_long: pd.DataFrame,
+    metrics: Iterable[str] = METRICS_TO_TEST,
+    institutions: Optional[Sequence[str]] = None,
+) -> pd.DataFrame:
+    """Run `pairwise_tests` for every unordered pair of institutions present."""
+    if institutions is None:
+        institutions = sorted(df_long["institution"].unique())
+    frames = []
+    for a, b in combinations(institutions, 2):
+        frames.append(pairwise_tests(df_long, metrics=metrics, institution_a=a, institution_b=b))
+    if not frames:
+        return pd.DataFrame()
+    return pd.concat(frames, ignore_index=True)
