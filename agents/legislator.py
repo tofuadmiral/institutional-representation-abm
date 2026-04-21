@@ -43,7 +43,7 @@ class LegislatorAgent(Agent):
         """
         dist = ((self.ideology[0] - bill.ideology[0])**2 +
                 (self.ideology[1] - bill.ideology[1])**2)**0.5
-        return dist < 1.0
+        return dist < self.model.legislator_config.vote_support_threshold
 
     def evaluate_constituency_alignment(self) -> float:
         """
