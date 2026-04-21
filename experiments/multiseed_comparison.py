@@ -11,6 +11,7 @@ from joblib import Parallel, delayed
 from agents.constituency import ConstituencyAgent
 from agents.legislator import LegislatorAgent
 from analysis.aggregate import pairwise_tests, summarize
+from analysis.plots import render_all
 from bills.bill import Bill
 from config import ParliamentaryConfig, RepublicanConfig
 from experiments.scenarios import (
@@ -229,6 +230,7 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
         help="Output directory for CSVs.",
     )
     parser.add_argument("--verbose", type=int, default=5)
+    parser.add_argument("--no-plots", action="store_true", help="Skip PNG rendering.")
     args = parser.parse_args(argv)
 
     scenarios = _parse_scenarios(args.scenarios)
@@ -261,6 +263,11 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     hyp_path = args.output / "hypothesis_tests.csv"
     hyp_df.to_csv(hyp_path, index=False)
     print(f"Wrote {len(hyp_df)} rows to {hyp_path}")
+
+    if not args.no_plots:
+        paths = render_all(df, summary_df, args.output / "figures")
+        for p in paths:
+            print(f"Wrote figure {p}")
     return 0
 
 
