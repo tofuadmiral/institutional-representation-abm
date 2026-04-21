@@ -17,7 +17,12 @@ import pandas as pd
 from joblib import Parallel, delayed
 
 from bills.bill import Bill
-from config import ParliamentaryConfig, RepublicanConfig
+from config import (
+    ParliamentaryConfig,
+    RepublicanConfig,
+    premier_presidential_config,
+    president_parliamentary_config,
+)
 from experiments.multiseed_comparison import (
     INSTITUTION_NAMES,
     _generate_bills,
@@ -31,8 +36,10 @@ from experiments.scenarios import (
 )
 from institutions.parliamentary import ParliamentaryModel
 from institutions.republican import RepublicanModel
+from institutions.semi_presidential import SemiPresidentialModel
 
 ABLATION_NAMES = ("baseline", "no_committees", "no_discipline", "no_veto")
+INSTITUTIONS_WITH_VETO = {"republican", "premier_presidential", "president_parliamentary"}
 
 
 def _build_ablated_model(
@@ -63,6 +70,28 @@ def _build_ablated_model(
             config=base_config,
             seed=seed,
         )
+    elif institution == "premier_presidential":
+        base_config = premier_presidential_config()
+        if ablation == "no_discipline":
+            base_config = dataclasses.replace(base_config, discipline_strength=0.0)
+        model = SemiPresidentialModel(
+            num_legislators=scenario.num_legislators,
+            num_constituencies=scenario.num_constituencies,
+            num_parties=scenario.num_parties,
+            config=base_config,
+            seed=seed,
+        )
+    elif institution == "president_parliamentary":
+        base_config = president_parliamentary_config()
+        if ablation == "no_discipline":
+            base_config = dataclasses.replace(base_config, discipline_strength=0.0)
+        model = SemiPresidentialModel(
+            num_legislators=scenario.num_legislators,
+            num_constituencies=scenario.num_constituencies,
+            num_parties=scenario.num_parties,
+            config=base_config,
+            seed=seed,
+        )
     else:
         raise ValueError(f"Unknown institution: {institution}")
 
@@ -72,7 +101,7 @@ def _build_ablated_model(
             return {"action": "approve", "bill": bill}
 
         model._route_to_committee = _approve  # type: ignore[method-assign]
-    elif ablation == "no_veto" and institution == "republican":
+    elif ablation == "no_veto" and institution in INSTITUTIONS_WITH_VETO:
         model._executive_veto_check = lambda bill: False  # type: ignore[method-assign]
 
     return model
@@ -103,15 +132,15 @@ def _simulate_ablation(
         "committee_amendment_rate": committee_stats.get("avg_amendment_rate", 0.0),
         **rep_metrics,
     }
-    if institution == "republican":
+    if institution in INSTITUTIONS_WITH_VETO:
         sys_stats = model.get_system_stats()
-        row["bills_vetoed"] = sys_stats["bills_vetoed"]
-        row["gridlock_events"] = sys_stats["gridlock_events"]
+        row["bills_vetoed"] = sys_stats.get("bills_vetoed", 0)
+        row["gridlock_events"] = sys_stats.get("gridlock_events", 0)
     return row
 
 
 def _is_applicable(institution: str, ablation: str) -> bool:
-    if ablation == "no_veto" and institution == "parliamentary":
+    if ablation == "no_veto" and institution not in INSTITUTIONS_WITH_VETO:
         return False
     return True
 

@@ -26,50 +26,54 @@ def forest_plot_passage_delta(
     df_long: pd.DataFrame,
     output_path: Optional[Path] = None,
 ) -> plt.Figure:
-    """Per-scenario mean passage rate with 95% CI, for each institution."""
+    """Per-scenario mean passage rate with 95% CI, for every institution present."""
     scenarios = list(df_long["scenario"].unique())
-    fig, ax = plt.subplots(figsize=(8, 1.0 + 0.9 * len(scenarios)))
+    institutions = sorted(df_long["institution"].unique())
+    n_inst = len(institutions)
+    markers = ["o", "s", "^", "D", "v", "P"]
+    colors = [f"C{i}" for i in range(n_inst)]
+    spread = 0.3
+    offsets = np.linspace(-spread, spread, n_inst) if n_inst > 1 else np.array([0.0])
 
+    fig, ax = plt.subplots(figsize=(9, 1.2 + 0.85 * len(scenarios)))
     y_positions = np.arange(len(scenarios)) * 2.0
 
     for i, scenario in enumerate(scenarios):
         df_s = df_long[df_long["scenario"] == scenario]
-        parl = df_s[df_s["institution"] == "parliamentary"]["passage_rate"].to_numpy()
-        rep = df_s[df_s["institution"] == "republican"]["passage_rate"].to_numpy()
-
-        parl_low, parl_high = bootstrap_ci(parl)
-        rep_low, rep_high = bootstrap_ci(rep)
-
-        ax.errorbar(
-            parl.mean(),
-            y_positions[i] + 0.3,
-            xerr=[[parl.mean() - parl_low], [parl_high - parl.mean()]],
-            fmt="o",
-            color="C0",
-            capsize=3,
-            label="Parliamentary" if i == 0 else None,
-        )
-        ax.errorbar(
-            rep.mean(),
-            y_positions[i] - 0.3,
-            xerr=[[rep.mean() - rep_low], [rep_high - rep.mean()]],
-            fmt="s",
-            color="C1",
-            capsize=3,
-            label="Republican" if i == 0 else None,
-        )
+        for j, inst in enumerate(institutions):
+            values = df_s[df_s["institution"] == inst]["passage_rate"].to_numpy()
+            if len(values) == 0:
+                continue
+            low, high = bootstrap_ci(values)
+            ax.errorbar(
+                values.mean(),
+                y_positions[i] + offsets[j],
+                xerr=[[values.mean() - low], [high - values.mean()]],
+                fmt=markers[j % len(markers)],
+                color=colors[j],
+                capsize=3,
+                label=inst if i == 0 else None,
+            )
 
     ax.set_yticks(y_positions)
     ax.set_yticklabels(scenarios)
     ax.set_xlim(-0.02, 1.02)
     ax.set_xlabel("Passage rate (mean, 95% bootstrap CI)")
     ax.set_title("Legislative passage rate by scenario and institution")
-    ax.legend(loc="lower right")
+    ax.legend(loc="lower right", fontsize=8)
 
     fig.tight_layout()
     if output_path is not None:
         fig.savefig(output_path, dpi=150, bbox_inches="tight")
     return fig
+
+
+SHORT_INSTITUTION_LABEL = {
+    "parliamentary": "Parl",
+    "republican": "Rep",
+    "premier_presidential": "PremPres",
+    "president_parliamentary": "PresParl",
+}
 
 
 def violin_plot_distributions(
@@ -78,27 +82,32 @@ def violin_plot_distributions(
 ) -> plt.Figure:
     """Violin plot of per-seed passage rate, faceted by scenario."""
     scenarios = list(df_long["scenario"].unique())
+    institutions = sorted(df_long["institution"].unique())
+    n_inst = len(institutions)
     fig, axes = plt.subplots(
-        1, len(scenarios), figsize=(3.0 * len(scenarios), 4.0), sharey=True
+        1, len(scenarios), figsize=(1.4 * n_inst * len(scenarios), 4.5), sharey=True
     )
     if len(scenarios) == 1:
         axes = [axes]
 
     for ax, scenario in zip(axes, scenarios):
-        parl = df_long[
-            (df_long["scenario"] == scenario) & (df_long["institution"] == "parliamentary")
-        ]["passage_rate"].to_numpy()
-        rep = df_long[
-            (df_long["scenario"] == scenario) & (df_long["institution"] == "republican")
-        ]["passage_rate"].to_numpy()
+        data = []
+        for inst in institutions:
+            values = df_long[
+                (df_long["scenario"] == scenario) & (df_long["institution"] == inst)
+            ]["passage_rate"].to_numpy()
+            data.append(values)
 
-        parts = ax.violinplot([parl, rep], showmeans=True, showmedians=True, widths=0.8)
+        parts = ax.violinplot(data, showmeans=True, showmedians=True, widths=0.8)
         for idx, body in enumerate(parts["bodies"]):
-            body.set_facecolor(["C0", "C1"][idx])
+            body.set_facecolor(f"C{idx}")
             body.set_alpha(0.7)
 
-        ax.set_xticks([1, 2])
-        ax.set_xticklabels(["Parl", "Rep"])
+        ax.set_xticks(np.arange(1, n_inst + 1))
+        ax.set_xticklabels(
+            [SHORT_INSTITUTION_LABEL.get(i, i) for i in institutions],
+            rotation=30, ha="right", fontsize=8,
+        )
         ax.set_title(scenario)
         ax.set_ylim(-0.05, 1.05)
 

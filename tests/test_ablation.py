@@ -50,13 +50,26 @@ def test_no_veto_never_vetoes():
 
 def test_ablation_run_produces_all_cells():
     df = run_ablation(scenarios=[BASELINE], n_seeds=2, n_jobs=1)
-    # parliamentary: 3 ablations × 2 seeds = 6; republican: 4 × 2 = 8; total 14
-    assert len(df) == 14
+    # parliamentary: 3 ablations × 2 seeds = 6
+    # republican / premier_presidential / president_parliamentary: 4 × 2 = 8 each
+    # total: 6 + 3 * 8 = 30
+    assert len(df) == 30
     expected = {
-        ("parliamentary", "baseline"), ("parliamentary", "no_committees"),
+        ("parliamentary", "baseline"),
+        ("parliamentary", "no_committees"),
         ("parliamentary", "no_discipline"),
-        ("republican", "baseline"), ("republican", "no_committees"),
-        ("republican", "no_discipline"), ("republican", "no_veto"),
+        ("republican", "baseline"),
+        ("republican", "no_committees"),
+        ("republican", "no_discipline"),
+        ("republican", "no_veto"),
+        ("premier_presidential", "baseline"),
+        ("premier_presidential", "no_committees"),
+        ("premier_presidential", "no_discipline"),
+        ("premier_presidential", "no_veto"),
+        ("president_parliamentary", "baseline"),
+        ("president_parliamentary", "no_committees"),
+        ("president_parliamentary", "no_discipline"),
+        ("president_parliamentary", "no_veto"),
     }
     got = set(df.groupby(["institution", "ablation"]).groups.keys())
     assert got == expected

@@ -10,10 +10,15 @@ from joblib import Parallel, delayed
 
 from agents.constituency import ConstituencyAgent
 from agents.legislator import LegislatorAgent
-from analysis.aggregate import pairwise_tests, summarize
+from analysis.aggregate import all_pairwise_tests, pairwise_tests, summarize
 from analysis.plots import render_all
 from bills.bill import Bill
-from config import ParliamentaryConfig, RepublicanConfig
+from config import (
+    ParliamentaryConfig,
+    RepublicanConfig,
+    premier_presidential_config,
+    president_parliamentary_config,
+)
 from experiments.scenarios import (
     ComparisonScenario,
     DEFAULT_SCENARIOS,
@@ -21,8 +26,14 @@ from experiments.scenarios import (
 )
 from institutions.parliamentary import ParliamentaryModel
 from institutions.republican import RepublicanModel
+from institutions.semi_presidential import SemiPresidentialModel
 
-INSTITUTION_NAMES = ("parliamentary", "republican")
+INSTITUTION_NAMES = (
+    "parliamentary",
+    "republican",
+    "premier_presidential",
+    "president_parliamentary",
+)
 
 
 def _build_model(institution: str, scenario: ComparisonScenario, seed: int):
@@ -40,6 +51,22 @@ def _build_model(institution: str, scenario: ComparisonScenario, seed: int):
             num_constituencies=scenario.num_constituencies,
             num_parties=scenario.num_parties,
             config=RepublicanConfig(),
+            seed=seed,
+        )
+    if institution == "premier_presidential":
+        return SemiPresidentialModel(
+            num_legislators=scenario.num_legislators,
+            num_constituencies=scenario.num_constituencies,
+            num_parties=scenario.num_parties,
+            config=premier_presidential_config(),
+            seed=seed,
+        )
+    if institution == "president_parliamentary":
+        return SemiPresidentialModel(
+            num_legislators=scenario.num_legislators,
+            num_constituencies=scenario.num_constituencies,
+            num_parties=scenario.num_parties,
+            config=president_parliamentary_config(),
             seed=seed,
         )
     raise ValueError(f"Unknown institution: {institution}")
@@ -145,14 +172,16 @@ def _simulate_one(
                 "coalition_size": gov["coalition_size"],
                 "confidence_votes_passed": gov["confidence_votes_passed"],
                 "confidence_votes_failed": gov["confidence_votes_failed"],
+                "presidential_dismissals": 0,
                 "bills_vetoed": 0,
                 "gridlock_events": 0,
+                "cohabitation": None,
                 "divided_government": None,
                 "veto_rate": 0.0,
                 "discipline_strength": model.config.discipline_strength,
             }
         )
-    else:
+    elif institution == "republican":
         sys_stats = model.get_system_stats()
         sep_stats = model.get_separation_of_powers_stats()
         row.update(
@@ -161,8 +190,29 @@ def _simulate_one(
                 "coalition_size": 0,
                 "confidence_votes_passed": 0,
                 "confidence_votes_failed": 0,
+                "presidential_dismissals": 0,
                 "bills_vetoed": sys_stats["bills_vetoed"],
                 "gridlock_events": sys_stats["gridlock_events"],
+                "cohabitation": None,
+                "divided_government": sep_stats["divided_government"],
+                "veto_rate": sep_stats["veto_rate"],
+                "discipline_strength": model.config.discipline_strength,
+            }
+        )
+    else:
+        gov = model.get_government_stats()
+        sys_stats = model.get_system_stats()
+        sep_stats = model.get_separation_of_powers_stats()
+        row.update(
+            {
+                "government_formed": gov["government_formed"],
+                "coalition_size": gov["coalition_size"],
+                "confidence_votes_passed": gov["confidence_votes_passed"],
+                "confidence_votes_failed": gov["confidence_votes_failed"],
+                "presidential_dismissals": gov["presidential_dismissals"],
+                "bills_vetoed": sys_stats["bills_vetoed"],
+                "gridlock_events": sys_stats["gridlock_events"],
+                "cohabitation": sep_stats["cohabitation"],
                 "divided_government": sep_stats["divided_government"],
                 "veto_rate": sep_stats["veto_rate"],
                 "discipline_strength": model.config.discipline_strength,
@@ -259,7 +309,11 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     summary_df.to_csv(summary_path, index=False)
     print(f"Wrote {len(summary_df)} rows to {summary_path}")
 
-    hyp_df = pairwise_tests(df)
+    institutions_in_df = sorted(df["institution"].unique())
+    if len(institutions_in_df) > 2:
+        hyp_df = all_pairwise_tests(df, institutions=institutions_in_df)
+    else:
+        hyp_df = pairwise_tests(df)
     hyp_path = args.output / "hypothesis_tests.csv"
     hyp_df.to_csv(hyp_path, index=False)
     print(f"Wrote {len(hyp_df)} rows to {hyp_path}")
