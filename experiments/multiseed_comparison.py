@@ -10,6 +10,7 @@ from joblib import Parallel, delayed
 
 from agents.constituency import ConstituencyAgent
 from agents.legislator import LegislatorAgent
+from analysis.aggregate import pairwise_tests, summarize
 from bills.bill import Bill
 from config import ParliamentaryConfig, RepublicanConfig
 from experiments.scenarios import (
@@ -250,6 +251,16 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     long_path = args.output / "results_long.csv"
     df.to_csv(long_path, index=False)
     print(f"Wrote {len(df)} rows to {long_path}")
+
+    summary_df = summarize(df)
+    summary_path = args.output / "summary.csv"
+    summary_df.to_csv(summary_path, index=False)
+    print(f"Wrote {len(summary_df)} rows to {summary_path}")
+
+    hyp_df = pairwise_tests(df)
+    hyp_path = args.output / "hypothesis_tests.csv"
+    hyp_df.to_csv(hyp_path, index=False)
+    print(f"Wrote {len(hyp_df)} rows to {hyp_path}")
     return 0
 
 
