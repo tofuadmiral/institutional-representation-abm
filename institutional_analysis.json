@@ -1,3 +1,6 @@
 {
-  "system_summary": {
-    
+  "parliamentary_avg_passage_rate": 0.578,
+  "republican_avg_passage_rate": 0.473,
+  "efficiency_difference": 0.106,
+  "parliamentary_more_efficient": true
+}

@@ -8,6 +8,7 @@ from mesa.time import RandomActivation
 from agents.constituency import ConstituencyAgent
 from agents.legislator import LegislatorAgent
 from agents.party import PartyAgent
+from config import LegislatorConfig
 from metrics.collectors import build_default_datacollector
 
 
@@ -24,6 +25,7 @@ class BaseInstitutionModel(Model):
         num_legislators: int = 10,
         num_constituencies: int = 5,
         num_parties: int = 2,
+        legislator_config: Optional[LegislatorConfig] = None,
         seed: Optional[int] = None,
     ) -> None:
         super().__init__(seed=seed)
@@ -32,6 +34,9 @@ class BaseInstitutionModel(Model):
         self.num_legislators: int = num_legislators
         self.num_constituencies: int = num_constituencies
         self.num_parties: int = num_parties
+
+        # Legislator-level config is read by LegislatorAgent.decide_vote.
+        self.legislator_config: LegislatorConfig = legislator_config or LegislatorConfig()
 
         # Core Mesa components.
         self.schedule: RandomActivation = RandomActivation(self)
