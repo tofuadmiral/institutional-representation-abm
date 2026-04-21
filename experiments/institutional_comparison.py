@@ -28,6 +28,7 @@ from dataclasses import dataclass
 from institutions.parliamentary import ParliamentaryModel
 from institutions.republican import RepublicanModel
 from bills.bill import Bill
+from config import ParliamentaryConfig, RepublicanConfig
 
 
 @dataclass
@@ -48,7 +49,7 @@ class InstitutionConfig:
     """Configuration for an institutional system."""
     name: str
     model_class: Any
-    params: Dict[str, Any]
+    config: Any  # ParliamentaryConfig or RepublicanConfig
 
 
 class InstitutionalComparator:
@@ -108,25 +109,13 @@ class InstitutionalComparator:
             InstitutionConfig(
                 name="parliamentary",
                 model_class=ParliamentaryModel,
-                params={
-                    'confidence_threshold': 0.5,
-                    'discipline_strength': 0.8,
-                    'num_committees': 3,
-                    'committee_size': 5,
-                    'committee_gatekeeping_power': 0.3
-                }
+                config=ParliamentaryConfig(),
             ),
             InstitutionConfig(
                 name="republican",
                 model_class=RepublicanModel,
-                params={
-                    'discipline_strength': 0.4,
-                    'num_committees': 3,
-                    'committee_size': 5,
-                    'committee_gatekeeping_power': 0.4,
-                    'executive_opposition_rate': 0.3
-                }
-            )
+                config=RepublicanConfig(),
+            ),
         ]
     
     def generate_test_bills(self, scenario: ComparisonScenario, model) -> List[Bill]:
@@ -149,16 +138,13 @@ class InstitutionalComparator:
     
     def run_comparison(self, scenario: ComparisonScenario, institution: InstitutionConfig) -> Dict[str, Any]:
         """Run a single institutional system through a scenario."""
-        # Create model with scenario parameters
-        model_params = {
-            'num_legislators': scenario.num_legislators,
-            'num_constituencies': scenario.num_constituencies,
-            'num_parties': scenario.num_parties,
-            'seed': scenario.seed,
-            **institution.params
-        }
-        
-        model = institution.model_class(**model_params)
+        model = institution.model_class(
+            num_legislators=scenario.num_legislators,
+            num_constituencies=scenario.num_constituencies,
+            num_parties=scenario.num_parties,
+            config=institution.config,
+            seed=scenario.seed,
+        )
         
         # Generate test bills
         bills = self.generate_test_bills(scenario, model)
@@ -231,7 +217,7 @@ class InstitutionalComparator:
             # System parameters
             'num_legislators': scenario.num_legislators,
             'num_parties': scenario.num_parties,
-            'discipline_strength': model_params.get('discipline_strength', 0),
+            'discipline_strength': institution.config.discipline_strength,
         }
     
     def _calculate_representation_metrics(self, model) -> Dict[str, float]:
@@ -360,10 +346,10 @@ class InstitutionalComparator:
         rep_avg_passage = results_df[results_df['institution'] == 'republican']['passage_rate'].mean()
         
         analysis['key_findings'] = {
-            'parliamentary_avg_passage_rate': round(parl_avg_passage, 3),
-            'republican_avg_passage_rate': round(rep_avg_passage, 3),
-            'efficiency_difference': round(parl_avg_passage - rep_avg_passage, 3),
-            'parliamentary_more_efficient': parl_avg_passage > rep_avg_passage
+            'parliamentary_avg_passage_rate': round(float(parl_avg_passage), 3),
+            'republican_avg_passage_rate': round(float(rep_avg_passage), 3),
+            'efficiency_difference': round(float(parl_avg_passage - rep_avg_passage), 3),
+            'parliamentary_more_efficient': bool(parl_avg_passage > rep_avg_passage)
         }
         
         return analysis
