@@ -6,9 +6,18 @@
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-68%20passing-brightgreen.svg)](tests/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://institutional-representation-abm.streamlit.app/)
 
 <p align="center">
   <img src="docs/figures/forest_passage.png" width="85%" alt="Passage rates across four institutions and four scenarios (N=200 seeds)">
+</p>
+
+<p align="center">
+  <b>🔗 <a href="https://institutional-representation-abm.streamlit.app/">Live interactive demo on Streamlit</a></b>
+  &nbsp;·&nbsp;
+  <a href="paper/main.tex">Paper draft</a>
+  &nbsp;·&nbsp;
+  <a href="docs/PAPER_OUTLINE.md">Findings summary</a>
 </p>
 
 This repository implements a Mesa-based agent-based model that compares four democratic legislative institutions (pure parliamentary, pure republican, premier-presidential, president-parliamentary) across four scenarios (baseline, fragmented, polarised, small-system) with a full statistical harness (N=200 seeds, bootstrap CIs, Morris and Sobol sensitivity, mechanism ablations).
@@ -30,6 +39,7 @@ python -m experiments.sensitivity --output results/main/
 python -m experiments.ablation --scenarios baseline fragmented polarized --seeds 200 --output results/main/
 
 # interactive UI with sliders over every config parameter
+# (or use the hosted version: https://institutional-representation-abm.streamlit.app/)
 streamlit run streamlit_app/app.py
 ```
 
