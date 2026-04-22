@@ -289,7 +289,29 @@ class SemiPresidentialModel(BaseInstitutionModel):
 
     # ------------------------------------------------------------ legislation
 
+    def _maybe_dismiss_pm(self) -> None:
+        """Presidential dismissal check. Fires if the president can dismiss and
+        the president-PM ideological distance exceeds 0.5."""
+        if not (
+            self.config.president_can_dismiss_pm
+            and self.government_formed
+            and self.president is not None
+            and self.prime_minister is not None
+        ):
+            return
+        distance = sum(
+            (a - b) ** 2
+            for a, b in zip(self.executive_ideology, self.prime_minister.ideology)
+        ) ** 0.5
+        if distance > 0.5 and self.random.random() < self.config.presidential_dismissal_rate:
+            self.presidential_dismissals += 1
+            self._government_falls()
+
     def pass_legislation(self, bill: Bill) -> bool:
+        # Dismissal runs per legislative opportunity; in batch mode this is the
+        # only entry point that triggers it (step() bypassed by CLI runners).
+        self._maybe_dismiss_pm()
+
         if not self.government_formed:
             return False
 
@@ -358,22 +380,10 @@ class SemiPresidentialModel(BaseInstitutionModel):
     # -------------------------------------------------------------- step loop
 
     def step(self) -> None:
-        # Presidential dismissal: only under president_parliamentary and only
-        # when president-PM ideological distance is high.
-        if (
-            self.config.president_can_dismiss_pm
-            and self.government_formed
-            and self.president is not None
-            and self.prime_minister is not None
-        ):
-            distance = sum(
-                (a - b) ** 2
-                for a, b in zip(self.executive_ideology, self.prime_minister.ideology)
-            ) ** 0.5
-            if distance > 0.5 and self.random.random() < self.config.presidential_dismissal_rate:
-                self.presidential_dismissals += 1
-                self._government_falls()
-
+        # Dismissal is owned by pass_legislation (fires per bill). Steps that
+        # don't produce a bill skip the dismissal opportunity; this keeps the
+        # per-bill semantics consistent between batch CLI runs and interactive
+        # step-driven runs.
         if (
             self.government_formed
             and self.random.random() < self.config.legislative_activity_rate
