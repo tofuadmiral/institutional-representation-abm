@@ -104,6 +104,16 @@ on parliamentary-majority government formation decreases.
 | president_parliamentary | +0.233 |
 | republican | −0.242 |
 
+### 5.5 Robustness of the monotone ordering — Figure `discipline_rescue_curves.png`
+
+The concern that the §5.4 ordering could be an artefact of our chosen default
+discipline values is dispatched by Phase F: setting all four institutions to
+the same `discipline_strength=D` across a grid `D ∈ {0.1, …, 0.9}` preserves
+the monotone ordering parl > premier-pres > president-parl > rep **at every
+tested D under fragmentation** (9/9). This is the structural-claim robustness
+check; its regression test guards against future mechanism changes that could
+break the pattern. See `docs/PHASE_F_NOTES.md` for the full data.
+
 ## 6. Discussion
 
 - Why does discipline amplify the fragmentation cost? Because under
@@ -147,8 +157,10 @@ on parliamentary-majority government formation decreases.
    is robust.
 3. `sobol_bars.png` — sensitivity analysis.
 4. `ablation_forest.png` — mechanism attribution, the paper's key finding.
-5. `morris_scatter.png` — appendix, sensitivity screening.
-6. `heatmap_metrics.png` — appendix, secondary metrics summary.
+5. `discipline_rescue_curves.png` — structural robustness of the monotone
+   ordering across discipline levels (Phase F).
+6. `morris_scatter.png` — appendix, sensitivity screening.
+7. `heatmap_metrics.png` — appendix, secondary metrics summary.
 
 ## 10. References (selected)
 
