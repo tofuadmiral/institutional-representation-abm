@@ -9,9 +9,7 @@ Fields follow the CoMSES deposit form layout.
 Semi-Presidential Legislative Passage
 
 **Authors**:
-- Fuad Ali (Arize AI)
-
-**Corresponding email**: fali@arize.com
+- Fuad Ali
 
 **Language**: Python 3.13
 

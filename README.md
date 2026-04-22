@@ -91,4 +91,4 @@ on every PR. 200-seed runs complete in under 5 minutes on 8 cores.
 
 ## Author
 
-Ahmed Fuad Ali, 2025–2026.
+Fuad Ali, 2025–2026.

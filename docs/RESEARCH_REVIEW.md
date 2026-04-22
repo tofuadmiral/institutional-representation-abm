@@ -1,7 +1,7 @@
 # Institutional Representation Research
 
 **Repo:** `/Users/fali/projects/institutional-representation-abm`
-**Author:** Ahmed Fuad Ali (2025)
+**Author:** Fuad Ali (2025)
 **Last reviewed:** 2026-04-20
 **Status:** Phase 1 complete, Phase 2 partial, Phase 3 not started. Roughly 60–70% of PRD scope implemented. Not yet publishable without the additions in §4.
 
