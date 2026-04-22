@@ -66,11 +66,11 @@
 \begin{abstract}
 \noindent
 Parliamentary systems pass more bills than presidential systems at baseline,
-but collapse to near-zero passage under party-system fragmentation. Three
-competing micro-explanations --- coalition-formation failure, party
-discipline, and committee gatekeeping --- are difficult to separate in
-observational data because they operate simultaneously in any real
-legislature. We present an agent-based model that compares four democratic
+but collapse to near-zero passage under party-system fragmentation. The
+literature offers three competing micro-explanations: coalition-formation
+failure, party discipline, and committee gatekeeping. These mechanisms
+operate simultaneously in any real legislature, so observational studies
+struggle to separate their contributions. We present an agent-based model that compares four democratic
 institutions: pure parliamentary, pure republican/presidential,
 premier-presidential (France), and president-parliamentary (Russia). The
 two semi-presidential variants are reachable from a single model class
@@ -390,12 +390,13 @@ parliamentary in their dependence on \texttt{num\_parties}.
     \label{fig:sobol}
 \end{figure}
 
-Running the same analysis on the fragmented scenario confirms the
-num-parties dominance across all three majority-dependent institutions
-($S_T \approx 0.76$--$0.79$) and reveals that
-\texttt{confidence\_threshold} gains importance under fragmentation
-($+0.12$ in $S_T$ for parliamentary). Republican remains structurally
-insensitive to \texttt{num\_parties} ($S_T = 0.14$).
+The same analysis on the fragmented scenario confirms the num-parties
+dominance across all three majority-dependent institutions
+($S_T \approx 0.76$--$0.79$). \texttt{confidence\_threshold} gains
+importance under fragmentation ($+0.12$ in $S_T$ for parliamentary),
+which is consistent with a binding majority-threshold interpretation.
+Republican remains structurally insensitive to \texttt{num\_parties}
+($S_T = 0.14$).
 
 \subsection{Mechanism attribution via ablation}
 \label{sec:results:ablation}
@@ -442,10 +443,10 @@ Under polarised scenarios the same ordering holds in magnitude but with
 opposite sign (Table~\ref{tab:ablation-polarized}). Discipline \emph{enables}
 passage when the coalition wants extreme bills to pass; disabling
 discipline costs parliamentary $66$ percentage points. Republican, with
-no coalition to whip, loses only $11$ percentage points. The cross-scenario
-pattern reveals that discipline is the mechanism majority-dependent
-institutions use to \emph{aggregate votes}, not a mechanism that
-specifically causes fragmentation pathologies.
+no coalition to whip, loses only $11$ percentage points. Across scenarios,
+discipline is the mechanism majority-dependent institutions use to
+\emph{aggregate votes}, rather than a mechanism that specifically causes
+fragmentation pathologies.
 
 \begin{table}[ht]
     \centering
@@ -569,7 +570,7 @@ dependence. This reading is consistent with \citet{strom1990}'s argument
 that minority governments can function when institutions permit, and with
 \citet{shugart1992}'s typology of semi-presidential variants.
 
-Crucially, this framing makes a prediction that a pure
+This framing also makes a prediction that a pure
 ``fragmentation-collapse'' framing does not: under polarisation, the same
 institutions that suffered the fragmentation collapse should benefit most
 from discipline. Table~\ref{tab:ablation-polarized} confirms this.
@@ -602,12 +603,12 @@ The conventional response to fragmented-parliament gridlock is
 encourage larger parties. Our results suggest a second route:
 \emph{discipline reform}. Allowing free votes on more bills, weakening
 leadership whip powers, or restructuring MP incentives toward their
-districts rather than their parties could in principle restore passage
-capacity under fragmentation without touching electoral rules. Whether
-such reforms also damage representation (the parliamentary filter is
-already weak; weakening discipline further might spread passed bills
-without the presidential-veto compensation) is an open empirical question
-that this model can illuminate but not yet answer directly.
+districts rather than their parties could restore passage capacity under
+fragmentation without touching electoral rules. Whether such reforms also
+damage representation is an open empirical question: the parliamentary
+filter is already weak in our model, so weakening discipline further might
+spread passed bills without the presidential-veto compensation. This model
+can illuminate that question but cannot yet answer it directly.
 
 For new constitutional design, the Phase~F robustness result suggests a
 trade-off between fragility and filtering. Pure parliamentary maximises
@@ -653,9 +654,9 @@ $12$--$26\%$ across scenarios) but does not produce meaningful passage
 effects: our dismissal rate of $5\%$ per bill under president-parliamentary
 is too gentle to create sustained gridlock, and the premier-presidential
 presidential veto is too soft to differentially block bills under
-cohabitation. A fuller treatment of cohabitation dynamics --- including
-cabinet--legislator ideological alignment and differential veto thresholds
-under divided government --- is deferred to future work.
+cohabitation. Future work should treat cohabitation dynamics more carefully,
+including cabinet-to-legislator ideological alignment and veto thresholds
+that shift under divided government.
 
 The sensitivity analysis was run primarily on the baseline scenario; a
 secondary run on the fragmented scenario (\S\ref{sec:results}.3) confirms
