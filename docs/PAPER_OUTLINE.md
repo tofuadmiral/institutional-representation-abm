@@ -104,7 +104,31 @@ on parliamentary-majority government formation decreases.
 | president_parliamentary | +0.233 |
 | republican | −0.242 |
 
-### 5.5 Robustness of the monotone ordering — Figure `discipline_rescue_curves.png`
+### 5.5 Passage–representation tradeoff — Figure `representation_tradeoff.png`
+
+Second paper finding. We measure `policy_representation_gap =
+mean_passed_distance − mean_proposed_distance`, where `mean_*_distance` is
+the L2 distance between a bill's ideology and the constituency median. A
+negative gap means the institution filters passed bills toward the median;
+a positive gap means the institution ideologically spreads passed bills
+relative to random draws.
+
+| scenario | institution | passage | repr_gap | reading |
+|---|---|---|---|---|
+| polarized | parliamentary | 0.882 | +0.037 | anti-representative (high-throughput) |
+| polarized | premier_presidential | 0.725 | −0.012 | neutral |
+| polarized | president_parliamentary | 0.730 | −0.010 | neutral |
+| polarized | republican | 0.218 | **−0.530** | strong filter (low-throughput) |
+
+**The passage–representation tradeoff is a single spectrum.** Parliamentary
+maximises legislative throughput at the cost of representational fidelity;
+republican maximises fidelity at the cost of throughput; semi-presidential
+variants sit between them. This pairs naturally with the §5.4 ablation
+finding: discipline is the mechanism behind high throughput, and the same
+mechanism that enables passage under polarisation is the mechanism that
+causes collapse under fragmentation.
+
+### 5.6 Robustness of the monotone ordering — Figure `discipline_rescue_curves.png`
 
 The concern that the §5.4 ordering could be an artefact of our chosen default
 discipline values is dispatched by Phase F: setting all four institutions to
@@ -172,9 +196,26 @@ break the pattern. See `docs/PHASE_F_NOTES.md` for the full data.
   formation*. Oxford University Press.
 - Linz, J. J. (1990). *The perils of presidentialism*. Journal of Democracy,
   1(1).
+- Noble, B., & Schulmann, E. (2017). "Not Just a Rubber Stamp: Parliament
+  and Lawmaking in Authoritarian Russia." Working paper.
+- Saiegh, S. M. (2014). "Executive-Legislative Relations and Policymaking."
+  In *Oxford Handbook of Comparative Politics*.
+- Shugart, M. S. (2016). "Comparative Executive-Legislative Relations."
 - Shugart, M. S., & Carey, J. M. (1992). *Presidents and assemblies*.
   Cambridge University Press.
 - Strøm, K. (1990). *Minority government and majority rule*. Cambridge
   University Press.
 - Tsebelis, G. (2002). *Veto players: How political institutions work*.
   Princeton University Press.
+
+## 11. Real-world passage-rate benchmarks (for plausibility paragraph)
+
+| System | Figure | Source |
+|---|---|---|
+| US Congress | 3–7% introduced bills enacted | GovTrack.us, 117th Congress |
+| UK Parliament | >95% government bills | House of Commons Library CBP-10489 |
+| France | ~70% enacted laws are govt projets | Fifth Republic averages |
+| Germany Bundestag | ~90% government-initiated bills | Dalton, *Politics in Germany* |
+| Russia State Duma | ~100% presidential, <1% opposition | Noble & Schulmann 2017; 2022 Duma data |
+
+See `docs/PHASE_G_NOTES.md` §4 for the draft plausibility paragraph.
