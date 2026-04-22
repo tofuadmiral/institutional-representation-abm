@@ -133,6 +133,43 @@ def test_custom_config_overrides_default():
     assert model.config.confidence_threshold == 0.55
 
 
+def test_presidential_dismissal_fires_in_batch_runs():
+    """Regression: dismissal must fire during pass_legislation, not only during step().
+
+    CLI batch runners call pass_legislation directly and never touch step();
+    if dismissal lives only in step(), it's dead code for all reported figures.
+    """
+    total_dismissals_pp = 0
+    total_dismissals_premier = 0
+    for seed in range(50):
+        pp = SemiPresidentialModel(
+            num_legislators=24, num_constituencies=8, num_parties=5,
+            config=president_parliamentary_config(), seed=seed,
+        )
+        premier = SemiPresidentialModel(
+            num_legislators=24, num_constituencies=8, num_parties=5,
+            config=premier_presidential_config(), seed=seed,
+        )
+        for i in range(30):
+            b_pp = Bill(
+                bill_id=i,
+                ideology=(pp.random.uniform(-1, 1), pp.random.uniform(-1, 1)),
+                salience=pp.random.uniform(0.3, 1.0),
+            )
+            pp.pass_legislation(b_pp)
+            b_pr = Bill(
+                bill_id=i,
+                ideology=(premier.random.uniform(-1, 1), premier.random.uniform(-1, 1)),
+                salience=premier.random.uniform(0.3, 1.0),
+            )
+            premier.pass_legislation(b_pr)
+        total_dismissals_pp += pp.presidential_dismissals
+        total_dismissals_premier += premier.presidential_dismissals
+
+    assert total_dismissals_pp > 0, "dismissal must fire in batch mode"
+    assert total_dismissals_premier == 0, "premier-presidential must not dismiss"
+
+
 def test_stats_accessors_return_expected_keys(premier_model):
     gov = premier_model.get_government_stats()
     sys = premier_model.get_system_stats()

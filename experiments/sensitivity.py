@@ -22,10 +22,16 @@ from SALib.sample.morris import sample as morris_sample
 from SALib.sample.sobol import sample as sobol_sample
 
 from bills.bill import Bill
-from config import ParliamentaryConfig, RepublicanConfig
+from config import (
+    ParliamentaryConfig,
+    RepublicanConfig,
+    premier_presidential_config,
+    president_parliamentary_config,
+)
 from experiments.scenarios import BASELINE, ComparisonScenario, SCENARIOS_BY_NAME
 from institutions.parliamentary import ParliamentaryModel
 from institutions.republican import RepublicanModel
+from institutions.semi_presidential import SemiPresidentialModel
 
 INSTITUTION_PROBLEMS: Dict[str, Dict[str, Any]] = {
     "parliamentary": {
@@ -66,6 +72,44 @@ INSTITUTION_PROBLEMS: Dict[str, Dict[str, Any]] = {
             [3, 10],
         ],
     },
+    "premier_presidential": {
+        "num_vars": 6,
+        "names": [
+            "discipline_strength",
+            "confidence_threshold",
+            "committee_gatekeeping_power",
+            "max_veto_probability",
+            "num_parties",
+            "num_constituencies",
+        ],
+        "bounds": [
+            [0.0, 1.0],
+            [0.4, 0.7],
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [2, 6],
+            [3, 10],
+        ],
+    },
+    "president_parliamentary": {
+        "num_vars": 6,
+        "names": [
+            "discipline_strength",
+            "confidence_threshold",
+            "committee_gatekeeping_power",
+            "max_veto_probability",
+            "num_parties",
+            "num_constituencies",
+        ],
+        "bounds": [
+            [0.0, 1.0],
+            [0.4, 0.7],
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [2, 6],
+            [3, 10],
+        ],
+    },
 }
 
 INTEGER_PARAMS = {"num_parties", "num_constituencies"}
@@ -92,6 +136,10 @@ def _apply_params(
         modified_config = dataclasses.replace(ParliamentaryConfig(), **raw)
     elif institution == "republican":
         modified_config = dataclasses.replace(RepublicanConfig(), **raw)
+    elif institution == "premier_presidential":
+        modified_config = dataclasses.replace(premier_presidential_config(), **raw)
+    elif institution == "president_parliamentary":
+        modified_config = dataclasses.replace(president_parliamentary_config(), **raw)
     else:
         raise ValueError(f"Unknown institution: {institution}")
 
@@ -112,8 +160,16 @@ def _simulate_one_sample(
             config=config,
             seed=seed,
         )
-    else:
+    elif institution == "republican":
         model = RepublicanModel(
+            num_legislators=scenario.num_legislators,
+            num_constituencies=scenario.num_constituencies,
+            num_parties=scenario.num_parties,
+            config=config,
+            seed=seed,
+        )
+    else:
+        model = SemiPresidentialModel(
             num_legislators=scenario.num_legislators,
             num_constituencies=scenario.num_constituencies,
             num_parties=scenario.num_parties,
@@ -262,7 +318,10 @@ def analyze_sobol(
 
 def _main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="Sensitivity analysis via Morris + Sobol.")
-    parser.add_argument("--institutions", nargs="+", default=["parliamentary", "republican"])
+    parser.add_argument(
+        "--institutions", nargs="+",
+        default=["parliamentary", "republican", "premier_presidential", "president_parliamentary"],
+    )
     parser.add_argument("--scenario", default="baseline", choices=list(SCENARIOS_BY_NAME))
     parser.add_argument("--morris-trajectories", type=int, default=20)
     parser.add_argument(
