@@ -13,9 +13,11 @@
 </p>
 
 <p align="center">
-  <b>🔗 <a href="https://institutional-representation-abm.streamlit.app/">Live interactive demo on Streamlit</a></b>
+  <b>🔗 <a href="https://institutional-representation-abm.streamlit.app/">Live interactive demo</a></b>
   &nbsp;·&nbsp;
-  <a href="paper/main.tex">Paper draft</a>
+  <b>📄 <a href="paper/main.pdf">Paper (PDF)</a></b>
+  &nbsp;·&nbsp;
+  <b>📋 <a href="paper/poster.pdf">Conference poster (A0)</a></b>
   &nbsp;·&nbsp;
   <a href="docs/PAPER_OUTLINE.md">Findings summary</a>
 </p>

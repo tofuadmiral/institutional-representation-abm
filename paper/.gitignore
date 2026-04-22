@@ -7,4 +7,9 @@
 *.out
 *.synctex.gz
 *.toc
+
+# Keep committed PDFs (main.pdf, poster.pdf) for readers who don't compile.
+# Ignore other PDFs (e.g., from drafts).
 *.pdf
+!main.pdf
+!poster.pdf
