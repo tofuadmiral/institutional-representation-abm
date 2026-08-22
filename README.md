@@ -19,6 +19,8 @@
   &nbsp;·&nbsp;
   <b>📋 <a href="paper/poster.pdf">Conference poster (A0)</a></b>
   &nbsp;·&nbsp;
+  <b>📝 <a href="docs/blog_draft.pdf">Blog post (PDF)</a></b>
+  &nbsp;·&nbsp;
   <a href="docs/PAPER_OUTLINE.md">Findings summary</a>
 </p>
 
