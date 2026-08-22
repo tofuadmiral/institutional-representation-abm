@@ -1,0 +1,9 @@
+scenario,institution,baseline,no_discipline,no_discipline_delta
+fragmented,parliamentary,0.0,0.34700000000000003,0.34700000000000003
+fragmented,premier_presidential,0.003333333333333333,0.23800000000000002,0.2346666666666667
+fragmented,president_parliamentary,0.066,0.2303333333333333,0.1643333333333333
+fragmented,republican,0.14733333333333332,0.146,-0.0013333333333333253
+polarized,parliamentary,0.862,0.1215,-0.7404999999999999
+polarized,premier_presidential,0.6765000000000001,0.1105,-0.5660000000000001
+polarized,president_parliamentary,0.6815000000000001,0.105,-0.5765000000000001
+polarized,republican,0.0,0.0,0.0

@@ -131,9 +131,11 @@ roughly $70\%$ of its laws through government-sponsored \emph{projets de loi}
 system, passes essentially $100\%$ of presidential bills while opposition
 initiatives succeed at below $1\%$ \citep{noble2017}.
 
-These differences reflect institutional rules rather than underlying
-preferences: the cross-national variation in legislative productivity is
-much larger than the cross-national variation in what electorates want. But
+These differences are hard to attribute to demand: mass policy preferences
+in established democracies, while not identical, overlap heavily and cluster
+near the centre of the left--right scale \citep{powell2000, caughey2019},
+yet the legislatures elected by these publics operate at order-of-magnitude
+different passage rates. The natural explanation is the rules. But
 the rules interact in ways that are difficult to disentangle. Three
 mechanistic accounts compete to explain why some legislatures produce laws
 efficiently and others grind to a halt. The first emphasises
@@ -239,6 +241,18 @@ procedure. They differ only in the bill-processing pipeline invoked by
 \texttt{pass\_legislation(bill)} and in the institution-specific state that
 pipeline reads and writes (government, cabinet, president, confidence votes,
 vetoes, dismissals).
+
+Initialisation is deterministic. Constituencies, parties, and legislators
+each receive evenly spaced ideologies along the main diagonal of the space,
+from $(-1,-1)$ to $(1,1)$; legislator $i$ is assigned to party $i \bmod
+n_{\text{parties}}$ and constituency $i \bmod n_{\text{constituencies}}$.
+The round-robin party assignment means every party's members span the full
+ideological range: parties are maximally heterogeneous internally, so the
+whip has real aggregation work to do. There are no stochastic initial
+conditions; the seed drives only process randomness (bill draws, vote
+rolls, committee sampling). Section~\ref{sec:results:clustered} reports a
+robustness check that replaces this spread initialisation with
+party-clustered legislator ideologies.
 
 \subsection{Passage pipelines}
 Parliamentary: bills route to a committee with matching jurisdiction
@@ -539,6 +553,24 @@ under fragmentation. The structural claim survives: the ordering is not a
 function of our chosen defaults. A regression test in the repository
 enforces this at $D \in \{0.0, 0.2, 0.5, 0.8\}$ so that future mechanism
 changes that break the ordering fail CI.
+
+\label{sec:results:clustered}
+A second initialisation concern is the spread assignment itself
+(\S\ref{sec:model}): evenly spaced legislators with round-robin party
+membership make parties maximally heterogeneous internally, which plausibly
+inflates the \emph{magnitude} of the discipline effect --- the whip has more
+work to do when members span the whole spectrum. We therefore re-initialise
+legislator ideologies as their own party's position plus Gaussian noise
+($\sigma = 0.15$) and re-run the discipline ablation ($N=100$ seeds per
+cell). Both findings keep their structure. Under fragmentation the rescue
+ordering survives: parliamentary $+0.35$, premier-presidential $+0.23$,
+president-parliamentary $+0.16$, republican $\approx 0$. Under polarisation
+the sign flip survives: parliamentary $-0.74$, semi-presidential variants
+near $-0.57$, republican flat. Magnitudes attenuate relative to the spread
+initialisation (parliamentary's fragmented rescue falls from $+0.47$ to
+$+0.35$), exactly as the heterogeneity account predicts. Within-party
+heterogeneity scales the size of the discipline effect but not its ordering
+or its sign structure.
 
 % ============================================================================
 \section{Discussion}

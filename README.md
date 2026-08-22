@@ -5,7 +5,7 @@
 [![CI](https://github.com/tofuadmiral/institutional-representation-abm/actions/workflows/ci.yml/badge.svg)](https://github.com/tofuadmiral/institutional-representation-abm/actions/workflows/ci.yml)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-68%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-72%20passing-brightgreen.svg)](tests/)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://institutional-representation-abm.streamlit.app/)
 
 <p align="center">
@@ -96,7 +96,7 @@ Parliamentary maximises legislative throughput at the cost of representational f
 | `experiments/` | CLI runners: `multiseed_comparison`, `sensitivity`, `ablation`, `parameter_sweep`, `discipline_robustness`, `representation` |
 | `analysis/` | Bootstrap CIs, Welch/Mann-Whitney/Cohen's d (`aggregate.py`) and plotting (`plots.py`, `sensitivity_plots.py`, `representation_plots.py`, `robustness_plots.py`) |
 | `streamlit_app/` | Interactive UI exposing every config parameter as a slider, with scenario-comparison, parameter-sweep, and ablation tabs |
-| `tests/` | 68 tests covering determinism, config, mechanisms, multiseed, regression, sensitivity, ablation, semi-presidential, robustness, representation, and Streamlit |
+| `tests/` | 72 tests covering determinism, config, mechanisms, multiseed, regression, sensitivity, ablation, semi-presidential, robustness, representation, clustered-init, and Streamlit |
 | `paper/` | LaTeX manuscript (`main.tex`), bibliography, Makefile |
 | `.github/workflows/ci.yml` | Python 3.13 CI on Ubuntu |
 
