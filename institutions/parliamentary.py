@@ -7,7 +7,7 @@ from agents.legislator import LegislatorAgent
 from agents.party import PartyAgent
 from agents.committee import CommitteeAgent, CommitteeJurisdiction
 from bills.bill import Bill
-from config import ParliamentaryConfig
+from config import HUNG_PERSONAL_VOTE, ParliamentaryConfig
 
 
 class ParliamentaryModel(BaseInstitutionModel):
@@ -201,8 +201,18 @@ class ParliamentaryModel(BaseInstitutionModel):
 
         Parliamentary systems feature strong party discipline where MPs
         typically vote with their party line rather than personal preference.
+
+        Hung-parliament behaviour (empty coalition): under `personal_vote` the
+        whip is simply absent, so every MP reverts to their own preference.
+        Under `cohesive_obstruction` the opposition-whip branch below applies
+        to every MP — a polarised, anti-system reading of hung parliaments in
+        which cohesive obstruction blocks all bills.
         """
         personal_vote = legislator.decide_vote(bill)
+
+        if (not self.government_coalition and
+                self.config.hung_parliament_behavior == HUNG_PERSONAL_VOTE):
+            return personal_vote
 
         if (legislator.party_id in self.government_coalition and
                 self.random.random() < self.config.discipline_strength):

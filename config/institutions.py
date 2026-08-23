@@ -16,8 +16,21 @@ class CommitteeConfig:
     amendment_strength: float = 0.3
 
 
+# Behaviour when no governing coalition forms (empty cabinet list). Two
+# defensible readings of a hung parliament:
+#
+#   cohesive_obstruction  — every MP counts as "opposition" and is whipped
+#       against bills (anti-system blocs, Weimar-style polarised obstruction)
+#   personal_vote         — with no whip in play every MP reverts to their own
+#       preference (issue-by-issue majorities, Benelux/Scandinavian minority
+#       governance)
+HUNG_COHESIVE_OBSTRUCTION = "cohesive_obstruction"
+HUNG_PERSONAL_VOTE = "personal_vote"
+
+
 @dataclass(frozen=True)
 class ParliamentaryConfig:
+    hung_parliament_behavior: str = HUNG_COHESIVE_OBSTRUCTION
     confidence_threshold: float = 0.5
     discipline_strength: float = 0.8
     opposition_discipline_multiplier: float = 0.7
@@ -79,6 +92,7 @@ class SemiPresidentialConfig:
     # president.
     discipline_strength: float = 0.6
     opposition_discipline_multiplier: float = 0.7
+    hung_parliament_behavior: str = HUNG_COHESIVE_OBSTRUCTION
     confidence_threshold: float = 0.5
     confidence_matter_rate: float = 0.3
     legislative_activity_rate: float = 0.25

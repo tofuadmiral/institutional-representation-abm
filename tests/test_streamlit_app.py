@@ -13,6 +13,8 @@ from experiments.parameter_sweep import (
 )
 from experiments.scenarios import BASELINE
 
+from config import ParliamentaryConfig, premier_presidential_config
+
 
 def test_streamlit_modules_import_cleanly():
     """Importing the app must not crash outside a Streamlit session."""
@@ -29,6 +31,22 @@ def test_slider_specs_cover_every_institution():
             lo, hi, step, default = spec
             assert lo < hi, f"{inst}.{name}: lo must be < hi"
             assert lo <= default <= hi, f"{inst}.{name}: default out of range"
+
+
+def test_select_specs_reference_valid_config_fields():
+    import dataclasses
+
+    from streamlit_app.configs import INSTITUTIONS, SELECT_SPECS
+    cfgs = {
+        "parliamentary": ParliamentaryConfig(),
+        "premier_presidential": premier_presidential_config(),
+    }
+    assert set(SELECT_SPECS.keys()) <= set(INSTITUTIONS)
+    for inst, specs in SELECT_SPECS.items():
+        fields = {f.name for f in dataclasses.fields(cfgs[inst])}
+        for name, (options, default) in specs.items():
+            assert name in fields, f"{inst}.{name} not a config field"
+            assert default in options
 
 
 def test_parameter_sweep_returns_expected_shape():

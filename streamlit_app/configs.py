@@ -8,11 +8,13 @@ module.
 from __future__ import annotations
 
 import dataclasses
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Sequence, Tuple
 
 import streamlit as st
 
 from config import (
+    HUNG_COHESIVE_OBSTRUCTION,
+    HUNG_PERSONAL_VOTE,
     ParliamentaryConfig,
     RepublicanConfig,
     SemiPresidentialConfig,
@@ -72,6 +74,24 @@ SLIDER_SPECS: Dict[str, Dict[str, Tuple[float, float, float, float]]] = {
     },
 }
 
+# Categorical (non-slider) config options, rendered as selectboxes.
+SELECT_SPECS: Dict[str, Dict[str, Tuple[Sequence[str], str]]] = {
+    "parliamentary": {
+        "hung_parliament_behavior": (
+            [HUNG_COHESIVE_OBSTRUCTION, HUNG_PERSONAL_VOTE],
+            HUNG_COHESIVE_OBSTRUCTION,
+        ),
+    },
+    # republican has no formation gate; president-parliamentary always seats a
+    # minority cabinet, so the flag cannot bind for either.
+    "premier_presidential": {
+        "hung_parliament_behavior": (
+            [HUNG_COHESIVE_OBSTRUCTION, HUNG_PERSONAL_VOTE],
+            HUNG_COHESIVE_OBSTRUCTION,
+        ),
+    },
+}
+
 
 def _render_sliders(institution: str) -> Dict[str, Any]:
     """Draw a collapsible expander with a slider per tunable field."""
@@ -84,6 +104,20 @@ def _render_sliders(institution: str) -> Dict[str, Any]:
             overrides[field] = st.slider(
                 field, min_value=float(lo), max_value=float(hi),
                 value=float(value), step=float(step), key=key,
+            )
+        for field, (options, default) in SELECT_SPECS.get(institution, {}).items():
+            key = f"{institution}__{field}"
+            value = st.session_state.get(key, default)
+            overrides[field] = st.selectbox(
+                field, options=options,
+                index=options.index(value) if value in options else len(options) - 1,
+                key=key,
+                help=(
+                    "Behaviour when no coalition can form: 'cohesive obstruction' "
+                    "whips every MP against bills (anti-system blocs); "
+                    "'personal vote' lets MPs revert to their own preference "
+                    "(issue-by-issue majorities)."
+                ),
             )
     return overrides
 

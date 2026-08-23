@@ -27,6 +27,7 @@ from bills.bill import Bill
 from config import (
     GOV_FORMATION_MAJORITY_DRIVEN,
     GOV_FORMATION_PRESIDENT_DRIVEN,
+    HUNG_PERSONAL_VOTE,
     SemiPresidentialConfig,
 )
 from institutions.base import BaseInstitutionModel
@@ -240,8 +241,19 @@ class SemiPresidentialModel(BaseInstitutionModel):
     # ------------------------------------------------------------ voting logic
 
     def _get_disciplined_vote(self, legislator: LegislatorAgent, bill: Bill) -> bool:
-        """Discipline midway between parliamentary and republican."""
+        """Discipline midway between parliamentary and republican.
+
+        Shares the hung-parliament toggle with ParliamentaryModel: under
+        `personal_vote`, an empty coalition means no whip is in play and every
+        MP reverts to their own preference; under `cohesive_obstruction` the
+        opposition-whip branch applies to everyone.
+        """
         personal_vote = legislator.decide_vote(bill)
+
+        if (not self.government_coalition and
+                self.config.hung_parliament_behavior == HUNG_PERSONAL_VOTE):
+            return personal_vote
+
         if (
             legislator.party_id in self.government_coalition
             and self.random.random() < self.config.discipline_strength
