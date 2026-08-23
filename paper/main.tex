@@ -1,20 +1,14 @@
 % ============================================================================
 %  Institutional Representation ABM — JASSS draft
 %
-%  This is a FIRST-PASS DRAFT intended as a scaffold for human editing.
+%  Sections 3–5 are extracted from the phase notes; Sections 1, 4.2, and 6
+%  carry the paper's causal claims and have been through several rounds of
+%  self-review (Phase H reworked the fragmentation-collapse attribution).
+%  The mechanism-as-aggregation framing (§6.2) remains one of several
+%  defensible readings and may not survive domain review.
 %
-%  - Sections 1 (Introduction) and 6 (Discussion) are my best-guess framings
-%    based on the Phase A–G analyses and the cited literature. They need
-%    political-science-discipline review before submission; in particular,
-%    the mechanism-as-aggregation framing (§6.2) is one of several defensible
-%    readings and may not survive contact with a domain reviewer.
-%  - Sections 3–5 are extracted mechanically from the phase notes and should
-%    be more stable.
-%  - The plausibility paragraph in §2 uses real benchmarks (see §11) but the
-%    prose wrapping them is also a best guess.
-%
-%  Build:   cd paper && make
-%  Requires pdflatex + bibtex. Figures are under ../docs/figures/.
+%  Build:   cd paper && make      (or: tectonic main.tex)
+%  Requires pdflatex/tectonic + bibtex. Figures are under ../docs/figures/.
 % ============================================================================
 
 \documentclass[11pt]{article}
@@ -52,7 +46,7 @@
 
 \title{%
     Why parliamentary systems collapse under fragmentation: \\
-    A four-institution agent-based model of legislative passage
+    Opposition cohesion, not government formation failure
 }
 \author{%
     Fuad Ali
@@ -68,33 +62,33 @@
 Parliamentary systems pass more bills than presidential systems at baseline,
 but collapse to near-zero passage under party-system fragmentation. The
 literature offers three competing micro-explanations: coalition-formation
-failure, party discipline, and committee gatekeeping. These mechanisms
-operate simultaneously in any real legislature, so observational studies
-struggle to separate their contributions. We present an agent-based model that compares four democratic
-institutions: pure parliamentary, pure republican/presidential,
-premier-presidential (France), and president-parliamentary (Russia). The
-two semi-presidential variants are reachable from a single model class
-through configurable toggles on government formation and presidential
-dismissal power. Across four scenarios (baseline, fragmented, polarised,
-small-system) and $N=200$ seeds per cell we report bootstrap confidence
-intervals, Morris screening, Sobol variance decomposition, and mechanism
-ablations. Two findings emerge. First, party discipline is the mechanism
-majority-dependent institutions use to aggregate votes; disabling it
-restores parliamentary passage from $0.05\%$ to $46.7\%$ under fragmentation,
-and the rescue magnitude is monotone across the four institutions in a
-pattern that survives varying the common discipline level. Second, the
+failure, party discipline, and committee gatekeeping. These operate
+simultaneously in any real legislature, so observational studies struggle to
+separate their contributions. We present an agent-based model that compares
+four democratic institutions: pure parliamentary, pure republican/presidential,
+premier-presidential (France), and president-parliamentary (Russia). Across
+four scenarios and $N=200$ seeds per cell we report bootstrap confidence
+intervals, Morris screening, Sobol variance decomposition, mechanism
+ablations, and a hung-parliament variant comparison. Three findings emerge.
+First, government formation failure alone does not halt legislation: when a
+fragmented parliament reverts to personal voting, parliamentary passage
+($46.4\%$) is statistically indistinguishable from the presidential benchmark
+($44.8\%$); collapse requires cohesive opposition obstruction, which drives
+passage to $0.05\%$. The fragmentation pathology is therefore a discipline
+phenomenon operating through the opposition side, not a coalition-formation
+failure per se. Second, disabling discipline restores fragmented passage to
+$46.7\%$, and the rescue magnitude is monotone across the four institutions
+in a pattern that survives varying the common discipline level. Third, the
 passage--representation tradeoff is a single spectrum: parliamentary
-maximises legislative throughput at the cost of representational fidelity;
-republican maximises fidelity via the presidential veto at the cost of
-throughput; semi-presidential variants split the difference. Together
-these reframe the fragmentation-collapse literature: the collapse is a
-discipline problem amplified by majority-rule government formation, not a
-coalition-formation pathology on its own.
+maximises throughput at the cost of representational fidelity; republican
+maximises fidelity via the presidential veto; semi-presidential variants
+split the difference.
 
 \medskip
 \noindent\textbf{Keywords:} legislative studies, institutional design,
-party discipline, coalition formation, semi-presidentialism, agent-based
-modelling, Morris screening, Sobol sensitivity.
+party discipline, opposition cohesion, minority government,
+semi-presidentialism, agent-based modelling, Morris screening, Sobol
+sensitivity.
 \end{abstract}
 
 \begin{center}
@@ -109,8 +103,12 @@ modelling, Morris screening, Sobol sensitivity.
     under fragmentation: pure parliamentary and premier-presidential
     collapse to near-zero passage, while president-parliamentary partially
     rescues and republican is unaffected. Section~\ref{sec:results:passage}
-    reports the full passage-rate table; Section~\ref{sec:results:ablation}
-    attributes the collapse to party discipline.
+    reports the full passage-rate table;
+    Section~\ref{sec:results:collapse} decomposes the collapse into
+    government-formation failure versus opposition-side cohesion and shows
+    only the latter is causal;
+    Section~\ref{sec:results:ablation} locates the mechanism in party
+    discipline.
     \end{minipage}
 \end{center}
 
@@ -122,14 +120,14 @@ Democracies differ dramatically in how much legislation they produce. In the
 United Kingdom, over $95\%$ of government bills reach Royal Assent and
 government defeats on second reading have not occurred since 1986
 \citep{HoCLibraryCBP10489}. Germany passes roughly $90\%$ of
-government-initiated bills \citep{dalton2009}. In contrast, only $3$--$7\%$
+government-initiated bills \citep{dalton1993}. In contrast, only $3$--$7\%$
 of bills introduced to the U.S. Congress are enacted into law, though most of
 that figure reflects filtering at committee stage rather than genuine floor
 rejection \citep{govtrack2023}. France, a premier-presidential system, enacts
 roughly $70\%$ of its laws through government-sponsored \emph{projets de loi}
 \citep{frenchlegprocess}. Russia's State Duma, a president-parliamentary
 system, passes essentially $100\%$ of presidential bills while opposition
-initiatives succeed at below $1\%$ \citep{noble2017}.
+initiatives succeed at below $1\%$ \citep{noble2018}.
 
 These differences are hard to attribute to demand: mass policy preferences
 in established democracies, while not identical, overlap heavily and cluster
@@ -142,7 +140,7 @@ efficiently and others grind to a halt. The first emphasises
 \textbf{coalition formation}: where a single party cannot hold a working
 majority, bargaining over portfolios and policy may fail to produce a
 viable government, blocking any legislative action before it starts
-\citep{strom1990, laver2014}. The second emphasises \textbf{party
+\citep{strom1990, laver1990}. The second emphasises \textbf{party
 discipline}: strong whipping aligns MPs with their leadership rather than
 their personal or constituent preferences, enabling the government to pass
 bills that a free vote would reject \citep{bowler1999, cox1993}. The third
@@ -160,14 +158,14 @@ and disable them one at a time while holding everything else fixed. The
 mechanism-level counterfactuals required for causal attribution are
 straightforward in a simulation and impossible in observational data.
 Prior ABM work in legislative studies has typically modelled a single
-mechanism at a time: coalition formation \citep{laver2014},
+mechanism at a time: coalition formation \citep{laver1990},
 electoral mandate structure \citep{fowler2007}, and spatial voting in
 the \citet{downs1957} tradition. Our contribution is to integrate the
 three competing mechanisms in one framework and compare their
 contributions across institutions and scenarios, building on the stylised
 pattern that presidential systems achieve lower legislative success rates
 than prime-ministerial systems while remaining robust to coalition failure
-\citep{shugart2016, saiegh2014}.
+\citep{shugart2008, saiegh2014}.
 
 We compare four institutional types. Pure \textbf{parliamentary} systems
 follow the Westminster-Continental European template: the cabinet is drawn
@@ -193,20 +191,26 @@ or veto one at a time) to attribute passage contributions. We also check
 the robustness of the main ordering by varying the common discipline level
 applied to all institutions.
 
-Two findings structure our contribution. First (\S\ref{sec:results}.4),
-under fragmentation the \emph{no-discipline} ablation restores
-parliamentary passage from $0.05\%$ to $46.7\%$, and the rescue magnitude
-is monotone across the four institutions in the order
-parliamentary $>$ premier-presidential $>$ president-parliamentary $>$
-republican. Under polarisation the same monotone ordering holds in
-magnitude but with the opposite sign: disabling discipline now costs
-parliamentary $66$ percentage points of passage. The sign-flip reveals the
-underlying mechanism: discipline is the tool majority-dependent
-institutions use to aggregate votes, enabling passage when a cohesive
-coalition can enforce its will and blocking passage when it cannot.
-Second (\S\ref{sec:results}.5), the passage--representation tradeoff is a
-single spectrum. Parliamentary passes the most bills but its passed-bill
-ideology matches no particular filter (policy representation gap
+Three findings structure our contribution. First (\S\ref{sec:results:collapse}),
+government formation failure alone does not halt legislation. We compare two
+defensible readings of a hung parliament: one in which cohesive opposition
+blocks every bill, and a personal-vote null in which MPs revert to their own
+preferences when no whip is in play. Under the null, fragmented-parliamentary
+passage ($46.4\%$) matches the presidential benchmark ($44.8\%$); under
+obstruction it collapses to $0.05\%$. The fragmentation pathology is
+therefore a \emph{discipline} phenomenon operating through the opposition
+side --- not a coalition-formation failure per se. Second
+(\S\ref{sec:results}.4), the no-discipline ablation restores parliamentary
+passage from $0.05\%$ to $46.7\%$, and the rescue magnitude is monotone
+across the four institutions in the order parliamentary $>$
+premier-presidential $>$ president-parliamentary $>$ republican, an ordering
+that holds at all tested common discipline levels and reverses sign under
+polarisation: disabling discipline there costs parliamentary $66$ percentage
+points. Discipline aggregates votes wherever a coalition exists; its absence
+or presence on the \emph{opposition} side decides whether a hung parliament
+legislates at all. Third (\S\ref{sec:results}.5), the passage--representation
+tradeoff is a single spectrum. Parliamentary passes the most bills but its
+passed-bill ideology matches no particular filter (policy representation gap
 $\approx +0.04$ at polarised). Republican filters aggressively through the
 presidential veto (gap $\approx -0.53$ at polarised) at the cost of high
 non-passage rates. Semi-presidential variants sit between.
@@ -260,6 +264,27 @@ Parliamentary: bills route to a committee with matching jurisdiction
 $\texttt{confidence\_matter\_rate}$ a bill is treated as a confidence vote
 and whipped harder; a floor vote with party discipline decides passage;
 failed confidence votes trigger government collapse and reformation.
+
+When no governing coalition can be formed at all --- the fragmented scenario
+makes this certain for majority-driven institutions --- the whip structure is
+undefined, and two readings of the situation are possible:
+\begin{itemize}
+    \item \textbf{cohesive obstruction}: every MP counts as ``opposition''
+        and votes against bills with probability
+        $\texttt{discipline} \times \texttt{multiplier}$, an anti-system
+        reading in which polarised blocs block all legislation
+        \citep{sartori1976, capoccia2005};
+    \item \textbf{personal vote}: no whip is in play, so every MP reverts to
+        their own preference, the issue-by-issue-majority world of
+        minority-government governance \citep{strom1984, strom1990,
+        laver1990}.
+\end{itemize}
+A configuration flag, $\texttt{hung\_parliament\_behavior} \in
+\{\texttt{cohesive\_obstruction}, \texttt{personal\_vote}\}$, selects between
+them; the shipped default is cohesive obstruction. Section~\ref{sec:results:collapse}
+shows that this single choice determines whether fragmentation produces a
+collapse at all, which is why we treat it as an experimental factor rather
+than a silent implementation detail.
 
 Republican: bills route to a committee (with stronger gatekeeping power);
 a floor vote with weak discipline decides legislative passage; the
@@ -349,6 +374,22 @@ institutions, and compute
 $\mathrm{rescue}(D) = \mathrm{passage}(D=0) - \mathrm{passage}(D)$ per
 institution at $N=100$ seeds per cell.
 
+\subsection{Hung-parliament variant comparison}
+\label{sec:design:hung}
+The fragmentation scenario makes coalition formation impossible for the
+majority-driven institutions (largest party $\approx 21\%$ of seats; two-party
+combinations also fall short), so the whip structure defined in
+\S\ref{sec:model} never engages. We run the full $4 \times 4$ grid at
+$N=200$ seeds under both values of
+$\texttt{hung\_parliament\_behavior}$. Because the flag can only bind when
+the coalition list is empty, the two variants are bit-identical in the
+baseline, polarised, and small-system scenarios (where governments form) and
+for republican (no formation gate) and president-parliamentary (the president
+always seats at least a minority cabinet); all differences are therefore
+concentrated in the fragmented cells for parliamentary and
+premier-presidential. The runner uses the same bill-generation order as the
+main harness, so default-variant rows reproduce the main tables exactly.
+
 % ============================================================================
 \section{Results}
 \label{sec:results}
@@ -364,16 +405,72 @@ $0.546$, republican $0.450$ [$0.436$, $0.464$]. Parliamentary's advantage
 $(+29\text{pp})$ over republican is highly significant (Welch's $t = 38.9$,
 $p < 10^{-200}$; Cohen's $d = 2.88$).
 
-\subsection{The fragmentation collapse}
+\subsection{The fragmentation collapse decomposed}
+\label{sec:results:collapse}
 
-Under fragmentation, parliamentary passage collapses to $0.001$
-($0$--$0.001$ CI) while republican holds at $0.448$. The two
-semi-presidential variants split: premier-presidential collapses to $0.013$
-(similar to parliamentary because it shares the majority-driven formation
-rule), while president-parliamentary partially rescues passage to $0.086$
-through its president-driven minority-cabinet rule.
-Figure~\ref{fig:violin} shows the per-seed distributions: the collapse is a
-regime property, not a tail event.
+Under the shipped default (cohesive obstruction), fragmentation collapses
+majority-driven institutions: parliamentary passage falls to $0.0005$
+($95\%$ CI $[0, 0.0012]$), premier-presidential to $0.013$, while
+president-parliamentary partially rescues passage to $0.086$ through its
+president-driven minority-cabinet rule and republican holds at $0.448$
+(Figure~\ref{fig:violin}; the collapse is a regime property, not a tail
+event).
+
+But which ingredient of fragmentation does the collapsing? Formation failure
+and whip behaviour are confounded in the default runs, because both are
+absent simultaneously. Varying
+$\texttt{hung\_parliament\_behavior}$ unconfounds them
+(\S\ref{sec:design:hung}). Table~\ref{tab:hung} and
+Figure~\ref{fig:hung} show the result: under the personal-vote null,
+fragmented parliamentary passage \emph{recovers} to $46.4\%$
+$[45.3, 47.6]$ --- statistically indistinguishable from the presidential
+benchmark of $44.8\%$ $[43.6, 46.0]$ --- while under cohesive obstruction it
+stays collapsed at $0.05\%$. Premier-presidential moves from $1.3\%$ to
+$33.3\%$ under the null, below parliamentary because the presidential veto
+filters bills even without obstruction. Republican and
+president-parliamentary are identical across variants, as required: neither
+can enter a hung state.
+
+\begin{table}[ht]
+    \centering
+    \caption{Passage rate under fragmentation by hung-parliament behaviour
+    ($N=200$ seeds per cell). The flag binds only where the coalition list
+    can be empty.}
+    \begin{tabular}{lccc}
+        \toprule
+        Institution & Cohesive obstruction & Personal vote & $\Delta$ \\
+        \midrule
+        parliamentary & $0.0005$ & $0.464$ & $+0.464$ \\
+        premier\_presidential & $0.013$ & $0.333$ & $+0.320$ \\
+        president\_parliamentary & $0.086$ & $0.086$ & $0$ \\
+        republican & $0.448$ & $0.448$ & $0$ \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:hung}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{hung_parliament_comparison.png}
+    \caption{Mean passage rate by institution and hung-parliament behaviour,
+    per scenario ($N=200$ seeds). Variants differ only in the fragmented
+    cells of the majority-driven institutions: formation failure alone leaves
+    parliamentary passage at presidential levels ($46.4\%$ vs.\ republican's
+    $44.8\%$); cohesive opposition obstruction produces the collapse.}
+    \label{fig:hung}
+\end{figure}
+
+The decomposition reverses the causal story told by observational
+comparisons. Coalition-formation failure, emphasised in the government-formation
+literature \citep{strom1990, laver1990}, is \emph{not sufficient}: a
+fragmented chamber whose members vote their preferences legislates at full
+presidential-system rates. What generates the near-zero regime is cohesive
+obstruction on the opposition side --- the anti-system pattern in which blocs
+whip against all business regardless of content \citep{sartori1976,
+capoccia2005}. This matches the empirical record: fragmented parliaments with
+weakly-disciplined or office-seeking oppositions keep passing legislation
+through minority and caretaker cabinets, while polarised anti-system blocs
+produce legislative deadlock.
 
 \begin{figure}[ht]
     \centering
@@ -426,7 +523,7 @@ The headline result appears at fragmented:
         \toprule
         Institution & Full-model passage & $\Delta$ (no\_discipline $-$ full) \\
         \midrule
-        parliamentary & $0.001$ & $+0.466$ \\
+        parliamentary & $0.0005$ & $+0.466$ \\
         premier\_presidential & $0.013$ & $+0.312$ \\
         president\_parliamentary & $0.086$ & $+0.233$ \\
         republican & $0.448$ & $-0.242$ \\
@@ -436,11 +533,14 @@ The headline result appears at fragmented:
 \end{table}
 
 Disabling party discipline restores parliamentary passage from
-near-zero to nearly $47\%$. The rescue magnitude decreases monotonically
-across the four institutions in the order parliamentary $>$
-premier-presidential $>$ president-parliamentary $>$ republican. Republican
-is the only institution where zeroing discipline \emph{hurts} rather than
-helps: without a majority-formation gate, discipline plays a different
+near-zero to nearly $47\%$ --- closely matching the personal-vote hung
+parliament of \S\ref{sec:results:collapse} ($46.4\%$) via two independent
+manipulations (zeroing the whip everywhere vs.\ removing it only where no
+government exists), which cross-validates the attribution. The rescue
+magnitude decreases monotonically across the four institutions in the order
+parliamentary $>$ premier-presidential $>$ president-parliamentary $>$
+republican. Republican is the only institution where zeroing discipline
+\emph{hurts} rather than helps: without a majority-formation gate, discipline plays a different
 role (crude vote aggregation on the floor) and removing it simply damages
 the signal.
 
@@ -578,29 +678,43 @@ or its sign structure.
 
 \subsection{Discipline as a universal aggregation mechanism}
 
-The ablation results across fragmented and polarised scenarios
+The hung-parliament decomposition (\S\ref{sec:results:collapse}) and the
+ablation results across fragmented and polarised scenarios
 (Tables~\ref{tab:ablation-fragmented} and \ref{tab:ablation-polarized})
 reveal that party discipline is not simply a ``collapse trigger''' under
 fragmentation or a ``passage enabler'' under polarisation. It is the same
-mechanism in both cases: discipline aggregates legislators toward the
-coalition-leadership preference rather than the free-vote median. In
-regimes where the coalition can form and its preferences are near the
-floor median, discipline enforces passage. In regimes where the coalition
-cannot form, discipline enforces an imaginary position that blocks passage.
-The sign-flip between the two scenarios is a direct consequence of this
-mechanism, not evidence of two separate mechanisms.
+mechanism in both cases: discipline aggregates legislators toward a bloc
+position rather than the free-vote median. When that bloc is a governing
+coalition near the floor median, discipline enforces passage. When it is an
+opposition bloc facing a chamber with no government, the same aggregation
+produces uniform obstruction. And when no bloc exists at all --- the
+personal-vote null --- a fragmented chamber legislates at full presidential
+rates, so formation failure alone blocks nothing.
 
-The monotone ordering across the four institutions reflects how much each
-relies on a formation-gated coalition to act. Parliamentary requires a
+The monotone ablation ordering across the four institutions reflects how
+much each relies on a formation-gated coalition to act. Parliamentary requires a
 majority coalition before any legislation is possible; premier-presidential
 requires the same, but with a presidential veto adding a second gate;
 president-parliamentary also nominally requires a majority, but the
 president-driven formation rule lets the government function as a minority
 cabinet when no majority forms; republican has no formation gate at all.
 The rescue magnitude under \texttt{no\_discipline} scales with this
-dependence. This reading is consistent with \citet{strom1990}'s argument
-that minority governments can function when institutions permit, and with
+dependence. This reading is consistent with \citet{strom1984, strom1990}'s
+demonstration that minority governments are rational, functioning cabinet
+solutions rather than instability artifacts --- our personal-vote variant is
+a stylised version of their issue-by-issue-majority world --- and with
 \citet{shugart1992}'s typology of semi-presidential variants.
+
+The obstruction side of the decomposition has older roots.
+\citet{sartori1976}'s anti-system parties --- blocs defined by opposition to
+the democratic rules of the game rather than by policy competition ---
+generate exactly the uniform against-voting our cohesive-obstruction variant
+encodes, and \citet{capoccia2005} documents how interwar extremist parties
+used parliamentary presence to deadlock the institutions they opposed. The
+contrast between the two variants thus maps onto a substantive empirical
+question about any given fragmented parliament: is its opposition composed
+of office-seeking parties that bargain issue-by-issue, or of anti-system
+blocs that obstruct? Our model predicts opposite passage regimes for the two.
 
 This framing also makes a prediction that a pure
 ``fragmentation-collapse'' framing does not: under polarisation, the same
@@ -671,6 +785,24 @@ players trade throughput for filtering.''
 \section{Limitations}
 \label{sec:limitations}
 
+The model is a stochastic pipeline model of institutional rules, not a
+dynamic population model: legislators, parties, and constituencies are
+static after initialisation, there are no elections, and no agent learns or
+adapts. All institutional differences therefore reflect rule-level filtering
+of an exogenous bill stream, and nothing here speaks to how representation
+evolves under electoral feedback; adding endogenous selection (electoral
+deselection of mavericks, party splits, constituency updating) is the
+natural next step and would make discipline strength an outcome rather than
+a parameter.
+
+The hung-parliament behaviour flag resolves a genuine ambiguity rather than
+a measured parameter: real fragmented chambers mix obstruction and
+issue-by-issue bargaining, and the two pure regimes we compare are bounds,
+not descriptions of any single chamber. The shipped default (cohesive
+obstruction) reproduces the collapse regime reported in the comparative
+literature, but the personal-vote null is the more conservative reading and,
+in our view, the better baseline for future work.
+
 The model treats legislator ideology as static and does not include
 learning or adaptation. It has no endogenous party emergence, realignment,
 or exit; the party structure is fixed at initialisation. It has no
@@ -712,6 +844,8 @@ application, and a CoMSES metadata card. The command
 python -m experiments.multiseed_comparison --scenarios all --seeds 200
 \end{verbatim}
 reproduces Figure~\ref{fig:forest}.
+Table~\ref{tab:hung} and Figure~\ref{fig:hung} are produced by
+\texttt{experiments.hung\_parliament};
 Tables~\ref{tab:ablation-fragmented} and \ref{tab:ablation-polarized}
 require additional invocations of \texttt{experiments.ablation};
 Figure~\ref{fig:robustness} requires

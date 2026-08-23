@@ -13,6 +13,8 @@
                blockverticalspace=12mm, colspace=15mm, subcolspace=8mm]{tikzposter}
 
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{booktabs}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -145,23 +147,35 @@ Sobol $S_T$ shows parliamentary passage is dominated by
 % ------------------------------------------------------ COLUMN 2 ------------
 \column{0.34}
 
-\block{Finding 1: discipline as aggregation mechanism}{%
+\block{Finding 1a: formation failure is not enough}{%
+\centering
+\includegraphics[width=0.98\linewidth]{hung_parliament_comparison.png}
+
+\vspace{2mm}
+\raggedright
+\large
+Fragmentation makes government formation impossible --- but that alone
+halts nothing. Letting a hung parliament's MPs vote personally restores
+parliamentary passage to $46.4\%$, statistically indistinguishable from
+republican's $44.8\%$. Collapse requires \textbf{cohesive opposition
+obstruction}: every MP whipped against all business drives passage to
+$0.05\%$.
+}
+
+\block{Finding 1b: discipline aggregates votes --- both ways}{%
 \centering
 \includegraphics[width=0.98\linewidth]{ablation_forest.png}
 
 \vspace{2mm}
 \raggedright
 \large
-Disabling party discipline restores parliamentary passage from
-$0.05\%$ to $46.7\%$ under fragmentation. Rescue magnitude falls
-monotonically across the four institutions with their dependence on
-parliamentary-majority government formation.
-
-\medskip
-\textbf{The same ordering holds under polarisation with opposite sign.}
-\texttt{no\_discipline} costs parliamentary $66$pp when bills are extreme.
-Discipline aggregates votes toward the coalition preference, not the
-free-vote median. Its effect flips sign with scenario.
+Zeroing the whip (`no\_discipline') restores fragmented parliamentary
+passage from $0.05\%$ to $46.7\%$; rescue magnitude falls monotonically
+with each institution's dependence on majority government formation.
+Under polarisation the same ordering holds with opposite sign:
+discipline costs parliamentary $66$pp when bills are extreme. Discipline
+aggregates blocs wherever they exist --- governing coalitions pass,
+anti-system oppositions obstruct.
 }
 
 \block{Finding 2: passage--representation tradeoff}{%
@@ -214,17 +228,19 @@ enforces it.
 \block{Takeaways}{%
 \large
 \begin{enumerate}\setlength\itemsep{2.5mm}
+    \item \textbf{Coalition failure is not the collapse mechanism.}
+        Fragmented parliaments legislate at presidential rates when MPs
+        vote personally; cohesive anti-system obstruction is what halts
+        them. The pathology lives on the opposition side.
     \item \textbf{Discipline is the universal vote-aggregation mechanism}
-        for majority-dependent institutions. Its sign flips with scenario:
-        it blocks passage under fragmentation, enables passage under
-        polarisation.
+        for majority-dependent institutions: it blocks passage under
+        obstruction and enables passage under polarisation.
     \item \textbf{The passage--representation tradeoff is one axis.}
         Institutions cannot improve throughput and representational
         fidelity simultaneously; the choice is structural.
     \item \textbf{Reform implication.} Weakening party discipline is an
-        alternative to electoral reform for fragmented parliaments.
-        Whether it damages representation is an open empirical question
-        this model can illuminate.
+        alternative to electoral reform for fragmented parliaments ---
+        but only where oppositions bargain rather than obstruct.
 \end{enumerate}
 }
 
@@ -232,7 +248,7 @@ enforces it.
 \large
 \begin{itemize}\setlength\itemsep{1.5mm}
     \item Python 3.13, Mesa 2.4, MIT-licensed
-    \item $68$ automated tests, GitHub Actions CI
+    \item $76$ automated tests, GitHub Actions CI
     \item ODD protocol (Grimm et al.\ 2020) in repo
     \item Full paper: \texttt{paper/main.pdf}
     \item Live demo:\\
@@ -242,13 +258,14 @@ enforces it.
 
 \block{References}{%
 \normalsize
-Bowler, Farrell, \& Katz (1999).
+Capoccia (2005).
 Cox \& McCubbins (1993).
-Laver \& Kenny (2014).
+Laver \& Schofield (1990).
 Linz (1990).
-Noble \& Schulmann (2017).
+Noble \& Schulmann (2018).
+Sartori (1976).
 Shugart \& Carey (1992).
-Str\o m (1990).
+Str\o m (1984, 1990).
 Tsebelis (2002).
 
 \medskip
