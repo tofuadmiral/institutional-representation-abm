@@ -130,7 +130,6 @@ The `SemiPresidentialConfig` has two independent toggles (`government_formation`
 |---|---|
 | [`paper/main.tex`](paper/main.tex) | JASSS-targeted manuscript |
 | [`docs/ODD_PROTOCOL.md`](docs/ODD_PROTOCOL.md) | Full ODD description (Grimm et al. 2020) |
-| [`docs/PAPER_OUTLINE.md`](docs/PAPER_OUTLINE.md) | Paper outline and candidate figures |
 | [`docs/COMSES_METADATA.md`](docs/COMSES_METADATA.md) | CoMSES Network deposit card |
 | [`docs/PHASE_A_NOTES.md`](docs/PHASE_A_NOTES.md) | Statistical harness and hypothesis tests |
 | [`docs/PHASE_B_NOTES.md`](docs/PHASE_B_NOTES.md) | Sensitivity analysis and mechanism ablations |
@@ -140,7 +139,6 @@ The `SemiPresidentialConfig` has two independent toggles (`government_formation`
 | [`docs/PHASE_F_NOTES.md`](docs/PHASE_F_NOTES.md) | Robustness checks and the dismissal fix |
 | [`docs/PHASE_G_NOTES.md`](docs/PHASE_G_NOTES.md) | Representation metric and real-world benchmarks |
 | [`docs/PHASE_H_NOTES.md`](docs/PHASE_H_NOTES.md) | Hung-parliament decomposition and bibliography audit |
-| [`docs/RESEARCH_REVIEW.md`](docs/RESEARCH_REVIEW.md) | Original project roadmap |
 
 ## Reproducibility
 

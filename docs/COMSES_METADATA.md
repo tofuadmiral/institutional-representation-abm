@@ -75,7 +75,6 @@ streamlit run streamlit_app/app.py
 - **Regression fixture**: `institutional_comparison_results.csv`.
 - **Documentation**:
   - `docs/ODD_PROTOCOL.md` — full ODD per Grimm et al. (2020).
-  - `docs/PAPER_OUTLINE.md` — JASSS submission skeleton.
   - `docs/PHASE_A_NOTES.md` through `docs/PHASE_E_NOTES.md` — per-phase
     reviewer documents.
   - `docs/figures/` — all publication figures at N=200 seeds.
