@@ -21,7 +21,7 @@
   &nbsp;·&nbsp;
   <b>📝 <a href="docs/blog_draft.pdf">Blog post (PDF)</a></b>
   &nbsp;·&nbsp;
-  <a href="docs/PAPER_OUTLINE.md">Findings summary</a>
+  <a href="docs/PHASE_H_NOTES.md">Phase H notes</a>
 </p>
 
 This repository implements a Mesa-based agent-based model that compares four democratic legislative institutions (pure parliamentary, pure republican, premier-presidential, president-parliamentary) across four scenarios (baseline, fragmented, polarised, small-system) with a full statistical harness (N=200 seeds, bootstrap CIs, Morris and Sobol sensitivity, mechanism ablations).
@@ -44,6 +44,12 @@ python -m experiments.sensitivity --output results/main/
 
 # mechanism ablations (committees / discipline / veto)
 python -m experiments.ablation --scenarios baseline fragmented polarized --seeds 200 --output results/main/
+
+# passage-representation tradeoff figure
+python -m experiments.representation --seeds 200 --output results/phase_g/
+
+# discipline-default robustness sweep
+python -m experiments.discipline_robustness --seeds 100 --output results/phase_f/
 
 # interactive UI with sliders over every config parameter
 # (or use the hosted version: https://institutional-representation-abm.streamlit.app/)
@@ -71,7 +77,7 @@ The `no_discipline` ablation corroborates from an independent direction: zeroing
 |---|---:|---:|
 | Parliamentary | 0.0005 | **+0.466** |
 | Premier-presidential | 0.013 | +0.312 |
-| President-parliamentary | 0.086 | +0.233 |
+| President-parliamentary | 0.086 | +0.228 |
 | Republican | 0.448 | −0.242 |
 
 Under polarisation the same ordering holds in magnitude but with the opposite sign (`no_discipline` costs parliamentary 66 percentage points). Discipline is the mechanism blocs use to aggregate votes: governing coalitions pass, anti-system oppositions obstruct. The sign of its effect flips with scenario; which side holds the whip in a hung parliament decides whether it legislates at all.
@@ -106,13 +112,13 @@ Parliamentary maximises legislative throughput at the cost of representational f
 
 | Package | Purpose |
 |---|---|
-| `institutions/` | Four Mesa `Model` subclasses (`ParliamentaryModel`, `RepublicanModel`, `SemiPresidentialModel`) |
+| `institutions/` | Four institutional presets across three Mesa `Model` classes (`ParliamentaryModel`, `RepublicanModel`, `SemiPresidentialModel`) |
 | `agents/` | `LegislatorAgent`, `ConstituencyAgent`, `PartyAgent`, `CommitteeAgent` |
 | `config/` | Frozen `@dataclass` configs; every mechanism knob lives here |
-| `experiments/` | CLI runners: `multiseed_comparison`, `hung_parliament`, `sensitivity`, `ablation`, `parameter_sweep`, `discipline_robustness`, `representation` |
+| `experiments/` | CLI runners: `multiseed_comparison`, `hung_parliament`, `clustered_robustness`, `sensitivity`, `ablation`, `parameter_sweep`, `discipline_robustness`, `representation` |
 | `analysis/` | Bootstrap CIs, Welch/Mann-Whitney/Cohen's d (`aggregate.py`) and plotting (`plots.py`, `sensitivity_plots.py`, `representation_plots.py`, `robustness_plots.py`) |
 | `streamlit_app/` | Interactive UI exposing every config parameter as a slider, with scenario-comparison, parameter-sweep, and ablation tabs |
-| `tests/` | 72 tests covering determinism, config, mechanisms, multiseed, regression, sensitivity, ablation, semi-presidential, robustness, representation, clustered-init, and Streamlit |
+| `tests/` | 80 tests covering determinism, config, mechanisms, multiseed, regression, sensitivity, ablation, semi-presidential, robustness, representation, clustered-init, and Streamlit |
 | `paper/` | LaTeX manuscript (`main.tex`), bibliography, Makefile |
 | `.github/workflows/ci.yml` | Python 3.13 CI on Ubuntu |
 

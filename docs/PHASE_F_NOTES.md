@@ -72,7 +72,9 @@ Key reads:
   but smooth discipline variation within [0,1] contributes less variance
   than `num_parties` does. Both are true.
 
-Committed to `results/phase_f/fragmented/{morris,sobol}_results.csv`.
+Run data was written to `results/phase_f/fragmented/` locally; that
+ directory is not committed (see `.gitignore`) — regenerate with
+ `python -m experiments.sensitivity --scenarios baseline fragmented`.
 
 ## 3. Discipline-default robustness — the headline test
 

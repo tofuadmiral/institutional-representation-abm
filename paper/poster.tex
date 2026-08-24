@@ -6,7 +6,7 @@
 %  or  pdflatex poster.tex
 %
 %  Content is a condensation of paper/main.tex — poster emphasises visuals,
-%  headline findings, and takeaways. Two-column layout on a 25pt type scale.
+%  headline findings, and takeaways. Three-column layout on a 25pt type scale.
 % ============================================================================
 
 \documentclass[25pt, a0paper, portrait, margin=10mm, innermargin=20mm,
@@ -115,8 +115,9 @@ bill-processing pipelines:
 
 \smallskip
 Semi-presidential variants reachable from one class through two
-configuration toggles. All results at $N=200$ seeds per (scenario,
-institution) cell with $95\%$ bootstrap CIs.
+configuration toggles. Headline results at $N=200$ seeds per
+(scenario, institution) cell with $95\%$ bootstrap CIs (parameter sweeps
+at $N=100$).
 }
 
 \block{Headline: passage across scenarios}{%
@@ -127,7 +128,7 @@ institution) cell with $95\%$ bootstrap CIs.
 \raggedright
 \large
 \textbf{Baseline:} parliamentary $+29$pp over republican
-(Welch $t=38.9$, Cohen $d=2.88$).
+(Welch $t=31.1$, Cohen $d=3.11$).
 \textbf{Fragmented:} parliamentary and premier-presidential collapse;
 president-parliamentary partially rescues.
 }
@@ -169,7 +170,7 @@ $0.05\%$.
 \vspace{2mm}
 \raggedright
 \large
-Zeroing the whip (`no\_discipline') restores fragmented parliamentary
+Zeroing the whip (``no\_discipline'') restores fragmented parliamentary
 passage from $0.05\%$ to $46.7\%$; rescue magnitude falls monotonically
 with each institution's dependence on majority government formation.
 Under polarisation the same ordering holds with opposite sign:
@@ -247,8 +248,8 @@ enforces it.
 \block{Reproducibility}{%
 \large
 \begin{itemize}\setlength\itemsep{1.5mm}
-    \item Python 3.13, Mesa 2.4, MIT-licensed
-    \item $76$ automated tests, GitHub Actions CI
+    \item Python 3.13, Mesa 2.x, MIT-licensed
+    \item $80$ automated tests, GitHub Actions CI
     \item ODD protocol (Grimm et al.\ 2020) in repo
     \item Full paper: \texttt{paper/main.pdf}
     \item Live demo:\\

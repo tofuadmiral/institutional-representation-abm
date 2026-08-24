@@ -1,3 +1,8 @@
+> **Historical document.** Written before Phase H. The fragmentation-collapse
+> framing below was superseded by the hung-parliament decomposition
+> (`docs/PHASE_H_NOTES.md`, `experiments/hung_parliament.py`). See
+> `paper/main.tex` for the current argument.
+
 # Paper Outline — JASSS submission
 
 **Working title:** *Why parliamentary systems collapse under fragmentation:

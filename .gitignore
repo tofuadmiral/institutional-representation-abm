@@ -7,3 +7,5 @@ __pycache__/
 htmlcov/
 results/
 .DS_Store
+arxiv_submission/
+arxiv_submission.tar.gz

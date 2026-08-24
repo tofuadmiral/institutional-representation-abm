@@ -71,7 +71,7 @@ streamlit run streamlit_app/app.py
 - **Experiment runners**: `experiments/`.
 - **Analysis**: `analysis/`.
 - **Interactive UI**: `streamlit_app/`.
-- **Tests**: `tests/` (57 tests, GitHub Actions CI).
+- **Tests**: `tests/` (80 tests, GitHub Actions CI).
 - **Regression fixture**: `institutional_comparison_results.csv`.
 - **Documentation**:
   - `docs/ODD_PROTOCOL.md` — full ODD per Grimm et al. (2020).
@@ -79,8 +79,11 @@ streamlit run streamlit_app/app.py
   - `docs/PHASE_A_NOTES.md` through `docs/PHASE_E_NOTES.md` — per-phase
     reviewer documents.
   - `docs/figures/` — all publication figures at N=200 seeds.
-- **Raw run data**: `results/paper/` (gitignored in the repo; provided as a
-  separate CoMSES data-set).
+- **Raw run data**: summary CSVs for the hung-parliament decomposition
+  (`results/phase_h/`) and the clustered-initialisation robustness check
+  (`results/clustered_init/`) are committed; the remaining N=200 harness
+  outputs are regenerable in ~5 minutes via the documented CLI entry points
+  and ship with the CoMSES deposit.
 
 ## Citation format (suggested)
 

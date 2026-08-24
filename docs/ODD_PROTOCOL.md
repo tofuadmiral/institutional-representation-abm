@@ -135,6 +135,12 @@ At `__init__`:
 No stochastic initial conditions; the only source of run-to-run variance is
 the seed passed to Mesa's `Model.__init__`, which seeds `self.random`.
 
+A robustness variant (`experiments/clustered_robustness.py`) replaces this
+spread initialisation with party-clustered legislator ideologies (each
+legislator at their party's position plus Gaussian noise, σ = 0.15) and
+re-runs the discipline ablation; see §1 pattern 2 and the paper's clustered
+robustness section for results.
+
 ## 6. Input data
 
 None. The model is not calibrated to empirical data; it is an explanatory
@@ -146,6 +152,9 @@ model of institutional mechanics.
 
 Parliamentary:
 ```
+personal_vote = decide_vote(bill)
+if government_coalition is empty and hung_parliament_behavior == "personal_vote":
+    return personal_vote          # no whip in play
 if party_id in government_coalition and random() < discipline_strength:
     return True
 elif party_id not in government_coalition and random() < discipline_strength * opposition_discipline_multiplier:
@@ -154,8 +163,20 @@ else:
     return personal_vote
 ```
 
+`hung_parliament_behavior` (Phase H) selects between the two readings of a
+hung parliament (empty coalition):
+- `cohesive_obstruction` (default): the opposition-whip branch applies to
+  every MP, so all members vote against bills with probability
+  `discipline_strength * opposition_discipline_multiplier`.
+- `personal_vote`: every MP reverts to their own preference.
+
+The flag can only bind when the coalition list is empty; it is inert for
+republican (no formation gate) and president-parliamentary (always seats at
+least a minority cabinet).
+
 Republican uses a weaker form that looks up the party's average ideology
-rather than whipping a yes/no. Semi-presidential uses the parliamentary form.
+rather than whipping a yes/no. Semi-presidential uses the parliamentary form,
+including the hung-parliament toggle.
 
 ### Committee consideration (`CommitteeAgent.consider_bill`)
 

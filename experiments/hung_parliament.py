@@ -190,6 +190,11 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--base-seed", type=int, default=0)
     parser.add_argument("--jobs", type=int, default=-1)
     parser.add_argument("--output", type=Path, default=Path("results/phase_h/"))
+    parser.add_argument(
+        "--figure", type=Path,
+        default=Path("docs/figures/hung_parliament_comparison.png"),
+        help="Where to write the comparison PNG (skipped with --no-plots).",
+    )
     parser.add_argument("--no-plots", action="store_true")
     args = parser.parse_args(argv)
 
@@ -223,7 +228,7 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     print(f"Wrote {len(summary)} rows to {summary_path}")
 
     if not args.no_plots:
-        fig_path = plot_hung_parliament_bars(summary, Path("docs/figures/hung_parliament_comparison.png"))
+        fig_path = plot_hung_parliament_bars(summary, args.figure)
         print(f"Wrote figure {fig_path}")
     return 0
 

@@ -35,3 +35,9 @@ jobs:
           python -m experiments.multiseed_comparison \
             --scenarios baseline --seeds 5 --jobs 2 \
             --output results/ci_smoke --verbose 0
+
+      - name: Smoke-test hung-parliament runner
+        run: |
+          python -m experiments.hung_parliament \
+            --scenarios fragmented --seeds 2 --jobs 2 --no-plots \
+            --output results/ci_hung --verbose 0
