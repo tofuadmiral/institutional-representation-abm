@@ -25,5 +25,5 @@ keywords:
   - Morris screening
   - Sobol sensitivity
   - computational social science
-version: "1.0.0-preprint"
-date-released: "2026-04-22"
+version: "1.0.0"
+date-released: "2026-08-23"
