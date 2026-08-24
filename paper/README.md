@@ -1,7 +1,8 @@
 # Paper
 
-JASSS-targeted manuscript: *Why parliamentary systems collapse under
-fragmentation: Opposition cohesion, not government formation failure*.
+JASSS-targeted manuscript: *Why fragmented parliaments stop passing
+legislation: Opposition discipline and representation across four
+democratic institutions*.
 
 ## Files
 
