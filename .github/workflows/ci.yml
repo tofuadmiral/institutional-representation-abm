@@ -40,4 +40,4 @@ jobs:
         run: |
           python -m experiments.hung_parliament \
             --scenarios fragmented --seeds 2 --jobs 2 --no-plots \
-            --output results/ci_hung --verbose 0
+            --output results/ci_hung
