@@ -58,9 +58,9 @@ streamlit run streamlit_app/app.py
 
 ## Headline findings
 
-### 1. Opposition cohesion — not coalition failure — kills fragmented parliaments
+### 1. Fragmented parliaments collapse only when oppositions cohere
 
-Under fragmentation, no coalition can form, and parliamentary passage collapses to 0.05%. But the collapse is not caused by formation failure itself: a new `hung_parliament_behavior` flag separates the two readings of a hung parliament.
+Under fragmentation, no coalition can form, and parliamentary passage collapses to 0.05%. Formation failure by itself doesn't explain it: a new `hung_parliament_behavior` flag separates two readings of a hung parliament.
 
 | Institution | Cohesive obstruction | Personal vote | Δ |
 |---|---:|---:|---:|
