@@ -25,5 +25,20 @@ keywords:
   - Morris screening
   - Sobol sensitivity
   - computational social science
-version: "1.0.0"
-date-released: "2026-08-23"
+version: "1.0.1"
+date-released: "2026-08-26"
+identifiers:
+  - type: other
+    value: "arXiv:2608.24554"
+    description: "arXiv preprint; v1 corresponds to repository tag v1.0.1"
+preferred-citation:
+  type: article
+  title: "Why fragmented parliaments stop passing legislation: Opposition discipline and representation across four democratic institutions"
+  authors:
+    - family-names: Ali
+      given-names: Fuad
+  year: 2026
+  url: "https://arxiv.org/abs/2608.24554"
+  identifiers:
+    - type: other
+      value: "arXiv:2608.24554"

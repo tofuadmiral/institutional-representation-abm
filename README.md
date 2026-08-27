@@ -5,6 +5,7 @@
 [![CI](https://github.com/tofuadmiral/institutional-representation-abm/actions/workflows/ci.yml/badge.svg)](https://github.com/tofuadmiral/institutional-representation-abm/actions/workflows/ci.yml)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![arXiv](https://img.shields.io/badge/arXiv-2608.24554-b31b1b.svg)](https://arxiv.org/abs/2608.24554)
 [![Tests](https://img.shields.io/badge/tests-80%20passing-brightgreen.svg)](tests/)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://institutional-representation-abm.streamlit.app/)
 
@@ -15,7 +16,7 @@
 <p align="center">
   <b>🔗 <a href="https://institutional-representation-abm.streamlit.app/">Live interactive demo</a></b>
   &nbsp;·&nbsp;
-  <b>📄 <a href="paper/main.pdf">Paper (PDF)</a></b>
+  <b>📄 <a href="https://arxiv.org/abs/2608.24554">Paper (arXiv:2608.24554)</a></b>
   &nbsp;·&nbsp;
   <b>📋 <a href="paper/poster.pdf">Conference poster (A0)</a></b>
   &nbsp;·&nbsp;
@@ -148,13 +149,18 @@ Full 200-seed four-institution runs complete in under five minutes on eight core
 
 ## Citation
 
-If you use this software or its accompanying paper, please cite via [`CITATION.cff`](CITATION.cff):
+If you use this work, please cite the paper ([`CITATION.cff`](CITATION.cff) carries the machine-readable version):
 
 ```
-Ali, F. (2026). Institutional Representation ABM: Parliamentary, Presidential,
-  and Semi-Presidential Legislative Passage.
-  https://github.com/tofuadmiral/institutional-representation-abm
+Ali, F. (2026). Why fragmented parliaments stop passing legislation:
+  Opposition discipline and representation across four democratic institutions.
+  arXiv:2608.24554. https://arxiv.org/abs/2608.24554
 ```
+
+The arXiv v1 preprint corresponds to repository tag
+[`v1.0.1`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v1.0.1);
+every figure and table in the paper regenerates from that tree. Later commits
+on `main` may extend the model beyond what the paper describes.
 
 ## License
 
