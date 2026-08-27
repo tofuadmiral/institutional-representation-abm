@@ -1,0 +1,36 @@
+{
+    "title": "Institutional Representation ABM: Parliamentary, Presidential, and Semi-Presidential Legislative Passage",
+    "description": "An agent-based model comparing four democratic legislative institutions (pure parliamentary, pure republican/presidential, premier-presidential, president-parliamentary) on their ability to pass legislation, represent constituencies, and remain operational under party-system fragmentation and ideological polarisation. Includes a full statistical harness: N=200 seed multiseed comparison with bootstrap confidence intervals, Morris and Sobol sensitivity analyses, mechanism ablations, hung-parliament decomposition, and clustered-initialisation robustness checks. Companion code for arXiv:2608.24554.",
+    "creators": [
+        {
+            "name": "Ali, Fuad"
+        }
+    ],
+    "upload_type": "software",
+    "license": "MIT",
+    "related_identifiers": [
+        {
+            "identifier": "arXiv:2608.24554",
+            "relation": "isSupplementTo",
+            "resource_type": "publication-article"
+        },
+        {
+            "identifier": "https://github.com/tofuadmiral/institutional-representation-abm",
+            "relation": "isDerivedFrom",
+            "resource_type": "software"
+        }
+    ],
+    "keywords": [
+        "agent-based modelling",
+        "legislative studies",
+        "institutional design",
+        "party discipline",
+        "coalition formation",
+        "semi-presidentialism",
+        "opposition cohesion",
+        "Morris screening",
+        "Sobol sensitivity",
+        "computational social science",
+        "Mesa"
+    ]
+}
