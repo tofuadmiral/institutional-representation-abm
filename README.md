@@ -6,6 +6,7 @@
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-2608.24554-b31b1b.svg)](https://arxiv.org/abs/2608.24554)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22119500.svg)](https://doi.org/10.5281/zenodo.22119500)
 [![Tests](https://img.shields.io/badge/tests-80%20passing-brightgreen.svg)](tests/)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://institutional-representation-abm.streamlit.app/)
 
@@ -157,9 +158,19 @@ Ali, F. (2026). Why fragmented parliaments stop passing legislation:
   arXiv:2608.24554. https://arxiv.org/abs/2608.24554
 ```
 
-The arXiv v1 preprint corresponds to repository tag
-[`v1.0.1`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v1.0.1);
-every figure and table in the paper regenerates from that tree. Later commits
+To cite the software artifact itself (the archived snapshot matching the paper):
+
+```
+Ali, F. (2026). Institutional Representation ABM (v1.0.2) [Software]. Zenodo.
+  https://doi.org/10.5281/zenodo.22119501
+```
+
+The arXiv v1 preprint corresponds to repository tags
+[`v1.0.1`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v1.0.1)
+and [`v1.0.2`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v1.0.2)
+(identical trees apart from citation metadata; v1.0.2 is the Zenodo-archived
+one — DOI [10.5281/zenodo.22119501](https://doi.org/10.5281/zenodo.22119501)).
+Every figure and table in the paper regenerates from that tree. Later commits
 on `main` may extend the model beyond what the paper describes.
 
 ## License
