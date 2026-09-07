@@ -43,6 +43,10 @@ from experiments.objective_fidelity import (
     run_objective_fidelity,
     summarize_objective_fidelity,
 )
+from experiments.authority_structure_pilot import (
+    run_authority_structure_pilot,
+    summarize_authority_pilot,
+)
 from experiments.local_baseline_fidelity import (
     assess_baseline_gate,
     run_local_baseline_fidelity,
@@ -368,6 +372,44 @@ def test_completion_cache_avoids_duplicate_local_calls(tmp_path):
     assert len(artifacts) == 1
     record = json.loads(artifacts[0].read_text())
     assert record["request"]["model"] == "fake-local-model"
+
+
+def test_authority_pilot_reuses_one_frozen_set_of_model_choices():
+    task = generate_objective_task(seed=7, scenario=PreferenceScenario.FRAGMENTED)
+    baseline = pd.DataFrame(
+        [
+            {
+                "task_id": task.task_id,
+                "scenario": PreferenceScenario.FRAGMENTED.value,
+                "seed": 7,
+                "agent_id": action.agent_id,
+                "principal_id": action.principal_id,
+                "model": "frozen-model",
+                "model_choice": action.alternative_id,
+                "response_valid": True,
+                "rationale": action.rationale,
+            }
+            for action in task.initial_actions
+        ]
+    )
+    outcomes, actions = run_authority_structure_pilot(baseline)
+    outcome_summary, action_summary = summarize_authority_pilot(outcomes, actions)
+
+    assert len(outcomes) == 3
+    assert len(actions) == 3 * 7
+    assert set(outcomes["institution"]) == {
+        PRIVATE_BALLOT,
+        DELEGATED_LEADER,
+        COALITION_DISCIPLINE,
+    }
+    assert outcomes["behavioral_reconsideration"].eq(False).all()
+    assert actions["behavioral_reconsideration"].eq(False).all()
+    private = outcomes[outcomes["institution"] == PRIVATE_BALLOT].iloc[0]
+    delegated = outcomes[outcomes["institution"] == DELEGATED_LEADER].iloc[0]
+    assert private["effective_decision_makers"] == 7
+    assert delegated["effective_decision_makers"] == 1
+    assert not outcome_summary.empty
+    assert not action_summary.empty
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():

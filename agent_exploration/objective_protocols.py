@@ -35,7 +35,12 @@ def private_ballot(task: ObjectiveTask) -> CollectiveOutcome:
         institution=PRIVATE_BALLOT,
         final_actions=actions,
         collective_choice_id=collective_choice(task, actions),
-        metadata={"peer_messages": 0, "effective_decision_makers": len(actions)},
+        metadata={
+            "peer_messages": 0,
+            "effective_decision_makers": len(actions),
+            "decision_origin": "individual_private_votes",
+            "authority_bound": False,
+        },
     )
 
 
@@ -101,6 +106,8 @@ def delegated_leader(task: ObjectiveTask) -> CollectiveOutcome:
             "leader_id": task.leader_id,
             "peer_messages": 1,
             "effective_decision_makers": 1,
+            "decision_origin": "leader_private_choice",
+            "authority_bound": True,
         },
     )
 
@@ -132,6 +139,8 @@ def coalition_discipline(task: ObjectiveTask) -> CollectiveOutcome:
             "coalition_platforms": platforms,
             "peer_messages": len(task.initial_actions),
             "effective_decision_makers": len(platforms),
+            "decision_origin": "coalition_internal_plurality",
+            "authority_bound": True,
         },
     )
 
