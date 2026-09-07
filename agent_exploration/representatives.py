@@ -24,9 +24,15 @@ class LocalModelRepresentative:
     def choose_initial_action(
         self,
         alternatives: Sequence[PolicyAlternative],
+        *,
+        include_priority_weight: bool = True,
     ) -> AgentAction:
         allowed = {alternative.alternative_id for alternative in alternatives}
-        prompt = _initial_choice_prompt(self.principal, alternatives)
+        prompt = _initial_choice_prompt(
+            self.principal,
+            alternatives,
+            include_priority_weight=include_priority_weight,
+        )
         raw = self.backend.generate(
             [
                 {
@@ -56,6 +62,7 @@ class LocalModelRepresentative:
         initial_action: AgentAction,
         peer_statements: Sequence[AgentAction] = (),
         include_peer_rationales: bool = True,
+        include_priority_weight: bool = True,
     ) -> AgentAction:
         """Cast the observable final vote, with optional peer exposure."""
         if initial_action.agent_id != self.agent_id:
@@ -69,6 +76,7 @@ class LocalModelRepresentative:
             initial_action=initial_action,
             peer_statements=peer_statements,
             include_peer_rationales=include_peer_rationales,
+            include_priority_weight=include_priority_weight,
         )
         raw = self.backend.generate(
             [
@@ -97,27 +105,43 @@ class LocalModelRepresentative:
 def _initial_choice_prompt(
     principal: PrincipalPreference,
     alternatives: Sequence[PolicyAlternative],
+    *,
+    include_priority_weight: bool = True,
 ) -> str:
-    options = [
-        {
+    options = []
+    for alternative in alternatives:
+        option = {
             "id": alternative.alternative_id,
             "position": list(alternative.position),
             "loss_to_principal": preference_distance(
                 principal.ideal_point, alternative.position
             ),
-            "weighted_loss_to_principal": principal.weight
-            * preference_distance(principal.ideal_point, alternative.position),
         }
-        for alternative in alternatives
-    ]
+        if include_priority_weight:
+            option["weighted_loss_to_principal"] = principal.weight * float(
+                option["loss_to_principal"]
+            )
+        options.append(option)
+    if include_priority_weight:
+        mandate = (
+            f" and its priority weight is {principal.weight}. Available policies, "
+        )
+        loss_explanation = (
+            "The loss_to_principal value is the precomputed Euclidean distance; "
+            "weighted_loss_to_principal multiplies that distance by the principal's "
+            "priority weight. Lower is better. "
+        )
+    else:
+        mandate = ". Available policies, "
+        loss_explanation = (
+            "The loss_to_principal value is the precomputed Euclidean distance; "
+            "lower is better. "
+        )
     return (
         "Your principal's ideal policy point is "
-        f"{list(principal.ideal_point)} and its priority weight is "
-        f"{principal.weight}. Available policies, presented in an "
+        f"{list(principal.ideal_point)}{mandate}presented in an "
         f"arbitrary order, are {json.dumps(options, sort_keys=True)}. "
-        "The loss_to_principal value is the precomputed Euclidean distance; "
-        "weighted_loss_to_principal multiplies that distance by the principal's "
-        "priority weight. Lower is better. Choose the policy with minimum loss. "
+        f"{loss_explanation}Choose the policy with minimum loss. "
         "Respond as "
         '{"choice":"<policy id>","rationale":"<brief explanation>"}.'
     )
@@ -130,19 +154,22 @@ def _binding_vote_prompt(
     initial_action: AgentAction,
     peer_statements: Sequence[AgentAction],
     include_peer_rationales: bool,
+    include_priority_weight: bool = True,
 ) -> str:
-    options = [
-        {
+    options = []
+    for alternative in alternatives:
+        option = {
             "id": alternative.alternative_id,
             "position": list(alternative.position),
             "loss_to_principal": preference_distance(
                 principal.ideal_point, alternative.position
             ),
-            "weighted_loss_to_principal": principal.weight
-            * preference_distance(principal.ideal_point, alternative.position),
         }
-        for alternative in alternatives
-    ]
+        if include_priority_weight:
+            option["weighted_loss_to_principal"] = principal.weight * float(
+                option["loss_to_principal"]
+            )
+        options.append(option)
     if peer_statements:
         peer_records = []
         for statement in peer_statements:
@@ -172,13 +199,21 @@ def _binding_vote_prompt(
     else:
         exposure = "No peer votes or statements are available before this vote."
 
+    if include_priority_weight:
+        mandate = f" and its priority weight is {principal.weight}. Policies, "
+        loss_explanation = (
+            "weighted_loss_to_principal applies the priority weight and is also "
+            "lower when the policy is better for this principal. "
+        )
+    else:
+        mandate = ". Policies, "
+        loss_explanation = ""
+
     return (
-        f"Your principal's ideal point is {list(principal.ideal_point)} and its "
-        f"priority weight is {principal.weight}. Policies, "
+        f"Your principal's ideal point is {list(principal.ideal_point)}{mandate}"
         f"in arbitrary order, are {json.dumps(options, sort_keys=True)}. "
         "loss_to_principal is precomputed Euclidean distance and lower is better. "
-        "weighted_loss_to_principal applies the priority weight and is also lower "
-        "when the policy is better for this principal. "
+        f"{loss_explanation}"
         f"Your initial private choice was {initial_action.alternative_id}. {exposure} "
         "Now cast your binding vote. Continue to represent the assigned principal; "
         "you may retain or change your initial choice. Respond with exactly "

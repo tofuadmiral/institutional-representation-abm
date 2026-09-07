@@ -8,10 +8,13 @@ import pytest
 
 from agent_exploration.local_models import CachedChatBackend
 from agent_exploration.llm_protocols import (
+    FREEFORM_COMPLETE_MANDATE,
+    FREEFORM_INCOMPLETE_MANDATE,
     PUBLIC_VOTE_EXPOSURE,
     _standardized_argument,
     generate_model_baseline,
     run_model_argument_mechanism,
+    run_model_freeform_mandate_bridge,
     run_model_open_deliberation,
     run_model_private_ballot,
     run_model_public_vote_exposure,
@@ -254,6 +257,44 @@ def test_argument_probe_counterbalances_minority_order_and_intensity_content():
                 assert "intense_minority|majority" not in transition
             else:
                 assert "majority|intense_minority" not in transition
+
+
+def test_freeform_bridge_changes_only_the_recipients_mandate_information():
+    task = generate_objective_task(
+        seed=5, scenario=PreferenceScenario.INTENSE_MINORITY, num_agents=7
+    )
+    backend = FakeBackend('{"choice":"center"}')
+    incomplete, incomplete_logs = run_model_freeform_mandate_bridge(
+        task, backend, seed=5, mandate_complete=False
+    )
+    complete, complete_logs = run_model_freeform_mandate_bridge(
+        task, backend, seed=5, mandate_complete=True
+    )
+
+    assert incomplete.institution == FREEFORM_INCOMPLETE_MANDATE
+    assert complete.institution == FREEFORM_COMPLETE_MANDATE
+    assert [log["peer_order"] for log in incomplete_logs] == [
+        log["peer_order"] for log in complete_logs
+    ]
+    assert [log["peer_statement_records"] for log in incomplete_logs] == [
+        log["peer_statement_records"] for log in complete_logs
+    ]
+    for incomplete_call, complete_call in zip(
+        backend.messages[:7], backend.messages[7:]
+    ):
+        incomplete_prompt = incomplete_call[1]["content"]
+        complete_prompt = complete_call[1]["content"]
+        assert "priority weight" not in incomplete_prompt
+        assert "weighted_loss_to_principal" not in incomplete_prompt
+        assert "priority weight" in complete_prompt
+        assert "weighted_loss_to_principal" in complete_prompt
+        incomplete_peer_text = incomplete_prompt.split(
+            "Before voting, you receive", maxsplit=1
+        )[1].split("Now cast", maxsplit=1)[0]
+        complete_peer_text = complete_prompt.split(
+            "Before voting, you receive", maxsplit=1
+        )[1].split("Now cast", maxsplit=1)[0]
+        assert incomplete_peer_text == complete_peer_text
 
 
 def test_pilot_summaries_preserve_matched_treatment_contrast():

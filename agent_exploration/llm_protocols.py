@@ -36,6 +36,8 @@ ARGUMENTS_INTENSITY_SHOWN_MINORITY_FIRST = (
 ARGUMENTS_INTENSITY_SHOWN_MINORITY_LAST = (
     "arguments_intensity_shown_minority_last"
 )
+FREEFORM_INCOMPLETE_MANDATE = "freeform_incomplete_mandate"
+FREEFORM_COMPLETE_MANDATE = "freeform_complete_mandate"
 
 
 def generate_model_baseline(
@@ -44,6 +46,7 @@ def generate_model_baseline(
     *,
     seed: int,
     workers: int = 1,
+    include_priority_weight: bool = True,
 ) -> tuple[ObjectiveTask, list[dict]]:
     """Replace oracle actions with independent model choices made in isolation."""
     _validate_workers(workers)
@@ -53,7 +56,10 @@ def generate_model_baseline(
         alternatives = _ordered_alternatives(task, seed * 100_000 + agent_id)
         action = LocalModelRepresentative(
             agent_id, principal, backend
-        ).choose_initial_action(alternatives)
+        ).choose_initial_action(
+            alternatives,
+            include_priority_weight=include_priority_weight,
+        )
         return action, {
             "agent_id": agent_id,
             "principal_id": principal.principal_id,
@@ -112,6 +118,78 @@ def run_model_private_ballot(
             "peer_messages": 0,
             "binding_vote": True,
             "reconsideration_call": True,
+            "effective_decision_makers": len(actions),
+        },
+    )
+    return outcome, list(logs)
+
+
+def run_model_freeform_mandate_bridge(
+    task: ObjectiveTask,
+    backend: ChatBackend,
+    *,
+    seed: int,
+    mandate_complete: bool,
+    workers: int = 1,
+) -> tuple[CollectiveOutcome, list[dict]]:
+    """Expose identical free-form peer statements while varying own mandate."""
+    _validate_workers(workers)
+    institution = (
+        FREEFORM_COMPLETE_MANDATE
+        if mandate_complete
+        else FREEFORM_INCOMPLETE_MANDATE
+    )
+
+    def vote(agent_id: int) -> tuple[AgentAction, dict]:
+        initial = task.action_for_agent(agent_id)
+        principal = task.principal_for(initial.principal_id)
+        alternatives = _ordered_alternatives(
+            task, seed * 100_000 + 10_000 + agent_id
+        )
+        peers = [
+            action for action in task.initial_actions if action.agent_id != agent_id
+        ]
+        random.Random(seed * 100_000 + 20_000 + agent_id).shuffle(peers)
+        final = LocalModelRepresentative(agent_id, principal, backend).cast_binding_vote(
+            alternatives,
+            initial_action=initial,
+            peer_statements=peers,
+            include_peer_rationales=True,
+            include_priority_weight=mandate_complete,
+        )
+        log = _vote_log(
+            final,
+            initial,
+            institution=institution,
+            alternatives=alternatives,
+            peers=peers,
+        )
+        log["mandate_complete"] = mandate_complete
+        log["peer_statement_records"] = json.dumps(
+            [
+                {
+                    "representative": peer.agent_id,
+                    "initial_vote": peer.alternative_id,
+                    "statement": peer.rationale,
+                }
+                for peer in peers
+            ],
+            sort_keys=True,
+        )
+        return final, log
+
+    pairs = _map_agents(vote, len(task.principals), workers)
+    actions, logs = zip(*pairs)
+    outcome = CollectiveOutcome(
+        institution=institution,
+        final_actions=tuple(actions),
+        collective_choice_id=collective_choice(task, actions),
+        metadata={
+            "protocol_type": "llm_freeform_mandate_bridge",
+            "peer_messages": len(actions) * (len(actions) - 1),
+            "peer_arguments": True,
+            "mandate_complete": mandate_complete,
+            "binding_vote": True,
             "effective_decision_makers": len(actions),
         },
     )
