@@ -6,6 +6,7 @@ import argparse
 import json
 import sys
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from pathlib import Path
 from typing import Optional, Sequence
@@ -96,12 +97,14 @@ def run_authority_safeguard_pilot(
     n_profiles_per_scenario: int = 4,
     base_seed: int = 70_000,
     num_agents: int = 7,
+    workers: int = 1,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Run three matched authority institutions on derived threshold constraints."""
     if n_profiles_per_scenario < 1:
         raise ValueError("n_profiles_per_scenario must be positive")
-    outcomes: list[dict] = []
-    decisions: list[dict] = []
+    if workers < 1:
+        raise ValueError("workers must be positive")
+    jobs = []
     for scenario_index, scenario in enumerate(PreferenceScenario):
         for repetition in range(n_profiles_per_scenario):
             seed = base_seed + scenario_index * n_profiles_per_scenario + repetition
@@ -122,15 +125,30 @@ def run_authority_safeguard_pilot(
                 )
                 if mandate is None:
                     continue
-                _run_matched_institutions(
-                    task,
-                    principal_ids,
-                    mandate,
-                    backend,
-                    seed=seed,
-                    outcomes=outcomes,
-                    decisions=decisions,
-                )
+                jobs.append((task, principal_ids, mandate, seed))
+
+    def evaluate(job):
+        task, principal_ids, mandate, seed = job
+        local_outcomes: list[dict] = []
+        local_decisions: list[dict] = []
+        _run_matched_institutions(
+            task,
+            principal_ids,
+            mandate,
+            backend,
+            seed=seed,
+            outcomes=local_outcomes,
+            decisions=local_decisions,
+        )
+        return local_outcomes, local_decisions
+
+    if workers == 1:
+        completed = [evaluate(job) for job in jobs]
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            completed = list(executor.map(evaluate, jobs))
+    outcomes = [row for outcome_rows, _ in completed for row in outcome_rows]
+    decisions = [row for _, decision_rows in completed for row in decision_rows]
     return pd.DataFrame(outcomes), pd.DataFrame(decisions)
 
 
@@ -468,6 +486,7 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--profiles", type=int, default=4)
     parser.add_argument("--base-seed", type=int, default=70_000)
     parser.add_argument("--agents", type=int, default=7)
+    parser.add_argument("--workers", type=int, default=1)
     parser.add_argument(
         "--output",
         type=Path,
@@ -483,6 +502,7 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
         n_profiles_per_scenario=args.profiles,
         base_seed=args.base_seed,
         num_agents=args.agents,
+        workers=args.workers,
     )
     outcomes["model"] = args.model
     decisions["model"] = args.model

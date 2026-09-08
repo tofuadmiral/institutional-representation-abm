@@ -748,6 +748,17 @@ def test_authority_safeguard_pilot_records_three_matched_institutions():
     assert paired["n_profiles"].gt(0).all()
 
 
+def test_authority_safeguard_parallel_runner_preserves_matched_rows():
+    outcomes, decisions = run_authority_safeguard_pilot(
+        FakeBackend('{"choice":"p_000"}'),
+        n_profiles_per_scenario=1,
+        base_seed=70_100,
+        workers=2,
+    )
+    assert outcomes.groupby(["task_id", "conflict"]).size().eq(3).all()
+    assert decisions.groupby(["task_id", "conflict"]).size().eq(5).all()
+
+
 def test_local_baseline_runner_measures_representative_choice_accuracy():
     # All generated aligned principals choose center, so the fake local model
     # is a perfect representative in that controlled scenario.
