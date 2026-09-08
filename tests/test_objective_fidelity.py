@@ -87,6 +87,10 @@ from experiments.protected_mandate_pilot import (
     run_protected_mandate_pilot,
     summarize_protected_mandates,
 )
+from experiments.reviewer_proposal_ablation import (
+    compare_proposal_review,
+    run_blind_redecision,
+)
 from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
     summarize_action_effects,
@@ -757,6 +761,30 @@ def test_authority_safeguard_parallel_runner_preserves_matched_rows():
     )
     assert outcomes.groupby(["task_id", "conflict"]).size().eq(3).all()
     assert decisions.groupby(["task_id", "conflict"]).size().eq(5).all()
+
+
+def test_blind_redecision_matches_reviewer_order_and_supports_paired_analysis():
+    backend = FakeBackend('{"choice":"p_000"}')
+    outcomes, decisions = run_authority_safeguard_pilot(
+        backend,
+        n_profiles_per_scenario=1,
+        base_seed=70_200,
+    )
+    blind = run_blind_redecision(
+        backend,
+        n_profiles_per_scenario=1,
+        base_seed=70_200,
+    )
+    comparison = compare_proposal_review(
+        blind,
+        decisions,
+        bootstrap_repetitions=20,
+        bootstrap_seed=1,
+    )
+
+    assert len(blind) == outcomes.groupby(["task_id", "conflict"]).ngroups
+    assert len(comparison) == 6
+    assert comparison["n_profiles"].gt(0).all()
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
