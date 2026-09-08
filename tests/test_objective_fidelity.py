@@ -70,6 +70,13 @@ from experiments.authority_oracle_landscape import (
     run_oracle_landscape,
     summarize_oracle_landscape,
 )
+from experiments.authority_safeguard_pilot import (
+    EXPANDED_ALTERNATIVES,
+    aggregate_panel_choices,
+    expand_policy_set,
+    run_authority_safeguard_pilot,
+    summarize_authority_safeguards,
+)
 from experiments.local_baseline_fidelity import (
     assess_baseline_gate,
     run_local_baseline_fidelity,
@@ -656,6 +663,71 @@ def test_protected_mandate_pilot_records_compatible_and_conflict_cases():
     assert set(results["authority_type"]) == {"delegated", "coalition"}
     assert set(results["conflict"]) == {False, True}
     assert results["response_valid"].all()
+    assert not summary.empty
+
+
+def test_derived_protected_prompt_hides_answer_list():
+    task = expand_policy_set(
+        generate_objective_task(
+            seed=70_008,
+            scenario=PreferenceScenario.FRAGMENTED,
+            num_agents=7,
+        )
+    )
+    principal_ids = tuple(range(7))
+    mandate = construct_protected_mandate(
+        task,
+        principal_ids,
+        conflict=True,
+        seed=1,
+    )
+    assert mandate is not None
+    from agent_exploration.protected_mandates import (
+        derived_protected_authority_prompt,
+    )
+
+    prompt = derived_protected_authority_prompt(
+        task,
+        principal_ids,
+        mandate,
+        tuple(reversed(task.alternatives)),
+    )
+    assert len(task.alternatives) == len(EXPANDED_ALTERNATIVES) == 7
+    assert "protected_principal_weighted_loss" in prompt
+    assert "max_weighted_loss" in prompt
+    assert "allowed_policy_ids" not in prompt
+    assert str(list(mandate.allowed_policy_ids)) not in prompt
+
+
+def test_panel_uses_status_quo_for_three_way_tie():
+    task = expand_policy_set(
+        generate_objective_task(seed=1, scenario=PreferenceScenario.ALIGNED)
+    )
+    assert aggregate_panel_choices(
+        task,
+        ["p_neg_050", "p_000", "p_pos_050"],
+    ) == "p_000"
+    assert aggregate_panel_choices(
+        task,
+        ["p_neg_050", "p_neg_050", "p_pos_050"],
+    ) == "p_neg_050"
+
+
+def test_authority_safeguard_pilot_records_three_matched_institutions():
+    outcomes, decisions = run_authority_safeguard_pilot(
+        FakeBackend('{"choice":"p_000"}'),
+        n_profiles_per_scenario=1,
+        base_seed=70_000,
+    )
+    summary = summarize_authority_safeguards(outcomes)
+
+    assert set(outcomes["institution"]) == {
+        "single_authority",
+        "independent_panel",
+        "override_review",
+    }
+    assert set(decisions["role"]) == {"single", "panel_member", "reviewer"}
+    assert outcomes.groupby(["task_id", "conflict"]).size().eq(3).all()
     assert not summary.empty
 
 
