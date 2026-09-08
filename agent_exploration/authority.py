@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import math
 import random
+import re
 from dataclasses import dataclass
 from typing import Sequence
 
@@ -27,6 +28,7 @@ class AuthorityDecision:
     alternative_id: str
     rationale: str
     presented_order: tuple[str, ...]
+    format_normalized: bool = False
 
 
 @dataclass
@@ -68,8 +70,9 @@ class LocalModelAuthority:
             temperature=0.0,
             max_tokens=32,
         )
-        choice, rationale = parse_choice(
-            raw, {alternative.alternative_id for alternative in task.alternatives}
+        choice, rationale, format_normalized = parse_authority_choice(
+            raw,
+            {alternative.alternative_id for alternative in task.alternatives},
         )
         return AuthorityDecision(
             authority_id=self.authority_id,
@@ -77,6 +80,7 @@ class LocalModelAuthority:
             alternative_id=choice,
             rationale=rationale,
             presented_order=tuple(a.alternative_id for a in ordered),
+            format_normalized=format_normalized,
         )
 
 
@@ -115,9 +119,16 @@ def authority_choice_prompt(
         principals.append(record)
     if include_aggregate_scores:
         aggregate_scores = authority_scores(task, principal_ids)
+        decision_table = [
+            {
+                "policy_id": alternative.alternative_id,
+                "total_weighted_loss": aggregate_scores[alternative.alternative_id],
+            }
+            for alternative in alternatives
+        ]
         score_text = (
             "The controlling decision table is "
-            f"{json.dumps(aggregate_scores, sort_keys=True)}. These are exact "
+            f"{json.dumps(decision_table)}. These are exact "
             "precomputed total weighted losses; use this table directly and do "
             "not recalculate it. "
         )
@@ -191,3 +202,23 @@ def rounded_weighted_loss(
     policy_position: tuple[float, ...],
 ) -> float:
     return round(weight * preference_distance(ideal_point, policy_position), 6)
+
+
+def parse_authority_choice(
+    raw: str,
+    allowed: set[str],
+) -> tuple[str, str, bool]:
+    """Accept strict JSON or one complete JSON object in a Markdown fence."""
+    try:
+        choice, rationale = parse_choice(raw, allowed)
+        return choice, rationale, False
+    except ValueError as strict_error:
+        match = re.fullmatch(
+            r"\s*```(?:json)?\s*(\{.*\})\s*```\s*",
+            raw,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+        if match is None:
+            raise strict_error
+        choice, rationale = parse_choice(match.group(1), allowed)
+        return choice, rationale, True

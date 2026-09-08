@@ -9,6 +9,7 @@ import pytest
 from agent_exploration.authority import (
     authority_choice_prompt,
     oracle_authority_choice,
+    parse_authority_choice,
 )
 from agent_exploration.local_models import CachedChatBackend
 from agent_exploration.llm_protocols import (
@@ -463,6 +464,36 @@ def test_model_authorities_execute_anonymous_weighted_loss_mandates():
     assert len(delegated_logs) == 1
     assert len(coalition_logs) == 3
     assert backend.calls == 4
+
+
+def test_authority_decision_table_preserves_randomized_policy_order():
+    task = generate_objective_task(
+        seed=2, scenario=PreferenceScenario.ALIGNED, num_agents=7
+    )
+    alternatives = tuple(reversed(task.alternatives))
+    prompt = authority_choice_prompt(
+        task,
+        [principal.principal_id for principal in task.principals],
+        alternatives,
+    )
+    table_text = prompt.split("controlling decision table is ", maxsplit=1)[1]
+    table = json.loads(table_text.split(". These are exact", maxsplit=1)[0])
+    assert [row["policy_id"] for row in table] == [
+        alternative.alternative_id for alternative in alternatives
+    ]
+
+
+def test_authority_parser_records_narrow_markdown_fence_normalization():
+    assert parse_authority_choice('{"choice":"left"}', {"left"}) == (
+        "left",
+        "",
+        False,
+    )
+    assert parse_authority_choice(
+        '```json\n{"choice":"left"}\n```', {"left"}
+    ) == ("left", "", True)
+    with pytest.raises(ValueError, match="invalid JSON"):
+        parse_authority_choice('Answer: {"choice":"left"}', {"left"})
 
 
 def test_authority_operation_runner_decomposes_structure_and_model_error():

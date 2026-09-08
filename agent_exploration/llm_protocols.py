@@ -345,6 +345,7 @@ def _authority_log(decision, oracle_choice: str, institution: str) -> dict:
         "model_choice": decision.alternative_id,
         "oracle_choice": oracle_choice,
         "choice_oracle_match": decision.alternative_id == oracle_choice,
+        "format_normalized": decision.format_normalized,
         "rationale": decision.rationale,
     }
 
