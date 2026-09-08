@@ -59,6 +59,12 @@ from experiments.authority_operation_pilot import (
     run_authority_operation_pilot,
     summarize_authority_operation,
 )
+from experiments.authority_oracle_landscape import (
+    ORACLE_COALITION_AUTHORITY,
+    ORACLE_DELEGATED_AUTHORITY,
+    run_oracle_landscape,
+    summarize_oracle_landscape,
+)
 from experiments.local_baseline_fidelity import (
     assess_baseline_gate,
     run_local_baseline_fidelity,
@@ -577,6 +583,23 @@ def test_authority_operation_keeps_inexact_private_baselines():
     assert private["model_execution_loss"] > 0
     assert delegated["structural_loss_delta_vs_private"] == pytest.approx(0.0)
     assert delegated["model_execution_loss"] == pytest.approx(0.0)
+
+
+def test_oracle_landscape_maps_exact_structural_effects():
+    results = run_oracle_landscape(n_profiles_per_scenario=2, base_seed=50_000)
+    summary = summarize_oracle_landscape(results)
+
+    assert len(results) == 4 * 2 * 3
+    assert len(summary) == 4 * 3
+    assert set(results["institution"]) == {
+        PRIVATE_BALLOT,
+        ORACLE_DELEGATED_AUTHORITY,
+        ORACLE_COALITION_AUTHORITY,
+    }
+    private = results[results["institution"] == PRIVATE_BALLOT]
+    delegated = results[results["institution"] == ORACLE_DELEGATED_AUTHORITY]
+    assert private["structural_loss_delta_vs_private"].eq(0).all()
+    assert (delegated["structural_loss_delta_vs_private"] <= 1e-12).all()
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
