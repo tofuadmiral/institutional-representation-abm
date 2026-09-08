@@ -47,6 +47,11 @@ from agent_exploration.representatives import (
     _initial_choice_prompt,
     parse_choice,
 )
+from agent_exploration.protected_mandates import (
+    construct_protected_mandate,
+    oracle_protected_choice,
+    protected_authority_prompt,
+)
 from experiments.objective_fidelity import (
     run_objective_fidelity,
     summarize_objective_fidelity,
@@ -69,6 +74,10 @@ from experiments.local_baseline_fidelity import (
     assess_baseline_gate,
     run_local_baseline_fidelity,
     summarize_local_baseline,
+)
+from experiments.protected_mandate_pilot import (
+    run_protected_mandate_pilot,
+    summarize_protected_mandates,
 )
 from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
@@ -600,6 +609,54 @@ def test_oracle_landscape_maps_exact_structural_effects():
     delegated = results[results["institution"] == ORACLE_DELEGATED_AUTHORITY]
     assert private["structural_loss_delta_vs_private"].eq(0).all()
     assert (delegated["structural_loss_delta_vs_private"] <= 1e-12).all()
+
+
+def test_protected_mandate_creates_explicit_aggregate_conflict():
+    task = generate_objective_task(
+        seed=2, scenario=PreferenceScenario.POLARIZED, num_agents=7
+    )
+    principal_ids = tuple(range(7))
+    mandate = construct_protected_mandate(
+        task,
+        principal_ids,
+        conflict=True,
+        seed=1,
+    )
+
+    assert mandate is not None
+    unconstrained = oracle_authority_choice(task, principal_ids)
+    protected = oracle_protected_choice(task, principal_ids, mandate)
+    assert protected != unconstrained
+    assert mandate.allowed_policy_ids == (protected,)
+    prompt = protected_authority_prompt(
+        task,
+        principal_ids,
+        mandate,
+        tuple(reversed(task.alternatives)),
+    )
+    assert "strict priority order" in prompt
+    assert "non-negotiable duty overrides a lower aggregate loss" in prompt
+    table = json.loads(
+        prompt.split("controlling decision table is ", maxsplit=1)[1].split(
+            ". The policies", maxsplit=1
+        )[0]
+    )
+    assert [row["policy_id"] for row in table] == ["right", "center", "left"]
+
+
+def test_protected_mandate_pilot_records_compatible_and_conflict_cases():
+    results = run_protected_mandate_pilot(
+        FakeBackend('{"choice":"left"}'),
+        n_profiles_per_scenario=1,
+        base_seed=60_000,
+    )
+    summary = summarize_protected_mandates(results)
+
+    assert not results.empty
+    assert set(results["authority_type"]) == {"delegated", "coalition"}
+    assert set(results["conflict"]) == {False, True}
+    assert results["response_valid"].all()
+    assert not summary.empty
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
