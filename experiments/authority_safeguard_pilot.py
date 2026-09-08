@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Optional, Sequence
 
 import pandas as pd
+import numpy as np
 
 from agent_exploration.authority import authority_scores, oracle_authority_choice
 from agent_exploration.local_models import (
@@ -386,6 +387,80 @@ def summarize_authority_safeguards(outcomes: pd.DataFrame) -> pd.DataFrame:
     )
 
 
+def paired_safeguard_effects(
+    outcomes: pd.DataFrame,
+    *,
+    bootstrap_repetitions: int = 10_000,
+    bootstrap_seed: int = 202_609_08,
+) -> pd.DataFrame:
+    """Estimate paired effects while resampling whole synthetic profiles."""
+    if bootstrap_repetitions < 1:
+        raise ValueError("bootstrap_repetitions must be positive")
+    rows: list[dict] = []
+    scopes = (("all", None), ("compatible", False), ("conflict", True))
+    models = outcomes["model"].unique() if "model" in outcomes else [""]
+    rng = np.random.default_rng(bootstrap_seed)
+    for model in models:
+        model_rows = outcomes[outcomes["model"] == model] if model else outcomes
+        for scope_name, conflict in scopes:
+            scoped = (
+                model_rows
+                if conflict is None
+                else model_rows[model_rows["conflict"] == conflict]
+            )
+            for metric in ("protected_oracle_match", "constraint_followed"):
+                wide = scoped.pivot(
+                    index=["task_id", "conflict"],
+                    columns="institution",
+                    values=metric,
+                ).dropna()
+                if SINGLE_AUTHORITY not in wide:
+                    continue
+                for comparison in (INDEPENDENT_PANEL, OVERRIDE_REVIEW):
+                    if comparison not in wide:
+                        continue
+                    paired = wide[[SINGLE_AUTHORITY, comparison]].astype(float)
+                    differences = paired[comparison] - paired[SINGLE_AUTHORITY]
+                    by_task = {
+                        task_id: group.to_numpy()
+                        for task_id, group in differences.groupby(level="task_id")
+                    }
+                    task_ids = list(by_task)
+                    boot = []
+                    for _ in range(bootstrap_repetitions):
+                        sampled = rng.choice(task_ids, size=len(task_ids), replace=True)
+                        values = np.concatenate([by_task[task_id] for task_id in sampled])
+                        boot.append(float(values.mean()))
+                    rows.append(
+                        {
+                            "model": model,
+                            "scope": scope_name,
+                            "metric": metric,
+                            "comparison": comparison,
+                            "n_profiles": len(task_ids),
+                            "n_profile_conditions": len(paired),
+                            "single_rate": float(paired[SINGLE_AUTHORITY].mean()),
+                            "comparison_rate": float(paired[comparison].mean()),
+                            "paired_difference": float(differences.mean()),
+                            "ci_low": float(np.quantile(boot, 0.025)),
+                            "ci_high": float(np.quantile(boot, 0.975)),
+                            "single_wrong_comparison_right": int(
+                                (
+                                    (paired[SINGLE_AUTHORITY] == 0)
+                                    & (paired[comparison] == 1)
+                                ).sum()
+                            ),
+                            "single_right_comparison_wrong": int(
+                                (
+                                    (paired[SINGLE_AUTHORITY] == 1)
+                                    & (paired[comparison] == 0)
+                                ).sum()
+                            ),
+                        }
+                    )
+    return pd.DataFrame(rows)
+
+
 def _main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", required=True)
@@ -412,11 +487,16 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     outcomes["model"] = args.model
     decisions["model"] = args.model
     summary = summarize_authority_safeguards(outcomes)
+    paired = paired_safeguard_effects(outcomes)
     args.output.mkdir(parents=True, exist_ok=True)
     outcomes.to_csv(args.output / "authority_safeguard_outcomes.csv", index=False)
     decisions.to_csv(args.output / "authority_safeguard_decisions.csv", index=False)
     summary.to_csv(args.output / "authority_safeguard_summary.csv", index=False)
-    print(f"Wrote {len(outcomes)} outcomes and {len(decisions)} decisions")
+    paired.to_csv(args.output / "authority_safeguard_paired_effects.csv", index=False)
+    print(
+        f"Wrote {len(outcomes)} outcomes, {len(decisions)} decisions, and "
+        f"{len(paired)} paired estimates"
+    )
     return 0 if outcomes["response_valid"].all() else 2
 
 

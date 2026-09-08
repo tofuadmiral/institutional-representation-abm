@@ -74,6 +74,7 @@ from experiments.authority_safeguard_pilot import (
     EXPANDED_ALTERNATIVES,
     aggregate_panel_choices,
     expand_policy_set,
+    paired_safeguard_effects,
     run_authority_safeguard_pilot,
     summarize_authority_safeguards,
 )
@@ -729,6 +730,22 @@ def test_authority_safeguard_pilot_records_three_matched_institutions():
     assert set(decisions["role"]) == {"single", "panel_member", "reviewer"}
     assert outcomes.groupby(["task_id", "conflict"]).size().eq(3).all()
     assert not summary.empty
+
+    outcomes["model"] = "fake-local-model"
+    paired = paired_safeguard_effects(
+        outcomes,
+        bootstrap_repetitions=20,
+        bootstrap_seed=1,
+    )
+    assert set(paired["comparison"]) == {
+        "independent_panel",
+        "override_review",
+    }
+    assert set(paired["metric"]) == {
+        "protected_oracle_match",
+        "constraint_followed",
+    }
+    assert paired["n_profiles"].gt(0).all()
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
