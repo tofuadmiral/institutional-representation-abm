@@ -56,6 +56,7 @@ class AgentAction:
     principal_id: int
     alternative_id: str
     rationale: str = ""
+    format_normalized: bool = False
 
 
 @dataclass(frozen=True)

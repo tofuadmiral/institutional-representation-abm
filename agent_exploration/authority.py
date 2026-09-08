@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import math
 import random
-import re
 from dataclasses import dataclass
 from typing import Sequence
 
@@ -15,7 +14,7 @@ from agent_exploration.objectives import (
     PolicyAlternative,
     preference_distance,
 )
-from agent_exploration.representatives import parse_choice
+from agent_exploration.representatives import parse_choice_with_normalization
 
 
 WEIGHTED_LOSS_MANDATE = "minimize_total_weighted_loss"
@@ -209,16 +208,4 @@ def parse_authority_choice(
     allowed: set[str],
 ) -> tuple[str, str, bool]:
     """Accept strict JSON or one complete JSON object in a Markdown fence."""
-    try:
-        choice, rationale = parse_choice(raw, allowed)
-        return choice, rationale, False
-    except ValueError as strict_error:
-        match = re.fullmatch(
-            r"\s*```(?:json)?\s*(\{.*\})\s*```\s*",
-            raw,
-            flags=re.DOTALL | re.IGNORECASE,
-        )
-        if match is None:
-            raise strict_error
-        choice, rationale = parse_choice(match.group(1), allowed)
-        return choice, rationale, True
+    return parse_choice_with_normalization(raw, allowed)

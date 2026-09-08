@@ -61,11 +61,6 @@ def run_authority_operation_pilot(
         )
         if oracle_task.task_id != task_id:
             raise ValueError(f"baseline task id does not match regenerated task: {task_id}")
-        if "exact_choice_match" in task_rows and not task_rows[
-            "exact_choice_match"
-        ].astype(bool).all():
-            raise ValueError("authority operation pilot requires an exact baseline")
-
         model_task = replace(
             oracle_task,
             initial_actions=tuple(

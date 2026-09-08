@@ -15,6 +15,7 @@ from agent_exploration.local_models import CachedChatBackend
 from agent_exploration.llm_protocols import (
     FREEFORM_COMPLETE_MANDATE,
     FREEFORM_INCOMPLETE_MANDATE,
+    MODEL_DELEGATED_AUTHORITY,
     PUBLIC_VOTE_EXPOSURE,
     _standardized_argument,
     generate_model_baseline,
@@ -198,6 +199,13 @@ def test_representative_prompt_exposes_precomputed_loss_and_arbitrary_order():
     assert "weighted_loss_to_principal" in prompt
     assert "precomputed Euclidean distance" in prompt
     assert "arbitrary order" in prompt
+
+    choice_only = _initial_choice_prompt(
+        task.principals[0],
+        task.alternatives,
+        include_rationale=False,
+    )
+    assert "Do not include a rationale" in choice_only
 
 
 def test_choice_parser_rejects_invalid_json_and_unknown_options():
@@ -531,6 +539,46 @@ def test_authority_operation_runner_decomposes_structure_and_model_error():
     assert not summary.empty
 
 
+def test_authority_operation_keeps_inexact_private_baselines():
+    task = generate_objective_task(
+        seed=2, scenario=PreferenceScenario.ALIGNED, num_agents=7
+    )
+    baseline = pd.DataFrame(
+        [
+            {
+                "task_id": task.task_id,
+                "scenario": PreferenceScenario.ALIGNED.value,
+                "seed": 2,
+                "agent_id": action.agent_id,
+                "principal_id": action.principal_id,
+                "model": "imperfect-model",
+                "model_choice": "left",
+                "response_valid": True,
+                "exact_choice_match": False,
+                "rationale": "",
+            }
+            for action in task.initial_actions
+        ]
+    )
+
+    outcomes, decisions, errors = run_authority_operation_pilot(
+        baseline,
+        FakeBackend('{"choice":"center"}'),
+        tasks_per_scenario=1,
+    )
+
+    assert errors.empty
+    assert len(decisions) == 4
+    private = outcomes[outcomes["institution"] == PRIVATE_BALLOT].iloc[0]
+    delegated = outcomes[
+        outcomes["institution"] == MODEL_DELEGATED_AUTHORITY
+    ].iloc[0]
+    assert private["authority_node_accuracy"] == 0.0
+    assert private["model_execution_loss"] > 0
+    assert delegated["structural_loss_delta_vs_private"] == pytest.approx(0.0)
+    assert delegated["model_execution_loss"] == pytest.approx(0.0)
+
+
 def test_local_baseline_runner_measures_representative_choice_accuracy():
     # All generated aligned principals choose center, so the fake local model
     # is a perfect representative in that controlled scenario.
@@ -549,6 +597,7 @@ def test_local_baseline_runner_measures_representative_choice_accuracy():
         "valid_response_rate",
         "exact_choice_accuracy",
         "valid_choice_accuracy",
+        "format_normalization_rate",
         "mean_excess_representation_loss",
     }
 

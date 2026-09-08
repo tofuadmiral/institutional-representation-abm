@@ -50,6 +50,7 @@ def generate_model_baseline(
     seed: int,
     workers: int = 1,
     include_priority_weight: bool = True,
+    include_rationale: bool = True,
 ) -> tuple[ObjectiveTask, list[dict]]:
     """Replace oracle actions with independent model choices made in isolation."""
     _validate_workers(workers)
@@ -62,6 +63,7 @@ def generate_model_baseline(
         ).choose_initial_action(
             alternatives,
             include_priority_weight=include_priority_weight,
+            include_rationale=include_rationale,
         )
         return action, {
             "agent_id": agent_id,
@@ -76,6 +78,7 @@ def generate_model_baseline(
             "final_choice": action.alternative_id,
             "changed_choice": False,
             "rationale": action.rationale,
+            "format_normalized": action.format_normalized,
         }
 
     pairs = _map_agents(choose, len(task.principals), workers)
@@ -586,6 +589,7 @@ def _vote_log(
         "final_choice": final.alternative_id,
         "changed_choice": final.alternative_id != initial.alternative_id,
         "rationale": final.rationale,
+        "format_normalized": final.format_normalized,
     }
 
 

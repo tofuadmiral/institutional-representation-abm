@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from typing import Sequence
 
@@ -26,12 +27,14 @@ class LocalModelRepresentative:
         alternatives: Sequence[PolicyAlternative],
         *,
         include_priority_weight: bool = True,
+        include_rationale: bool = True,
     ) -> AgentAction:
         allowed = {alternative.alternative_id for alternative in alternatives}
         prompt = _initial_choice_prompt(
             self.principal,
             alternatives,
             include_priority_weight=include_priority_weight,
+            include_rationale=include_rationale,
         )
         raw = self.backend.generate(
             [
@@ -45,14 +48,17 @@ class LocalModelRepresentative:
                 {"role": "user", "content": prompt},
             ],
             temperature=0.0,
-            max_tokens=128,
+            max_tokens=128 if include_rationale else 32,
         )
-        choice, rationale = parse_choice(raw, allowed)
+        choice, rationale, format_normalized = parse_choice_with_normalization(
+            raw, allowed
+        )
         return AgentAction(
             agent_id=self.agent_id,
             principal_id=self.principal.principal_id,
             alternative_id=choice,
             rationale=rationale,
+            format_normalized=format_normalized,
         )
 
     def cast_binding_vote(
@@ -93,12 +99,15 @@ class LocalModelRepresentative:
             temperature=0.0,
             max_tokens=32,
         )
-        choice, rationale = parse_choice(raw, allowed)
+        choice, rationale, format_normalized = parse_choice_with_normalization(
+            raw, allowed
+        )
         return AgentAction(
             agent_id=self.agent_id,
             principal_id=self.principal.principal_id,
             alternative_id=choice,
             rationale=rationale,
+            format_normalized=format_normalized,
         )
 
 
@@ -107,6 +116,7 @@ def _initial_choice_prompt(
     alternatives: Sequence[PolicyAlternative],
     *,
     include_priority_weight: bool = True,
+    include_rationale: bool = True,
 ) -> str:
     options = []
     for alternative in alternatives:
@@ -137,13 +147,21 @@ def _initial_choice_prompt(
             "The loss_to_principal value is the precomputed Euclidean distance; "
             "lower is better. "
         )
+    if include_rationale:
+        response_instruction = (
+            'Respond as {"choice":"<policy id>","rationale":"<brief explanation>"}.'
+        )
+    else:
+        response_instruction = (
+            'Respond with exactly {"choice":"<policy id>"}. Do not include a '
+            "rationale or any other text."
+        )
     return (
         "Your principal's ideal policy point is "
         f"{list(principal.ideal_point)}{mandate}presented in an "
         f"arbitrary order, are {json.dumps(options, sort_keys=True)}. "
         f"{loss_explanation}Choose the policy with minimum loss. "
-        "Respond as "
-        '{"choice":"<policy id>","rationale":"<brief explanation>"}.'
+        f"{response_instruction}"
     )
 
 
@@ -233,3 +251,23 @@ def parse_choice(raw: str, allowed: set[str]) -> tuple[str, str]:
     if not isinstance(rationale, str):
         raise ValueError("representative rationale must be a string")
     return choice, rationale
+
+
+def parse_choice_with_normalization(
+    raw: str,
+    allowed: set[str],
+) -> tuple[str, str, bool]:
+    """Accept strict JSON or one complete JSON object in a Markdown fence."""
+    try:
+        choice, rationale = parse_choice(raw, allowed)
+        return choice, rationale, False
+    except ValueError as strict_error:
+        match = re.fullmatch(
+            r"\s*```(?:json)?\s*(\{.*\})\s*```\s*",
+            raw,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+        if match is None:
+            raise strict_error
+        choice, rationale = parse_choice(match.group(1), allowed)
+        return choice, rationale, True

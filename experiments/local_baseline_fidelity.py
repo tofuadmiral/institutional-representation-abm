@@ -29,6 +29,7 @@ def run_local_baseline_fidelity(
     base_seed: int = 0,
     num_agents: int = 7,
     workers: int = 1,
+    include_rationale: bool = True,
 ) -> pd.DataFrame:
     """Compare model choices with the mechanically nearest alternative."""
     if n_tasks_per_scenario < 1:
@@ -70,7 +71,10 @@ def run_local_baseline_fidelity(
             "oracle_loss": oracle_loss,
         }
         try:
-            action = representative.choose_initial_action(presented_alternatives)
+            action = representative.choose_initial_action(
+                presented_alternatives,
+                include_rationale=include_rationale,
+            )
         except (ValueError, RuntimeError) as exc:
             row.update(
                 {
@@ -82,6 +86,8 @@ def run_local_baseline_fidelity(
                     "model_loss": None,
                     "excess_representation_loss": None,
                     "rationale": "",
+                    "format_normalized": False,
+                    "rationale_requested": include_rationale,
                     "error_type": type(exc).__name__,
                     "error_message": str(exc),
                 }
@@ -102,6 +108,8 @@ def run_local_baseline_fidelity(
                 "model_loss": chosen_loss,
                 "excess_representation_loss": chosen_loss - oracle_loss,
                 "rationale": action.rationale,
+                "format_normalized": action.format_normalized,
+                "rationale_requested": include_rationale,
                 "error_type": None,
                 "error_message": None,
             }
@@ -124,6 +132,7 @@ def summarize_local_baseline(results: pd.DataFrame) -> pd.DataFrame:
             valid_response_rate=("response_valid", "mean"),
             exact_choice_accuracy=("exact_choice_match", "mean"),
             valid_choice_accuracy=("exact_choice_match_valid", "mean"),
+            format_normalization_rate=("format_normalized", "mean"),
             mean_model_loss=("model_loss", "mean"),
             mean_excess_representation_loss=("excess_representation_loss", "mean"),
         )
@@ -147,6 +156,10 @@ def assess_baseline_gate(
     position_gap = float(position_accuracy.max() - position_accuracy.min())
     exact_accuracy = float(results["exact_choice_match"].mean())
     invalid_rate = float(1.0 - results["response_valid"].mean())
+    normalized = results.get(
+        "format_normalized", pd.Series(False, index=results.index)
+    )
+    normalization_rate = float(normalized.mean())
     passed = (
         exact_accuracy >= min_exact_accuracy
         and invalid_rate < max_invalid_rate
@@ -157,6 +170,7 @@ def assess_baseline_gate(
         "n": int(len(results)),
         "exact_choice_accuracy": exact_accuracy,
         "invalid_response_rate": invalid_rate,
+        "format_normalization_rate": normalization_rate,
         "accuracy_by_oracle_position": {
             str(int(position)): float(accuracy)
             for position, accuracy in position_accuracy.items()
@@ -181,6 +195,11 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--agents", type=int, default=7)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument(
+        "--choice-only",
+        action="store_true",
+        help="Request only the binding choice, without an explanatory rationale",
+    )
+    parser.add_argument(
         "--output", type=Path, default=Path("results/agent_exploration")
     )
     args = parser.parse_args(argv)
@@ -195,6 +214,7 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
         base_seed=args.base_seed,
         num_agents=args.agents,
         workers=args.workers,
+        include_rationale=not args.choice_only,
     )
     summary = summarize_local_baseline(results)
     gate = assess_baseline_gate(results)
