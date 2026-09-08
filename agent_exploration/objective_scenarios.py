@@ -105,7 +105,7 @@ def generate_objective_task(
     shuffled_agents = list(range(num_agents))
     rng.shuffle(shuffled_agents)
     coalition_by_agent = {
-        agent_id: f"coalition-{index % 2}"
+        agent_id: f"coalition-{index % 3}"
         for index, agent_id in enumerate(shuffled_agents)
     }
     leader_id = rng.randrange(num_agents)

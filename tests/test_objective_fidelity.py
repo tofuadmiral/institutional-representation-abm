@@ -6,6 +6,10 @@ from collections import Counter
 import pandas as pd
 import pytest
 
+from agent_exploration.authority import (
+    authority_choice_prompt,
+    oracle_authority_choice,
+)
 from agent_exploration.local_models import CachedChatBackend
 from agent_exploration.llm_protocols import (
     FREEFORM_COMPLETE_MANDATE,
@@ -14,6 +18,8 @@ from agent_exploration.llm_protocols import (
     _standardized_argument,
     generate_model_baseline,
     run_model_argument_mechanism,
+    run_model_coalition_authority,
+    run_model_delegated_authority,
     run_model_freeform_mandate_bridge,
     run_model_open_deliberation,
     run_model_private_ballot,
@@ -46,6 +52,10 @@ from experiments.objective_fidelity import (
 from experiments.authority_structure_pilot import (
     run_authority_structure_pilot,
     summarize_authority_pilot,
+)
+from experiments.authority_operation_pilot import (
+    run_authority_operation_pilot,
+    summarize_authority_operation,
 )
 from experiments.local_baseline_fidelity import (
     assess_baseline_gate,
@@ -107,6 +117,11 @@ def test_default_group_size_is_seven_and_odd_profiles_are_balanced():
         "majority": 5,
         "intense_minority": 2,
     }
+    assert sorted(Counter(fragmented.coalition_by_agent.values()).values()) == [
+        2,
+        2,
+        3,
+    ]
 
 
 def test_coalition_discipline_binds_members_to_coalition_platforms():
@@ -410,6 +425,79 @@ def test_authority_pilot_reuses_one_frozen_set_of_model_choices():
     assert delegated["effective_decision_makers"] == 1
     assert not outcome_summary.empty
     assert not action_summary.empty
+
+
+def test_model_authorities_execute_anonymous_weighted_loss_mandates():
+    task = generate_objective_task(
+        seed=2, scenario=PreferenceScenario.ALIGNED, num_agents=7
+    )
+    prompt = authority_choice_prompt(
+        task,
+        [principal.principal_id for principal in task.principals],
+        task.alternatives,
+    )
+    assert "lowest total weighted loss" in prompt
+    assert "priority_weight" in prompt
+    assert "controlling decision table" in prompt
+    assert "exact precomputed total weighted losses" in prompt
+    assert "weighted_losses" not in prompt
+    assert "ideal_point" in prompt
+    assert "principal_group" not in prompt
+    assert "aligned" not in prompt
+    assert oracle_authority_choice(
+        task, [principal.principal_id for principal in task.principals]
+    ) == "center"
+
+    backend = FakeBackend('{"choice":"center"}')
+    delegated, delegated_logs = run_model_delegated_authority(
+        task, backend, seed=2
+    )
+    coalition, coalition_logs = run_model_coalition_authority(
+        task, backend, seed=2
+    )
+
+    assert delegated.collective_choice_id == "center"
+    assert delegated.metadata["authority_node_accuracy"] == 1.0
+    assert coalition.collective_choice_id == "center"
+    assert coalition.metadata["authority_node_accuracy"] == 1.0
+    assert len(delegated_logs) == 1
+    assert len(coalition_logs) == 3
+    assert backend.calls == 4
+
+
+def test_authority_operation_runner_decomposes_structure_and_model_error():
+    task = generate_objective_task(
+        seed=2, scenario=PreferenceScenario.ALIGNED, num_agents=7
+    )
+    baseline = pd.DataFrame(
+        [
+            {
+                "task_id": task.task_id,
+                "scenario": PreferenceScenario.ALIGNED.value,
+                "seed": 2,
+                "agent_id": action.agent_id,
+                "principal_id": action.principal_id,
+                "model": "frozen-model",
+                "model_choice": action.alternative_id,
+                "response_valid": True,
+                "exact_choice_match": True,
+                "rationale": action.rationale,
+            }
+            for action in task.initial_actions
+        ]
+    )
+    backend = FakeBackend('{"choice":"center"}')
+    outcomes, decisions, errors = run_authority_operation_pilot(
+        baseline, backend, tasks_per_scenario=1
+    )
+    summary = summarize_authority_operation(outcomes)
+
+    assert len(outcomes) == 3
+    assert len(decisions) == 4
+    assert errors.empty
+    assert outcomes["collective_choice_oracle_match"].all()
+    assert outcomes["model_execution_loss"].eq(0).all()
+    assert not summary.empty
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
