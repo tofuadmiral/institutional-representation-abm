@@ -964,6 +964,24 @@ def test_certificate_review_parser_is_strict_but_normalizes_one_fence():
         parse_review_record(raw[:-1] + ',"rationale":"extra"}', {"p_000"})
 
 
+def test_dual_objective_audit_requires_aggregate_evidence_field():
+    raw = (
+        '{"proposal_policy_id":"p_000","proposal_protected_loss":0.25,'
+        '"max_weighted_loss":0.5,"proposal_violates_duty_1":false,'
+        '"recommended_policy_id":"p_000","recommended_protected_loss":0.25,'
+        '"recommended_total_weighted_loss":2.75}'
+    )
+    record = parse_review_record(raw, {"p_000"}, audit_schema="dual_objective")
+
+    assert record.recommended_total_weighted_loss == pytest.approx(2.75)
+    with pytest.raises(ValueError, match="missing or unexpected"):
+        parse_review_record(
+            raw.replace(',"recommended_total_weighted_loss":2.75', ""),
+            {"p_000"},
+            audit_schema="dual_objective",
+        )
+
+
 def test_frozen_certificate_sample_collects_balanced_conflict_tasks():
     retained = collect_conflict_tasks(tasks_per_scenario=2, base_seed=90_000)
 

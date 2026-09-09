@@ -60,10 +60,16 @@ class ReviewRecord:
     proposal_violates_duty_1: bool
     recommended_policy_id: str
     recommended_protected_loss: float
+    recommended_total_weighted_loss: float | None = None
     format_normalized: bool = False
 
 
-def parse_review_record(raw: str, allowed_policy_ids: set[str]) -> ReviewRecord:
+def parse_review_record(
+    raw: str,
+    allowed_policy_ids: set[str],
+    *,
+    audit_schema: Literal["protected_only", "dual_objective"] = "protected_only",
+) -> ReviewRecord:
     """Parse strict JSON or one complete JSON object in a Markdown fence."""
     normalized = False
     try:
@@ -91,6 +97,10 @@ def parse_review_record(raw: str, allowed_policy_ids: set[str]) -> ReviewRecord:
         "recommended_policy_id",
         "recommended_protected_loss",
     }
+    if audit_schema == "dual_objective":
+        required.add("recommended_total_weighted_loss")
+    elif audit_schema != "protected_only":
+        raise ValueError("unknown audit_schema")
     if set(payload) != required:
         raise ValueError("reviewer response has missing or unexpected fields")
     proposal_id = payload["proposal_policy_id"]
@@ -119,6 +129,11 @@ def parse_review_record(raw: str, allowed_policy_ids: set[str]) -> ReviewRecord:
         proposal_violates_duty_1=violation,
         recommended_policy_id=str(recommendation),
         recommended_protected_loss=numeric("recommended_protected_loss"),
+        recommended_total_weighted_loss=(
+            numeric("recommended_total_weighted_loss")
+            if audit_schema == "dual_objective"
+            else None
+        ),
         format_normalized=normalized,
     )
 
@@ -141,6 +156,8 @@ def certificate_review_prompt(
     mandate: ProtectedMandate,
     proposal_choice: str,
     alternatives,
+    *,
+    audit_schema: Literal["protected_only", "dual_objective"] = "protected_only",
 ) -> str:
     """Render the frozen neutral audit-record task."""
     protected_losses = _protected_losses(task, mandate)
@@ -169,6 +186,10 @@ def certificate_review_prompt(
         "recommended_policy_id": "<policy id>",
         "recommended_protected_loss": "<number from protected-loss table>",
     }
+    if audit_schema == "dual_objective":
+        schema["recommended_total_weighted_loss"] = "<number from aggregate-loss table>"
+    elif audit_schema != "protected_only":
+        raise ValueError("unknown audit_schema")
     return (
         "You are the review node in a two-agent institution. Audit the first "
         f"authority's proposed policy '{proposal_choice}'. Duty 1: a policy is "
@@ -330,6 +351,7 @@ def run_certificate_gate_experiment(
     num_agents: int = 7,
     workers: int = 1,
     mandate_design: Literal["single_eligible", "multi_eligible"] = "single_eligible",
+    audit_schema: Literal["protected_only", "dual_objective"] = "protected_only",
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Collect one review record and recombine it under frozen institutions."""
     if workers < 1:
@@ -406,6 +428,7 @@ def run_certificate_gate_experiment(
             mandate,
             proposal_choice,
             alternatives,
+            audit_schema=audit_schema,
         )
         try:
             raw = backend.generate(
@@ -426,6 +449,7 @@ def run_certificate_gate_experiment(
             record = parse_review_record(
                 raw,
                 {alternative.alternative_id for alternative in task.alternatives},
+                audit_schema=audit_schema,
             )
             error = None
         except (ValueError, RuntimeError) as exc:
@@ -433,6 +457,7 @@ def run_certificate_gate_experiment(
             error = f"{type(exc).__name__}: {exc}"
 
         protected_losses = _protected_losses(task, mandate)
+        aggregate_scores = authority_scores(task, principal_ids)
         actual_proposal_loss = protected_losses[proposal_choice]
         actual_proposal_violation = actual_proposal_loss > mandate.max_weighted_loss
         if record is None:
@@ -442,6 +467,12 @@ def run_certificate_gate_experiment(
         else:
             recommendation = record.recommended_policy_id
             actual_recommendation_loss = protected_losses[recommendation]
+            aggregate_evidence_valid = audit_schema == "protected_only" or math.isclose(
+                record.recommended_total_weighted_loss,
+                aggregate_scores[recommendation],
+                rel_tol=0.0,
+                abs_tol=1e-6,
+            )
             certificate_fields_valid = (
                 record.proposal_policy_id == proposal_choice
                 and math.isclose(
@@ -463,6 +494,7 @@ def run_certificate_gate_experiment(
                     rel_tol=0.0,
                     abs_tol=1e-6,
                 )
+                and aggregate_evidence_valid
             )
             valid_repair_certificate = (
                 certificate_fields_valid
@@ -474,6 +506,7 @@ def run_certificate_gate_experiment(
             "scenario": scenario,
             "seed": seed,
             "model": backend.model,
+            "audit_schema": audit_schema,
             "proposal_state": proposal_state,
             "proposal_choice": proposal_choice,
             "protected_oracle_choice": protected_oracle,
@@ -496,6 +529,9 @@ def run_certificate_gate_experiment(
             "recommended_policy_id": recommendation,
             "reported_recommended_protected_loss": (
                 record.recommended_protected_loss if record else None
+            ),
+            "reported_recommended_total_weighted_loss": (
+                record.recommended_total_weighted_loss if record else None
             ),
             "certificate_fields_valid": certificate_fields_valid,
             "valid_repair_certificate": valid_repair_certificate,
@@ -642,6 +678,11 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
         choices=("single_eligible", "multi_eligible"),
         default="single_eligible",
     )
+    parser.add_argument(
+        "--audit-schema",
+        choices=("protected_only", "dual_objective"),
+        default="protected_only",
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     backend = CachedChatBackend(
@@ -655,6 +696,7 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
         num_agents=args.agents,
         workers=args.workers,
         mandate_design=args.mandate_design,
+        audit_schema=args.audit_schema,
     )
     review_summary, outcome_summary = summarize_certificate_gate(reviews, outcomes)
     effects = paired_certificate_effects(outcomes)
