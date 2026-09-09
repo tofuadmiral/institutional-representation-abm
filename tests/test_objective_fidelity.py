@@ -117,6 +117,21 @@ from experiments.analyze_certificate_replications import (
     multi_state_tradeoffs,
     prevalence_tradeoffs,
 )
+from experiments.natural_proposer_validation import (
+    PROTECTED_VIOLATION,
+    classify_proposal,
+    natural_proposer_prompt,
+)
+from experiments.portfolio_certificate_gate import (
+    BUDGET_ONLY,
+    COVERAGE_ONLY,
+    DUAL_VIOLATION,
+    compliant_suboptimal_plan,
+    generate_portfolio_task,
+    parse_portfolio_review,
+    portfolio_oracle,
+    unconstrained_portfolio_oracle,
+)
 from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
     summarize_action_effects,
@@ -1130,6 +1145,73 @@ def test_audit_schema_effects_pairs_identical_cases():
         & (effects["metric"] == "protected_oracle_match")
     ]
     assert exact["dual_minus_protected"].eq(1.0).all()
+
+
+def test_natural_proposal_classification_separates_error_types():
+    assert classify_proposal("oracle", "oracle", {"oracle", "other"}) == ORACLE_CORRECT
+    assert (
+        classify_proposal("other", "oracle", {"oracle", "other"})
+        == COMPLIANT_SUBOPTIMAL
+    )
+    assert (
+        classify_proposal("forbidden", "oracle", {"oracle", "other"})
+        == PROTECTED_VIOLATION
+    )
+
+
+def test_natural_proposer_prompt_does_not_supply_a_proposal():
+    retained = collect_multi_eligible_conflict_tasks(
+        tasks_per_scenario=1,
+        base_seed=95_000,
+    )
+    _, _, task, principal_ids, mandate, _ = retained[0]
+    prompt = natural_proposer_prompt(
+        task, principal_ids, mandate, list(task.alternatives)
+    )
+
+    assert "upstream authority" in prompt
+    assert "proposed policy" not in prompt
+    assert '{"choice":"<policy id>"}' in prompt
+
+
+@pytest.mark.parametrize("stratum", [BUDGET_ONLY, COVERAGE_ONLY, DUAL_VIOLATION])
+def test_portfolio_transfer_tasks_have_required_matched_states(stratum):
+    task = generate_portfolio_task(seed=120_000, stratum=stratum)
+    oracle = task.plan(portfolio_oracle(task))
+    unconstrained = task.plan(unconstrained_portfolio_oracle(task))
+    suboptimal = task.plan(compliant_suboptimal_plan(task))
+
+    assert task.eligible(oracle)
+    assert not task.eligible(unconstrained)
+    assert task.eligible(suboptimal)
+    assert suboptimal.total_public_benefit < oracle.total_public_benefit
+    assert unconstrained.total_public_benefit > oracle.total_public_benefit
+    if stratum == BUDGET_ONLY:
+        assert unconstrained.cost > task.budget
+        assert unconstrained.protected_coverage >= task.minimum_protected_coverage
+    elif stratum == COVERAGE_ONLY:
+        assert unconstrained.cost <= task.budget
+        assert unconstrained.protected_coverage < task.minimum_protected_coverage
+    else:
+        assert unconstrained.cost > task.budget
+        assert unconstrained.protected_coverage < task.minimum_protected_coverage
+
+
+def test_portfolio_review_parser_is_strict_but_normalizes_one_fence():
+    raw = (
+        '{"proposal_plan_id":"plan_A","proposal_cost":100,"budget":110,'
+        '"proposal_protected_coverage":40,"minimum_protected_coverage":35,'
+        '"proposal_violates_duty_1":false,"recommended_plan_id":"plan_B",'
+        '"recommended_cost":105,"recommended_protected_coverage":45}'
+    )
+    strict = parse_portfolio_review(raw, {"plan_A", "plan_B"})
+    fenced = parse_portfolio_review(f"```json\n{raw}\n```", {"plan_A", "plan_B"})
+
+    assert strict.recommended_plan_id == "plan_B"
+    assert strict.format_normalized is False
+    assert fenced.format_normalized is True
+    with pytest.raises(ValueError, match="missing or unexpected"):
+        parse_portfolio_review(raw[:-1] + ',"extra":1}', {"plan_A", "plan_B"})
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
