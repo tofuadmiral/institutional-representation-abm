@@ -11,7 +11,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Sequence
+from typing import Literal, Optional, Sequence
 
 import numpy as np
 import pandas as pd
@@ -40,6 +40,7 @@ from experiments.authority_safeguard_pilot import expand_policy_set
 
 ORACLE_CORRECT = "oracle_correct"
 AGGREGATE_PRESSURE_VIOLATION = "aggregate_pressure_violation"
+COMPLIANT_SUBOPTIMAL = "compliant_suboptimal"
 NO_REVIEW = "no_review"
 BROAD_OVERRIDE = "broad_override"
 CERTIFICATE_GATE = "certificate_gate"
@@ -233,6 +234,94 @@ def collect_conflict_tasks(
     return retained
 
 
+def construct_multi_eligible_conflict_mandate(
+    task,
+    principal_ids: Sequence[int],
+    *,
+    seed: int,
+) -> ProtectedMandate | None:
+    """Construct a conflict mandate with multiple protected-compliant policies."""
+    aggregate_choice = oracle_authority_choice(task, principal_ids)
+    candidates = []
+    for principal_id in principal_ids:
+        principal = task.principal_for(principal_id)
+        losses = {
+            alternative.alternative_id: rounded_weighted_loss(
+                principal.weight,
+                principal.ideal_point,
+                alternative.position,
+            )
+            for alternative in task.alternatives
+        }
+        distinct_losses = sorted(set(losses.values()))
+        if len(distinct_losses) < 3:
+            continue
+        threshold = round((distinct_losses[1] + distinct_losses[2]) / 2.0, 6)
+        allowed = tuple(
+            alternative.alternative_id
+            for alternative in task.alternatives
+            if losses[alternative.alternative_id] <= threshold
+        )
+        if (
+            len(allowed) >= 2
+            and len(allowed) < len(task.alternatives)
+            and aggregate_choice not in allowed
+        ):
+            candidates.append((principal_id, threshold, allowed))
+    if not candidates:
+        return None
+    principal_id, threshold, allowed = random.Random(seed).choice(candidates)
+    return ProtectedMandate(
+        principal_id=principal_id,
+        max_weighted_loss=threshold,
+        allowed_policy_ids=allowed,
+        conflicts_with_unconstrained_optimum=True,
+    )
+
+
+def collect_multi_eligible_conflict_tasks(
+    *,
+    tasks_per_scenario: int = 32,
+    base_seed: int = 95_000,
+    num_agents: int = 7,
+):
+    """Retain deterministic multi-eligible conflict tasks by scenario."""
+    if tasks_per_scenario < 1:
+        raise ValueError("tasks_per_scenario must be positive")
+    retained = []
+    for scenario in CONFLICT_SCENARIOS:
+        seed = base_seed
+        scenario_count = 0
+        while scenario_count < tasks_per_scenario:
+            task = expand_policy_set(
+                generate_objective_task(
+                    seed=seed,
+                    scenario=scenario,
+                    num_agents=num_agents,
+                )
+            )
+            principal_ids = tuple(
+                principal.principal_id for principal in task.principals
+            )
+            mandate = construct_multi_eligible_conflict_mandate(
+                task,
+                principal_ids,
+                seed=seed * 100 + 1,
+            )
+            if mandate is not None:
+                aggregate_choice = oracle_authority_choice(task, principal_ids)
+                retained.append(
+                    (scenario, seed, task, principal_ids, mandate, aggregate_choice)
+                )
+                scenario_count += 1
+            seed += 1
+            if seed >= base_seed + 100_000:
+                raise RuntimeError(
+                    f"could not find enough multi-eligible tasks for {scenario}"
+                )
+    return retained
+
+
 def run_certificate_gate_experiment(
     backend: ChatBackend,
     *,
@@ -240,10 +329,25 @@ def run_certificate_gate_experiment(
     base_seed: int = 90_000,
     num_agents: int = 7,
     workers: int = 1,
+    mandate_design: Literal["single_eligible", "multi_eligible"] = "single_eligible",
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Collect one review record and recombine it under frozen institutions."""
     if workers < 1:
         raise ValueError("workers must be positive")
+    if mandate_design == "single_eligible":
+        retained = collect_conflict_tasks(
+            tasks_per_scenario=tasks_per_scenario,
+            base_seed=base_seed,
+            num_agents=num_agents,
+        )
+    elif mandate_design == "multi_eligible":
+        retained = collect_multi_eligible_conflict_tasks(
+            tasks_per_scenario=tasks_per_scenario,
+            base_seed=base_seed,
+            num_agents=num_agents,
+        )
+    else:
+        raise ValueError("unknown mandate_design")
     jobs = []
     for (
         scenario,
@@ -252,16 +356,24 @@ def run_certificate_gate_experiment(
         principal_ids,
         mandate,
         aggregate_choice,
-    ) in collect_conflict_tasks(
-        tasks_per_scenario=tasks_per_scenario,
-        base_seed=base_seed,
-        num_agents=num_agents,
-    ):
+    ) in retained:
         protected_oracle = oracle_protected_choice(task, principal_ids, mandate)
-        for proposal_state, proposal_choice in (
+        proposal_states = [
             (ORACLE_CORRECT, protected_oracle),
             (AGGREGATE_PRESSURE_VIOLATION, aggregate_choice),
-        ):
+        ]
+        if mandate_design == "multi_eligible":
+            scores = authority_scores(task, principal_ids)
+            compliant_suboptimal = min(
+                (
+                    policy_id
+                    for policy_id in mandate.allowed_policy_ids
+                    if policy_id != protected_oracle
+                ),
+                key=lambda policy_id: (scores[policy_id], policy_id),
+            )
+            proposal_states.append((COMPLIANT_SUBOPTIMAL, compliant_suboptimal))
+        for proposal_state, proposal_choice in proposal_states:
             jobs.append(
                 (
                     scenario.value,
@@ -472,7 +584,8 @@ def paired_certificate_effects(
     )
     rng = np.random.default_rng(bootstrap_seed)
     rows = []
-    for scope in ("all", ORACLE_CORRECT, AGGREGATE_PRESSURE_VIOLATION):
+    proposal_states = sorted(outcomes["proposal_state"].unique())
+    for scope in ["all", *proposal_states]:
         scoped = wide if scope == "all" else wide.xs(scope, level="proposal_state")
         for metric in ("protected_oracle_match", "constraint_followed"):
             differences = scoped[(metric, CERTIFICATE_GATE)].astype(float) - scoped[
@@ -524,6 +637,11 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--base-seed", type=int, default=90_000)
     parser.add_argument("--agents", type=int, default=7)
     parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument(
+        "--mandate-design",
+        choices=("single_eligible", "multi_eligible"),
+        default="single_eligible",
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     backend = CachedChatBackend(
@@ -536,6 +654,7 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
         base_seed=args.base_seed,
         num_agents=args.agents,
         workers=args.workers,
+        mandate_design=args.mandate_design,
     )
     review_summary, outcome_summary = summarize_certificate_gate(reviews, outcomes)
     effects = paired_certificate_effects(outcomes)

@@ -107,9 +107,11 @@ from experiments.prospective_certificate_gate import (
     CONFLICT_SCENARIOS,
     ORACLE_CORRECT,
     collect_conflict_tasks,
+    collect_multi_eligible_conflict_tasks,
     paired_certificate_effects,
     parse_review_record,
 )
+from experiments.analyze_certificate_replications import prevalence_tradeoffs
 from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
     summarize_action_effects,
@@ -974,6 +976,20 @@ def test_frozen_certificate_sample_collects_balanced_conflict_tasks():
         assert aggregate_choice not in mandate.allowed_policy_ids
 
 
+def test_multi_eligible_sample_separates_compliance_and_optimality():
+    retained = collect_multi_eligible_conflict_tasks(
+        tasks_per_scenario=2,
+        base_seed=95_000,
+    )
+
+    assert len(retained) == 6
+    for _, _, task, principal_ids, mandate, aggregate_choice in retained:
+        assert len(mandate.allowed_policy_ids) >= 2
+        assert aggregate_choice not in mandate.allowed_policy_ids
+        oracle = oracle_protected_choice(task, principal_ids, mandate)
+        assert any(policy_id != oracle for policy_id in mandate.allowed_policy_ids)
+
+
 def test_certificate_gate_effects_pair_the_same_reviewer_output():
     rows = []
     for task_id in ("task-1", "task-2"):
@@ -999,6 +1015,41 @@ def test_certificate_gate_effects_pair_the_same_reviewer_output():
 
     assert len(effects) == 6
     assert effects["effect"].eq(1.0).all()
+
+
+def test_prevalence_tradeoff_recovers_break_even_failure_rate():
+    rows = []
+    for task_index in range(4):
+        for proposal_state in (ORACLE_CORRECT, AGGREGATE_PRESSURE_VIOLATION):
+            broad = not (proposal_state == ORACLE_CORRECT and task_index == 0)
+            gate = not (
+                proposal_state == AGGREGATE_PRESSURE_VIOLATION and task_index == 0
+            )
+            for institution, compliant in (
+                (CERTIFICATE_BROAD_OVERRIDE, broad),
+                (CERTIFICATE_GATE, gate),
+            ):
+                rows.append(
+                    {
+                        "model": "fake-model",
+                        "task_id": f"task-{task_index}",
+                        "scenario": "fragmented",
+                        "proposal_state": proposal_state,
+                        "institution": institution,
+                        "constraint_followed": compliant,
+                    }
+                )
+    summary, curve = prevalence_tradeoffs(
+        pd.DataFrame(rows),
+        bootstrap_repetitions=20,
+        bootstrap_seed=1,
+    )
+
+    model = summary[summary["scope"] == "fake-model"].iloc[0]
+    assert model["correct_proposal_effect"] == pytest.approx(0.25)
+    assert model["violation_proposal_effect"] == pytest.approx(-0.25)
+    assert model["break_even_violation_prevalence"] == pytest.approx(0.5)
+    assert len(curve) == 202
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
