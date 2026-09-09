@@ -91,6 +91,10 @@ from experiments.reviewer_proposal_ablation import (
     compare_proposal_review,
     run_blind_redecision,
 )
+from experiments.reviewer_instruction_ablation import (
+    compare_reviewer_instructions,
+    run_neutral_proposal_decisions,
+)
 from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
     summarize_action_effects,
@@ -137,7 +141,9 @@ def test_delegation_concentrates_decision_authority_and_can_create_drift():
 def test_default_group_size_is_seven_and_odd_profiles_are_balanced():
     polarized = generate_objective_task(seed=4, scenario=PreferenceScenario.POLARIZED)
     fragmented = generate_objective_task(seed=4, scenario=PreferenceScenario.FRAGMENTED)
-    intense = generate_objective_task(seed=4, scenario=PreferenceScenario.INTENSE_MINORITY)
+    intense = generate_objective_task(
+        seed=4, scenario=PreferenceScenario.INTENSE_MINORITY
+    )
 
     assert len(polarized.principals) == 7
     assert sorted(Counter(p.group for p in polarized.principals).values()) == [3, 4]
@@ -191,9 +197,11 @@ def test_factorial_runner_is_deterministic_and_matched():
         DELEGATED_LEADER,
         COALITION_DISCIPLINE,
     }
-    assert first[first["institution"] == PRIVATE_BALLOT][
-        "outcome_loss_delta_vs_private"
-    ].eq(0).all()
+    assert (
+        first[first["institution"] == PRIVATE_BALLOT]["outcome_loss_delta_vs_private"]
+        .eq(0)
+        .all()
+    )
 
 
 def test_summary_contains_agent_and_collective_metrics():
@@ -220,7 +228,9 @@ def test_local_representative_parses_strict_structured_choice():
 
 def test_representative_prompt_exposes_precomputed_loss_and_arbitrary_order():
     task = generate_objective_task(seed=2, scenario=PreferenceScenario.POLARIZED)
-    prompt = _initial_choice_prompt(task.principals[0], tuple(reversed(task.alternatives)))
+    prompt = _initial_choice_prompt(
+        task.principals[0], tuple(reversed(task.alternatives))
+    )
     assert "loss_to_principal" in prompt
     assert "priority weight" in prompt
     assert "weighted_loss_to_principal" in prompt
@@ -247,19 +257,21 @@ def test_matched_llm_protocols_use_second_binding_vote_in_both_conditions():
     oracle_task = generate_objective_task(
         seed=2, scenario=PreferenceScenario.ALIGNED, num_agents=4
     )
-    model_task, baseline_logs = generate_model_baseline(
-        oracle_task, backend, seed=2
-    )
+    model_task, baseline_logs = generate_model_baseline(oracle_task, backend, seed=2)
     private, private_logs = run_model_private_ballot(model_task, backend, seed=2)
     public_votes, public_logs = run_model_public_vote_exposure(
         model_task, backend, seed=2
     )
-    open_outcome, open_logs = run_model_open_deliberation(
-        model_task, backend, seed=2
-    )
+    open_outcome, open_logs = run_model_open_deliberation(model_task, backend, seed=2)
 
     assert backend.calls == 4 * 4
-    assert len(baseline_logs) == len(private_logs) == len(public_logs) == len(open_logs) == 4
+    assert (
+        len(baseline_logs)
+        == len(private_logs)
+        == len(public_logs)
+        == len(open_logs)
+        == 4
+    )
     assert private.metadata["reconsideration_call"] is True
     assert public_votes.metadata["reconsideration_call"] is True
     assert open_outcome.metadata["reconsideration_call"] is True
@@ -269,8 +281,7 @@ def test_matched_llm_protocols_use_second_binding_vote_in_both_conditions():
     assert public_votes.metadata["peer_arguments"] is False
     assert open_outcome.metadata["peer_arguments"] is True
     assert all(
-        log["changed_choice"] is False
-        for log in private_logs + public_logs + open_logs
+        log["changed_choice"] is False for log in private_logs + public_logs + open_logs
     )
     assert "No peer votes" in backend.messages[4][1]["content"]
     assert "public votes" in backend.messages[8][1]["content"]
@@ -480,17 +491,16 @@ def test_model_authorities_execute_anonymous_weighted_loss_mandates():
     assert "ideal_point" in prompt
     assert "principal_group" not in prompt
     assert "aligned" not in prompt
-    assert oracle_authority_choice(
-        task, [principal.principal_id for principal in task.principals]
-    ) == "center"
+    assert (
+        oracle_authority_choice(
+            task, [principal.principal_id for principal in task.principals]
+        )
+        == "center"
+    )
 
     backend = FakeBackend('{"choice":"center"}')
-    delegated, delegated_logs = run_model_delegated_authority(
-        task, backend, seed=2
-    )
-    coalition, coalition_logs = run_model_coalition_authority(
-        task, backend, seed=2
-    )
+    delegated, delegated_logs = run_model_delegated_authority(task, backend, seed=2)
+    coalition, coalition_logs = run_model_coalition_authority(task, backend, seed=2)
 
     assert delegated.collective_choice_id == "center"
     assert delegated.metadata["authority_node_accuracy"] == 1.0
@@ -524,9 +534,11 @@ def test_authority_parser_records_narrow_markdown_fence_normalization():
         "",
         False,
     )
-    assert parse_authority_choice(
-        '```json\n{"choice":"left"}\n```', {"left"}
-    ) == ("left", "", True)
+    assert parse_authority_choice('```json\n{"choice":"left"}\n```', {"left"}) == (
+        "left",
+        "",
+        True,
+    )
     with pytest.raises(ValueError, match="invalid JSON"):
         parse_authority_choice('Answer: {"choice":"left"}', {"left"})
 
@@ -597,9 +609,7 @@ def test_authority_operation_keeps_inexact_private_baselines():
     assert errors.empty
     assert len(decisions) == 4
     private = outcomes[outcomes["institution"] == PRIVATE_BALLOT].iloc[0]
-    delegated = outcomes[
-        outcomes["institution"] == MODEL_DELEGATED_AUTHORITY
-    ].iloc[0]
+    delegated = outcomes[outcomes["institution"] == MODEL_DELEGATED_AUTHORITY].iloc[0]
     assert private["authority_node_accuracy"] == 0.0
     assert private["model_execution_loss"] > 0
     assert delegated["structural_loss_delta_vs_private"] == pytest.approx(0.0)
@@ -704,18 +714,57 @@ def test_derived_protected_prompt_hides_answer_list():
     assert str(list(mandate.allowed_policy_ids)) not in prompt
 
 
+def test_neutral_proposal_prompt_removes_only_anti_deference_instruction():
+    task = expand_policy_set(
+        generate_objective_task(
+            seed=70_008,
+            scenario=PreferenceScenario.FRAGMENTED,
+            num_agents=7,
+        )
+    )
+    principal_ids = tuple(range(7))
+    mandate = construct_protected_mandate(task, principal_ids, conflict=True, seed=1)
+    assert mandate is not None
+    from agent_exploration.protected_mandates import derived_protected_authority_prompt
+
+    neutral = derived_protected_authority_prompt(
+        task,
+        principal_ids,
+        mandate,
+        task.alternatives,
+        proposed_choice="p_000",
+        proposal_instruction="neutral",
+    )
+    anti = derived_protected_authority_prompt(
+        task,
+        principal_ids,
+        mandate,
+        task.alternatives,
+        proposed_choice="p_000",
+    )
+    assert "A first authority proposed policy 'p_000'." in neutral
+    assert "do not defer" not in neutral
+    assert "do not defer" in anti
+
+
 def test_panel_uses_status_quo_for_three_way_tie():
     task = expand_policy_set(
         generate_objective_task(seed=1, scenario=PreferenceScenario.ALIGNED)
     )
-    assert aggregate_panel_choices(
-        task,
-        ["p_neg_050", "p_000", "p_pos_050"],
-    ) == "p_000"
-    assert aggregate_panel_choices(
-        task,
-        ["p_neg_050", "p_neg_050", "p_pos_050"],
-    ) == "p_neg_050"
+    assert (
+        aggregate_panel_choices(
+            task,
+            ["p_neg_050", "p_000", "p_pos_050"],
+        )
+        == "p_000"
+    )
+    assert (
+        aggregate_panel_choices(
+            task,
+            ["p_neg_050", "p_neg_050", "p_pos_050"],
+        )
+        == "p_neg_050"
+    )
 
 
 def test_authority_safeguard_pilot_records_three_matched_institutions():
@@ -787,13 +836,46 @@ def test_blind_redecision_matches_reviewer_order_and_supports_paired_analysis():
     assert comparison["n_profiles"].gt(0).all()
 
 
+def test_neutral_proposal_arm_matches_other_reviewer_arms():
+    backend = FakeBackend('{"choice":"p_000"}')
+    outcomes, decisions = run_authority_safeguard_pilot(
+        backend,
+        n_profiles_per_scenario=1,
+        base_seed=70_300,
+    )
+    blind = run_blind_redecision(
+        backend,
+        n_profiles_per_scenario=1,
+        base_seed=70_300,
+    )
+    neutral = run_neutral_proposal_decisions(
+        backend,
+        decisions,
+        n_profiles_per_scenario=1,
+        base_seed=70_300,
+    )
+    comparison = compare_reviewer_instructions(
+        blind,
+        neutral,
+        decisions,
+        bootstrap_repetitions=20,
+        bootstrap_seed=1,
+    )
+
+    assert len(neutral) == outcomes.groupby(["task_id", "conflict"]).ngroups
+    assert len(comparison) == 18
+    assert set(comparison["contrast"]) == {
+        "neutral_minus_blind",
+        "anti_minus_neutral",
+        "anti_minus_blind",
+    }
+
+
 def test_local_baseline_runner_measures_representative_choice_accuracy():
     # All generated aligned principals choose center, so the fake local model
     # is a perfect representative in that controlled scenario.
     backend = FakeBackend('{"choice":"center","rationale":"nearest"}')
-    results = run_local_baseline_fidelity(
-        backend, n_tasks_per_scenario=1, num_agents=4
-    )
+    results = run_local_baseline_fidelity(backend, n_tasks_per_scenario=1, num_agents=4)
     assert len(results) == 4 * 1 * 4
     assert "presented_order" in results.columns
     aligned = results[results["scenario"] == PreferenceScenario.ALIGNED.value]
