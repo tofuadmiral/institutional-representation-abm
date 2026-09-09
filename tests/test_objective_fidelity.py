@@ -95,6 +95,11 @@ from experiments.reviewer_instruction_ablation import (
     compare_reviewer_instructions,
     run_neutral_proposal_decisions,
 )
+from experiments.reviewer_authority_gate import (
+    apply_reviewer_authority_rules,
+    paired_gate_effects,
+    summarize_authority_rules,
+)
 from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
     summarize_action_effects,
@@ -869,6 +874,66 @@ def test_neutral_proposal_arm_matches_other_reviewer_arms():
         "anti_minus_neutral",
         "anti_minus_blind",
     }
+
+
+def test_violation_only_authority_gate_blocks_unnecessary_override():
+    decisions = pd.DataFrame(
+        [
+            {
+                "task_id": "task-1",
+                "scenario": "aligned",
+                "conflict": False,
+                "role": "single",
+                "model_choice": "correct",
+                "protected_oracle_choice": "correct",
+                "response_valid": True,
+                "constraint_followed": True,
+            },
+            {
+                "task_id": "task-1",
+                "scenario": "aligned",
+                "conflict": False,
+                "role": "reviewer",
+                "model_choice": "wrong",
+                "protected_oracle_choice": "correct",
+                "response_valid": True,
+                "constraint_followed": False,
+            },
+            {
+                "task_id": "task-2",
+                "scenario": "fragmented",
+                "conflict": True,
+                "role": "single",
+                "model_choice": "wrong",
+                "protected_oracle_choice": "correct",
+                "response_valid": True,
+                "constraint_followed": False,
+            },
+            {
+                "task_id": "task-2",
+                "scenario": "fragmented",
+                "conflict": True,
+                "role": "reviewer",
+                "model_choice": "correct",
+                "protected_oracle_choice": "correct",
+                "response_valid": True,
+                "constraint_followed": True,
+            },
+        ]
+    )
+    outcomes = apply_reviewer_authority_rules(decisions)
+    summary = summarize_authority_rules(outcomes)
+    effects = paired_gate_effects(
+        outcomes,
+        bootstrap_repetitions=20,
+        bootstrap_seed=1,
+    )
+
+    gated = outcomes[outcomes["authority_rule"] == "violation_only_override"]
+    assert gated["protected_oracle_match"].all()
+    assert gated["constraint_followed"].all()
+    assert len(summary) == 3
+    assert len(effects) == 4
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
