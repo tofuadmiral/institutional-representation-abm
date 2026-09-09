@@ -460,10 +460,15 @@ def _main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--tasks-per-stratum", type=int, default=32)
     parser.add_argument("--base-seed", type=int, default=120_000)
     parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument("--timeout-seconds", type=float, default=120.0)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     backend = CachedChatBackend(
-        OpenAICompatibleLocalBackend(model=args.model, base_url=args.base_url),
+        OpenAICompatibleLocalBackend(
+            model=args.model,
+            base_url=args.base_url,
+            timeout_seconds=args.timeout_seconds,
+        ),
         cache_dir=args.output / "completion_cache",
     )
     reviews, outcomes = run_portfolio_certificate_gate(
