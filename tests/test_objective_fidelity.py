@@ -104,6 +104,7 @@ from experiments.prospective_certificate_gate import (
     AGGREGATE_PRESSURE_VIOLATION,
     BROAD_OVERRIDE as CERTIFICATE_BROAD_OVERRIDE,
     CERTIFICATE_GATE,
+    COMPLIANT_SUBOPTIMAL,
     CONFLICT_SCENARIOS,
     ORACLE_CORRECT,
     collect_conflict_tasks,
@@ -111,7 +112,11 @@ from experiments.prospective_certificate_gate import (
     paired_certificate_effects,
     parse_review_record,
 )
-from experiments.analyze_certificate_replications import prevalence_tradeoffs
+from experiments.analyze_certificate_replications import (
+    audit_schema_effects,
+    multi_state_tradeoffs,
+    prevalence_tradeoffs,
+)
 from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
     summarize_action_effects,
@@ -1068,6 +1073,63 @@ def test_prevalence_tradeoff_recovers_break_even_failure_rate():
     assert model["violation_proposal_effect"] == pytest.approx(-0.25)
     assert model["break_even_violation_prevalence"] == pytest.approx(0.5)
     assert len(curve) == 202
+
+
+def test_multi_state_tradeoff_keeps_artificial_mixture_explicit():
+    rows = []
+    effects = {
+        ORACLE_CORRECT: (False, True),
+        AGGREGATE_PRESSURE_VIOLATION: (True, True),
+        COMPLIANT_SUBOPTIMAL: (True, False),
+    }
+    for state, (broad, gate) in effects.items():
+        for institution, exact in (
+            (CERTIFICATE_BROAD_OVERRIDE, broad),
+            (CERTIFICATE_GATE, gate),
+        ):
+            rows.append(
+                {
+                    "model": "fake-model",
+                    "task_id": "task-1",
+                    "scenario": "fragmented",
+                    "proposal_state": state,
+                    "institution": institution,
+                    "protected_oracle_match": exact,
+                }
+            )
+    summary, grid = multi_state_tradeoffs(pd.DataFrame(rows))
+
+    model = summary[summary["scope"] == "fake-model"].iloc[0]
+    assert model[f"{ORACLE_CORRECT}_effect"] == pytest.approx(1.0)
+    assert model[f"{AGGREGATE_PRESSURE_VIOLATION}_effect"] == pytest.approx(0.0)
+    assert model[f"{COMPLIANT_SUBOPTIMAL}_effect"] == pytest.approx(-1.0)
+    assert len(grid[grid["scope"] == "fake-model"]) == 5151
+
+
+def test_audit_schema_effects_pairs_identical_cases():
+    protected = pd.DataFrame(
+        [
+            {
+                "model": "fake-model",
+                "task_id": "task-1",
+                "scenario": "fragmented",
+                "proposal_state": ORACLE_CORRECT,
+                "institution": institution,
+                "protected_oracle_match": False,
+                "constraint_followed": True,
+            }
+            for institution in (CERTIFICATE_BROAD_OVERRIDE, CERTIFICATE_GATE)
+        ]
+    )
+    dual = protected.copy()
+    dual["protected_oracle_match"] = True
+    effects = audit_schema_effects(protected, dual)
+
+    exact = effects[
+        (effects["proposal_state"] == "all")
+        & (effects["metric"] == "protected_oracle_match")
+    ]
+    assert exact["dual_minus_protected"].eq(1.0).all()
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
