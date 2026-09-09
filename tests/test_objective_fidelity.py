@@ -100,6 +100,16 @@ from experiments.reviewer_authority_gate import (
     paired_gate_effects,
     summarize_authority_rules,
 )
+from experiments.prospective_certificate_gate import (
+    AGGREGATE_PRESSURE_VIOLATION,
+    BROAD_OVERRIDE as CERTIFICATE_BROAD_OVERRIDE,
+    CERTIFICATE_GATE,
+    CONFLICT_SCENARIOS,
+    ORACLE_CORRECT,
+    collect_conflict_tasks,
+    paired_certificate_effects,
+    parse_review_record,
+)
 from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
     summarize_action_effects,
@@ -934,6 +944,61 @@ def test_violation_only_authority_gate_blocks_unnecessary_override():
     assert gated["constraint_followed"].all()
     assert len(summary) == 3
     assert len(effects) == 4
+
+
+def test_certificate_review_parser_is_strict_but_normalizes_one_fence():
+    raw = (
+        '{"proposal_policy_id":"p_000","proposal_protected_loss":0.25,'
+        '"max_weighted_loss":0.5,"proposal_violates_duty_1":false,'
+        '"recommended_policy_id":"p_000","recommended_protected_loss":0.25}'
+    )
+    strict = parse_review_record(raw, {"p_000"})
+    fenced = parse_review_record(f"```json\n{raw}\n```", {"p_000"})
+
+    assert strict.proposal_violates_duty_1 is False
+    assert strict.format_normalized is False
+    assert fenced.format_normalized is True
+    with pytest.raises(ValueError, match="missing or unexpected"):
+        parse_review_record(raw[:-1] + ',"rationale":"extra"}', {"p_000"})
+
+
+def test_frozen_certificate_sample_collects_balanced_conflict_tasks():
+    retained = collect_conflict_tasks(tasks_per_scenario=2, base_seed=90_000)
+
+    assert len(retained) == 6
+    assert Counter(item[0] for item in retained) == {
+        scenario: 2 for scenario in CONFLICT_SCENARIOS
+    }
+    for _, _, task, principal_ids, mandate, aggregate_choice in retained:
+        assert aggregate_choice == oracle_authority_choice(task, principal_ids)
+        assert aggregate_choice not in mandate.allowed_policy_ids
+
+
+def test_certificate_gate_effects_pair_the_same_reviewer_output():
+    rows = []
+    for task_id in ("task-1", "task-2"):
+        for proposal_state in (ORACLE_CORRECT, AGGREGATE_PRESSURE_VIOLATION):
+            for institution, exact, compliant in (
+                (CERTIFICATE_BROAD_OVERRIDE, False, False),
+                (CERTIFICATE_GATE, True, True),
+            ):
+                rows.append(
+                    {
+                        "task_id": task_id,
+                        "proposal_state": proposal_state,
+                        "institution": institution,
+                        "protected_oracle_match": exact,
+                        "constraint_followed": compliant,
+                    }
+                )
+    effects = paired_certificate_effects(
+        pd.DataFrame(rows),
+        bootstrap_repetitions=20,
+        bootstrap_seed=1,
+    )
+
+    assert len(effects) == 6
+    assert effects["effect"].eq(1.0).all()
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
