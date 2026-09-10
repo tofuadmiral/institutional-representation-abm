@@ -1,0 +1,9 @@
+scope,metric,n_tasks,n_conditions,broad_rate,certificate_gate_rate,effect,ci_low,ci_high,broad_wrong_gate_correct,broad_correct_gate_wrong
+all,protected_oracle_match,96,96,0.03125,0.09375,0.0625,0.010416666666666666,0.125,7,1
+all,constraint_followed,96,96,0.8958333333333334,0.96875,0.07291666666666667,0.020833333333333332,0.125,7,0
+compliant_suboptimal,protected_oracle_match,74,74,0.013513513513513514,0.0,-0.013513513513513514,-0.04054054054054054,0.0,0,1
+compliant_suboptimal,constraint_followed,74,74,0.918918918918919,1.0,0.08108108108108109,0.02702702702702703,0.14864864864864866,6,0
+oracle_correct,protected_oracle_match,8,8,0.125,1.0,0.875,0.625,1.0,7,0
+oracle_correct,constraint_followed,8,8,0.875,1.0,0.125,0.0,0.375,1,0
+protected_violation,protected_oracle_match,14,14,0.07142857142857142,0.07142857142857142,0.0,0.0,0.0,0,0
+protected_violation,constraint_followed,14,14,0.7857142857142857,0.7857142857142857,0.0,0.0,0.0,0,0

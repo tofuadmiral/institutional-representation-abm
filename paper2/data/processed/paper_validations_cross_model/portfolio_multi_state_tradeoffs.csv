@@ -1,0 +1,4 @@
+scope,metric,n_model_task_pairs,oracle_correct_effect,aggregate_pressure_violation_effect,compliant_suboptimal_effect,minimum_correct_share_among_nonviolations
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,protected_oracle_match,96,0.40625,0.0,-0.875,0.6829268292682927
+mlx-community/Qwen3-8B-4bit,protected_oracle_match,96,0.59375,-0.020833333333333332,-0.5104166666666666,0.46226415094339623
+pooled_models,protected_oracle_match,192,0.5,-0.010416666666666666,-0.6927083333333334,0.5807860262008733

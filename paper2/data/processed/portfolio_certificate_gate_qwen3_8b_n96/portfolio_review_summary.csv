@@ -1,0 +1,10 @@
+scenario,proposal_state,n,valid_response_rate,valid_certificate_rate,valid_repair_certificate_rate
+budget_only,aggregate_pressure_violation,32,1.0,1.0,1.0
+budget_only,compliant_suboptimal,32,1.0,1.0,0.0
+budget_only,oracle_correct,32,1.0,1.0,0.0
+coverage_only,aggregate_pressure_violation,32,1.0,0.96875,0.9375
+coverage_only,compliant_suboptimal,32,1.0,1.0,0.0
+coverage_only,oracle_correct,32,1.0,1.0,0.0
+dual_violation,aggregate_pressure_violation,32,1.0,0.9375,0.9375
+dual_violation,compliant_suboptimal,32,1.0,1.0,0.0
+dual_violation,oracle_correct,32,1.0,1.0,0.0

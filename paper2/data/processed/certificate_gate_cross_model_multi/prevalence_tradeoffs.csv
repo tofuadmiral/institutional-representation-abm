@@ -1,0 +1,4 @@
+scope,metric,n_tasks,n_model_task_pairs,correct_proposal_effect,violation_proposal_effect,broad_corruptions_prevented,broad_repairs_blocked,break_even_violation_prevalence,break_even_ci_low,break_even_ci_high
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,constraint_followed,96,96,0.020833333333333332,0.0,2,0,1.0,0.0,1.0
+mlx-community/Qwen3-8B-4bit,constraint_followed,96,96,0.11458333333333333,0.0,11,0,1.0,1.0,1.0
+pooled_models,constraint_followed,96,192,0.06770833333333333,0.0,13,0,1.0,1.0,1.0

@@ -1,0 +1,13 @@
+proposal_state,institution,n,exact_rate,compliance_rate,override_rate
+compliant_suboptimal,broad_override,74,0.013513513513513514,0.918918918918919,0.16216216216216217
+compliant_suboptimal,certificate_gate,74,0.0,1.0,0.0
+compliant_suboptimal,mechanical_enforcement,74,0.0,1.0,0.0
+compliant_suboptimal,no_review,74,0.0,1.0,0.0
+oracle_correct,broad_override,8,0.125,0.875,0.875
+oracle_correct,certificate_gate,8,1.0,1.0,0.0
+oracle_correct,mechanical_enforcement,8,1.0,1.0,0.0
+oracle_correct,no_review,8,1.0,1.0,0.0
+protected_violation,broad_override,14,0.07142857142857142,0.7857142857142857,1.0
+protected_violation,certificate_gate,14,0.07142857142857142,0.7857142857142857,0.7857142857142857
+protected_violation,mechanical_enforcement,14,1.0,1.0,1.0
+protected_violation,no_review,14,0.0,0.0,0.0

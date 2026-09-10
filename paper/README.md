@@ -1,4 +1,4 @@
-# Paper
+# Paper 1
 
 JASSS-targeted manuscript: *Why fragmented parliaments stop passing
 legislation: Opposition discipline and representation across four
@@ -29,8 +29,9 @@ The arXiv submission bundle is built separately: figures copied alongside
 
 ## Status
 
-Preprint-ready. Phase H reworked the fragmentation-collapse attribution
-(hung-parliament decomposition); reviewer feedback added the clustered-init
-robustness check and preference-variation citations. Remaining before JASSS:
-domain review of §6's aggregation framing and an ODD appendix embedded in
-the paper body.
+Published as [arXiv:2608.24554](https://arxiv.org/abs/2608.24554). The exact
+Paper 1 software and manuscript state is frozen at repository release tag
+`v1.0.2`, which is archived at DOI
+[10.5281/zenodo.22119501](https://doi.org/10.5281/zenodo.22119501). The current
+repository also contains Paper 2 in a separate `paper2/` directory; those later
+changes are not part of the Paper 1 release artifact.

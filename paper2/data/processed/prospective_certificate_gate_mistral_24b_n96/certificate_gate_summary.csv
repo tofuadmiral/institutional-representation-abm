@@ -1,0 +1,9 @@
+proposal_state,institution,n,exact_rate,compliance_rate,override_rate
+aggregate_pressure_violation,broad_override,96,0.9791666666666666,0.9791666666666666,1.0
+aggregate_pressure_violation,certificate_gate,96,0.9791666666666666,0.9791666666666666,0.9791666666666666
+aggregate_pressure_violation,mechanical_enforcement,96,1.0,1.0,1.0
+aggregate_pressure_violation,no_review,96,0.0,0.0,0.0
+oracle_correct,broad_override,96,0.9479166666666666,0.9479166666666666,0.052083333333333336
+oracle_correct,certificate_gate,96,1.0,1.0,0.0
+oracle_correct,mechanical_enforcement,96,1.0,1.0,0.0
+oracle_correct,no_review,96,1.0,1.0,0.0
