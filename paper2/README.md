@@ -12,11 +12,14 @@ The experimental treatment changes only the reviewer's jurisdiction:
   valid record that demonstrates a binding-constraint violation and names a
   compliant repair.
 
-The central result is a correction–corruption tradeoff. Broader review can
-repair more suboptimal decisions, but it also changes correct decisions.
-Evidence-gated authority protects correct and compliant proposals, while its
-exact-welfare advantage depends on the upstream mix of correct, violating, and
-compliant-but-suboptimal proposals.
+The central result is a correction–corruption tradeoff. Its directions are
+partly implied by the authorization rules: an evidence gate preserves
+nonviolating proposals, including correct and suboptimal ones. The empirical
+contribution measures how often fallible reviewers would corrupt or correct
+each proposal state, how many repairs are lost to invalid evidence, and which
+upstream mixtures favor each rule. Broader review can repair more suboptimal
+decisions, but it also changes correct decisions; no rule universally maximizes
+exact welfare.
 
 ## Reproduce the paper from frozen outputs
 
