@@ -31,6 +31,21 @@ The first command regenerates every manuscript table and figure from
 `paper2/data/processed/`; it does not call a language model. The second command
 builds the PDF with `pdflatex` and `bibtex`.
 
+## Build the arXiv submission package
+
+From the repository root:
+
+```bash
+make -C paper2 arxiv-package
+```
+
+This creates `paper2/arxiv-submission.tar.gz` containing only the manuscript
+source, generated bibliography, bibliography database and style, tables, and
+PDF figures needed by arXiv. The package excludes experiment data, raw model
+responses, PNG previews, and repository code. To validate it independently,
+extract it in an empty directory and run `pdflatex main.tex` twice; the included
+`main.bbl` means BibTeX is not required by arXiv's build step.
+
 ## Rerun model experiments
 
 The model runs use an OpenAI-compatible local endpoint. See the command
@@ -41,7 +56,9 @@ cache makes model inference unnecessary for auditing the published numbers.
 ## Layout
 
 - `main.tex`: manuscript
+- `main.pdf`: locally compiled manuscript
 - `references.bib`: bibliography
+- `arxiv-submission.tar.gz`: minimal upload-ready arXiv source bundle
 - `data/`: frozen parsed results and raw request/response archive
 - `scripts/build_artifacts.py`: deterministic figure/table builder
 - `figures/`: generated figures

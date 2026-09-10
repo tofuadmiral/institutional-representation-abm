@@ -3,14 +3,38 @@
 from __future__ import annotations
 
 import hashlib
+import tarfile
 from pathlib import Path
 
 import pandas as pd
 import pytest
 
 
-ROOT = Path(__file__).resolve().parents[1] / "paper2" / "data"
+PAPER2_ROOT = Path(__file__).resolve().parents[1] / "paper2"
+ROOT = PAPER2_ROOT / "data"
 PROCESSED = ROOT / "processed"
+
+
+def test_arxiv_source_bundle_is_minimal_and_self_contained():
+    expected = {
+        "main.tex",
+        "main.bbl",
+        "references.bib",
+        "plainurl.bst",
+        "figures",
+        "figures/natural_proposal_outcomes.pdf",
+        "figures/prevalence_frontiers.pdf",
+        "figures/state_conditional_effects.pdf",
+        "tables",
+        "tables/natural_results.tex",
+        "tables/state_effects.tex",
+    }
+    with tarfile.open(PAPER2_ROOT / "arxiv-submission.tar.gz", "r:gz") as archive:
+        members = archive.getmembers()
+
+    assert {member.name for member in members} == expected
+    assert all(not member.name.startswith("/") for member in members)
+    assert all(".." not in Path(member.name).parts for member in members)
 
 
 def _effects(directory: str, filename: str) -> pd.DataFrame:
