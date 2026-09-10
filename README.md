@@ -125,7 +125,10 @@ The original runs used a local OpenAI-compatible MLX server and the model IDs
 at `http://127.0.0.1:8000/v1`, the frozen experiments can be rerun as follows.
 Qwen must be served in answer-only mode with
 `--chat-template-args '{"enable_thinking":false}'`, matching the retained Paper
-2 outputs and preventing hidden reasoning from consuming the response budget:
+2 outputs and preventing hidden reasoning from consuming the response budget.
+For the 24B Mistral model, bound the server's decode concurrency, prompt
+concurrency, and prompt-cache size to the client worker count to avoid retaining
+inactive KV caches alongside four long requests:
 
 ```bash
 # Controlled spatial-policy states

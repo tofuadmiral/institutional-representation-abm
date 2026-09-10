@@ -79,6 +79,11 @@ python -m experiments.action_aware_reviewer_validation \
   --output results/paper2/action_aware_qwen
 
 # Restart the server with Mistral before the second command.
+mlx_lm.server \
+  --model mlx-community/Mistral-Small-24B-Instruct-2501-4bit \
+  --decode-concurrency 4 --prompt-concurrency 4 --prompt-cache-size 4 \
+  --host 127.0.0.1 --port 8000
+
 python -m experiments.action_aware_reviewer_validation \
   --model mlx-community/Mistral-Small-24B-Instruct-2501-4bit --workers 4 \
   --output results/paper2/action_aware_mistral
