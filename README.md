@@ -142,6 +142,11 @@ python -m experiments.portfolio_certificate_gate \
   --model mlx-community/Qwen3-8B-4bit \
   --tasks-per-stratum 32 --base-seed 120000 \
   --output results/paper2/portfolio_qwen
+
+# Explicit retain/replace/escalate reviewer validation
+python -m experiments.action_aware_reviewer_validation \
+  --model mlx-community/Qwen3-8B-4bit --workers 8 \
+  --output results/paper2/action_aware_qwen
 ```
 
 Repeat with the Mistral model ID for the cross-model replication. The command

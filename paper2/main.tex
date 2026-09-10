@@ -81,10 +81,13 @@ but unguided reconsideration can also degrade correct reasoning
 \cite{huang2023cannot}. Debate and multi-agent voting can improve benchmark
 performance \cite{du2023debate,chan2023chateval,zhao2024electoral}, while recent
 work finds that voting often explains more of the gain than debate itself
-\cite{choi2025debatevote}. Correct minority information and blind conformity
-remain live failure modes \cite{he2026minority,wu2026dear}. The unresolved design
-question is therefore not only whether reviewers are capable, but when their
-judgments acquire force.
+\cite{choi2025debatevote}. In homogeneous teams, unguided peer exchange can
+destabilize initially correct reasoning, while plurality consensus can discard
+correct answers already present in the generation pool
+\cite{bertalanic2026consensus}. Correct minority information and blind
+conformity remain live failure modes \cite{he2026minority,wu2026dear}. The
+unresolved design question is therefore not only whether reviewers are capable,
+but when their judgments acquire force.
 
 We isolate that question in a two-agent decision institution. An upstream agent
 selects a binding action from seven alternatives under two ordered duties: first
@@ -116,8 +119,11 @@ factuality \cite{du2023debate}, and has been adapted to model-based evaluation
 decision modules \cite{zhao2024electoral} or separates debate from majority
 voting \cite{choi2025debatevote}. Recent studies explicitly target correlated
 errors, suppressed correct minorities, and conformity
-\cite{he2026minority,wu2026dear}. These studies change information exchange,
-aggregation, or which opinion wins. We hold the review message fixed across
+\cite{he2026minority,wu2026dear}. Bertalani\v{c} and Fortuna decompose failure
+in homogeneous, unguided debate into conformity, contextual fragility, and
+consensus collapse, and find isolated self-correction more cost-effective in
+their evaluated settings \cite{bertalanic2026consensus}. This work varies peer
+exposure and aggregation; we instead hold the review message fixed across
 institutional outcomes and vary the legal force attached to it.
 
 \paragraph{Critique, verification, and oversight.}

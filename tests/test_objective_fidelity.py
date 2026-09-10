@@ -141,6 +141,14 @@ from experiments.llm_institutional_pilot import (
     paired_treatment_effects,
     summarize_action_effects,
 )
+from experiments.action_aware_reviewer_validation import (
+    ACTION_AWARE_BROAD,
+    EVIDENCE_GATE,
+    RETAIN,
+    action_aware_review_prompt,
+    parse_action_aware_review,
+    paired_effects as action_aware_paired_effects,
+)
 
 
 class FakeBackend:
@@ -155,6 +163,69 @@ class FakeBackend:
         self.calls += 1
         self.messages.append(messages)
         return self.response
+
+
+def test_action_aware_review_parser_is_strict_but_normalizes_one_fence():
+    raw = (
+        '{"disposition":"retain","proposal_policy_id":"p_000",'
+        '"proposal_protected_loss":0.25,"max_weighted_loss":0.5,'
+        '"proposal_violates_duty_1":false,"recommended_policy_id":"p_000",'
+        '"recommended_protected_loss":0.25}'
+    )
+    strict = parse_action_aware_review(raw, {"p_000"})
+    fenced = parse_action_aware_review(f"```json\n{raw}\n```", {"p_000"})
+
+    assert strict.disposition == RETAIN
+    assert strict.format_normalized is False
+    assert fenced.format_normalized is True
+    with pytest.raises(ValueError, match="disposition"):
+        parse_action_aware_review(raw.replace(RETAIN, "revise"), {"p_000"})
+    with pytest.raises(ValueError, match="missing or unexpected"):
+        parse_action_aware_review(raw[:-1] + ',"rationale":"extra"}', {"p_000"})
+
+
+def test_action_aware_prompt_freezes_three_dispositions_and_original_tables():
+    retained = collect_multi_eligible_conflict_tasks(
+        tasks_per_scenario=1,
+        base_seed=95_000,
+    )
+    _, _, task, principal_ids, mandate, _ = retained[0]
+    proposal = oracle_protected_choice(task, principal_ids, mandate)
+    prompt = action_aware_review_prompt(
+        task,
+        principal_ids,
+        mandate,
+        proposal,
+        list(task.alternatives),
+    )
+
+    assert "retain when the proposal already satisfies both ordered duties" in prompt
+    assert "replace only when a named alternative is better" in prompt
+    assert "escalate when you cannot verify the comparison" in prompt
+    assert "protected-loss table" in prompt
+    assert "aggregate-loss table" in prompt
+
+
+def test_action_aware_effects_compare_fixed_response_recombinations():
+    rows = []
+    for task_id in ("task-1", "task-2"):
+        for institution, exact, compliant in (
+            (ACTION_AWARE_BROAD, False, False),
+            (EVIDENCE_GATE, True, True),
+        ):
+            rows.append(
+                {
+                    "task_id": task_id,
+                    "proposal_state": ORACLE_CORRECT,
+                    "institution": institution,
+                    "protected_oracle_match": exact,
+                    "constraint_followed": compliant,
+                }
+            )
+    effects = action_aware_paired_effects(pd.DataFrame(rows))
+
+    assert len(effects) == 2
+    assert effects["effect"].eq(1.0).all()
 
 
 def test_generated_baseline_actions_minimize_principal_distance():

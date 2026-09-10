@@ -56,6 +56,28 @@ examples in the top-level README. Rerunning requires the two named open-weight
 models and enough memory for the selected model. The checked-in completion
 cache makes model inference unnecessary for auditing the published numbers.
 
+### Frozen action-aware reviewer validation
+
+The prospective comparator validation uses the first 16 multi-eligible tasks
+from each spatial conflict scenario at base seed 95,000. Each task is evaluated
+with exact-correct, constraint-violating, and compliant-suboptimal proposals.
+The reviewer must explicitly choose `retain`, `replace`, or `escalate`; the run
+uses temperature zero, a 160-token response limit, and the existing
+deterministic option order. These constants are fixed in
+`experiments/action_aware_reviewer_validation.py`.
+
+Run each model separately against a local OpenAI-compatible endpoint:
+
+```bash
+python -m experiments.action_aware_reviewer_validation \
+  --model mlx-community/Qwen3-8B-4bit --workers 8 \
+  --output results/paper2/action_aware_qwen
+
+python -m experiments.action_aware_reviewer_validation \
+  --model mlx-community/Mistral-Small-24B-Instruct-2501-4bit --workers 4 \
+  --output results/paper2/action_aware_mistral
+```
+
 ## Layout
 
 - `main.tex`: manuscript
