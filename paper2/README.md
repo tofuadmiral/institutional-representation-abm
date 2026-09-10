@@ -69,10 +69,16 @@ deterministic option order. These constants are fixed in
 Run each model separately against a local OpenAI-compatible endpoint:
 
 ```bash
+# Start Qwen in the answer-only mode used by the Paper 2 experiments.
+mlx_lm.server --model mlx-community/Qwen3-8B-4bit \
+  --chat-template-args '{"enable_thinking":false}' \
+  --host 127.0.0.1 --port 8000
+
 python -m experiments.action_aware_reviewer_validation \
   --model mlx-community/Qwen3-8B-4bit --workers 8 \
   --output results/paper2/action_aware_qwen
 
+# Restart the server with Mistral before the second command.
 python -m experiments.action_aware_reviewer_validation \
   --model mlx-community/Mistral-Small-24B-Instruct-2501-4bit --workers 4 \
   --output results/paper2/action_aware_mistral

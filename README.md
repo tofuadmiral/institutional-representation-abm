@@ -122,7 +122,10 @@ for the arXiv compiler.
 The original runs used a local OpenAI-compatible MLX server and the model IDs
 `mlx-community/Qwen3-8B-4bit` and
 `mlx-community/Mistral-Small-24B-Instruct-2501-4bit`. After starting one model
-at `http://127.0.0.1:8000/v1`, the frozen experiments can be rerun as follows:
+at `http://127.0.0.1:8000/v1`, the frozen experiments can be rerun as follows.
+Qwen must be served in answer-only mode with
+`--chat-template-args '{"enable_thinking":false}'`, matching the retained Paper
+2 outputs and preventing hidden reasoning from consuming the response budget:
 
 ```bash
 # Controlled spatial-policy states
