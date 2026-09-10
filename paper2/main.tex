@@ -54,7 +54,7 @@ domain and the corruption surface.
 
 \section{Introduction}
 
-An increasingly common agent architecture delegates a task to one language
+A common agent architecture delegates a task to one language
 model and asks another model to critique, verify, or revise the result. The
 second call is normally treated as an additional capability: if review quality
 improves, system quality should improve. This view leaves an institutional
@@ -133,7 +133,8 @@ review evidence a precondition for intervention.
 \paragraph{Institutions and delegated objectives.}
 Principal--agent analysis distinguishes an objective holder from an agent
 authorized to act on its behalf and treats discretion, monitoring, and agency
-loss as linked design problems \cite{moe1984economics}. Political oversight can
+loss as linked design problems \cite{moe1984economics,huber2002discretion}.
+Political oversight can
 rely on continuing inspection or on intervention triggered by evidence from
 affected parties \cite{mccubbins1984oversight}; administrative procedures can
 also structure which information enters a decision and constrain delegated
@@ -197,8 +198,10 @@ can turn a success into a failure.
 \subsection{Models and execution}
 
 We use two open-weight instruction models run locally in four-bit MLX format:
-Qwen3-8B \cite{yang2025qwen3} and Mistral-Small-24B-Instruct-2501
-\cite{mistral2025small}. Every generation uses temperature zero. Model, task,
+Qwen3-8B \cite{yang2025qwen3,mlxcommunity2025qwen3} and
+Mistral-Small-24B-Instruct-2501
+\cite{mistral2025small,mlxcommunity2025mistral}. Every generation uses
+temperature zero. Model, task,
 prompt, information, response budget, and reviewer output are fixed within each
 paired institutional comparison. Alternatives are presented in a deterministic
 task-specific shuffle to avoid a globally privileged table position.
@@ -470,7 +473,7 @@ model API is required to audit the reported results.
 
 \bibliographystyle{plainurl}
 \begingroup
-\small
+\footnotesize
 \bibliography{references}
 \endgroup
 
