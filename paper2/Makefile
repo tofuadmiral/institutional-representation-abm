@@ -1,6 +1,6 @@
 PYTHON ?= ../.venv/bin/python
 
-.PHONY: all artifacts clean
+.PHONY: all artifacts arxiv-package clean
 
 all: main.pdf
 
@@ -13,5 +13,8 @@ main.pdf: main.tex references.bib tables/state_effects.tex tables/natural_result
 	pdflatex -interaction=nonstopmode -halt-on-error main.tex
 	pdflatex -interaction=nonstopmode -halt-on-error main.tex
 
+arxiv-package: main.pdf
+	./scripts/build_arxiv_package.sh
+
 clean:
-	rm -f main.aux main.bbl main.blg main.log main.out main.pdf
+	rm -f main.aux main.bbl main.blg main.log main.out main.pdf arxiv-submission.tar.gz

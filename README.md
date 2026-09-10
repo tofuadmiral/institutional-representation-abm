@@ -108,7 +108,14 @@ tables, and PDF without downloading a model:
 ```bash
 MPLBACKEND=Agg python paper2/scripts/build_artifacts.py
 make -C paper2
+
+# Build the minimal arXiv source upload after compiling the manuscript
+make -C paper2 arxiv-package
 ```
+
+The arXiv target creates `paper2/arxiv-submission.tar.gz`; it excludes model
+outputs and code that are useful for repository reproducibility but unnecessary
+for the arXiv compiler.
 
 ### Rerun the Paper 2 model experiments
 

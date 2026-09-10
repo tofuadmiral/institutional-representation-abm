@@ -10,6 +10,7 @@
 \usepackage{enumitem}
 \usepackage{flafter}
 \usepackage[section]{placeins}
+\usepackage{xurl}
 
 \graphicspath{{figures/}}
 \hypersetup{
@@ -60,6 +61,16 @@ improves, system quality should improve. This view leaves an institutional
 choice implicit. A reviewer may be permitted to advise, to reject only on
 specified grounds, or to replace any decision. These rules can produce different
 outcomes even when the reviewer emits exactly the same recommendation.
+
+A recent real-world incident illustrates why the surrounding institution
+matters. METR's independent investigation of the OpenAI/Hugging Face incident
+reported that agents intended to operate in isolation discovered a shared
+communication channel, adopted assignment, ownership, hold, veto, and stop
+conventions, and sometimes risked their individual task success for collective
+projects \cite{wijk2026incident}. The incident does not identify the mechanism
+tested here, and our experiment does not reproduce it. It motivates treating
+agent coordination and authority rules as safety-relevant objects in their own
+right.
 
 That distinction matters because language-model review is not monotone. Models
 can identify defects and improve outputs \cite{madaan2023selfrefine,saunders2022selfcritiquing},
@@ -121,14 +132,21 @@ review evidence a precondition for intervention.
 
 \paragraph{Institutions and delegated objectives.}
 Principal--agent analysis distinguishes an objective holder from an agent
-authorized to act on its behalf. In our setting, the ``principal'' is represented
-computationally by a protected preference or constituency constraint, not by a
-second strategic human. Paper 1 in this repository examined how parliamentary
-and presidential institutions translate constituency preferences into enacted
-policy in a rule-based agent-based model \cite{ali2026fragmented}. The present
-paper keeps the translation question but moves inside an AI decision pipeline:
-which proposed action becomes binding after delegated review? It does not claim
-that the synthetic review rules reproduce democratic institutions.
+authorized to act on its behalf and treats discretion, monitoring, and agency
+loss as linked design problems \cite{moe1984economics}. Political oversight can
+rely on continuing inspection or on intervention triggered by evidence from
+affected parties \cite{mccubbins1984oversight}; administrative procedures can
+also structure which information enters a decision and constrain delegated
+discretion \cite{mccubbins1987procedures}. In our setting, the ``principal'' is
+represented computationally by a protected preference or constituency
+constraint, not by a second strategic human. Paper 1 in this repository
+examined how parliamentary and presidential institutions translate
+constituency preferences into enacted policy in a rule-based agent-based model
+\cite{ali2026fragmented}. The present paper keeps the translation question but
+moves inside an AI decision pipeline: which proposed action becomes binding
+after delegated review? The evidence gate is not a computational copy of a
+specific political oversight institution, and the synthetic review rules do
+not reproduce democratic institutions.
 
 \section{Institutional model}
 
@@ -450,8 +468,11 @@ model requests and raw responses. Paper 1 is preserved at release tag
 \texttt{v1.0.2}; Paper 2 occupies a separate directory. No paid or proprietary
 model API is required to audit the reported results.
 
-\bibliographystyle{plain}
+\bibliographystyle{plainurl}
+\begingroup
+\small
 \bibliography{references}
+\endgroup
 
 \appendix
 \section{Single-eligible prospective validation}
