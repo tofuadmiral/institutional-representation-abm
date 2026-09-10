@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -31,7 +32,15 @@ INSTITUTION_LABELS = {
 
 
 def pct(value: float, digits: int = 1) -> str:
-    return f"{100 * value:.{digits}f}"
+    quantum = Decimal(1).scaleb(-digits)
+    rounded = (Decimal(str(value)) * 100).quantize(quantum, rounding=ROUND_HALF_UP)
+    return f"{rounded:.{digits}f}"
+
+
+def signed_pct(value: float, digits: int = 1) -> str:
+    quantum = Decimal(1).scaleb(-digits)
+    rounded = (Decimal(str(value)) * 100).quantize(quantum, rounding=ROUND_HALF_UP)
+    return f"{rounded:+.{digits}f}"
 
 
 def tex_escape(value: object) -> str:
@@ -111,7 +120,7 @@ def build_state_effect_figure() -> None:
                 ax.text(
                     bar.get_x() + bar.get_width() / 2,
                     100 * value + offset,
-                    f"{100 * value:+.1f}",
+                    signed_pct(value),
                     ha="center",
                     va="center",
                     fontsize=8,
@@ -158,9 +167,17 @@ def build_natural_figure() -> None:
         ax.grid(axis="y", color="#dddddd", linewidth=0.6)
         ax.set_axisbelow(True)
     axes[0].set_ylabel("Rate (%)")
-    axes[1].legend(frameon=False, loc="lower right")
-    fig.suptitle("Outcomes with naturally generated spatial proposals", y=0.99)
-    fig.tight_layout()
+    handles, labels = axes[1].get_legend_handles_labels()
+    fig.legend(
+        handles,
+        labels,
+        frameon=False,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.91),
+        ncol=3,
+    )
+    fig.suptitle("Outcomes with naturally generated spatial proposals", y=0.995)
+    fig.tight_layout(rect=(0, 0, 1, 0.84))
     for suffix in ("pdf", "png"):
         fig.savefig(FIGURES / f"natural_proposal_outcomes.{suffix}", dpi=220)
     plt.close(fig)

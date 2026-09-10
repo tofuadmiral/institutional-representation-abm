@@ -41,8 +41,11 @@ replacement only after the reviewer produces a mechanically valid record of a
 binding-constraint violation and a compliant repair. Across two locally run
 open-weight models, 96 spatial-policy tasks, and a 96-task portfolio-transfer
 benchmark, the gate sharply reduces corruption of correct proposals while
-retaining most repairs of violations. It also prevents reviewers from improving
-compliant but suboptimal proposals. Consequently, the institution that maximizes
+retaining most repairs of violations. The directions of this tradeoff are partly
+implied by the rule: the gate preserves nonviolating proposals, including both
+correct and suboptimal ones. The empirical quantities are its magnitude, the
+repairs lost to invalid certificates, and the reviewer transition rates that
+determine deployment outcomes. Consequently, the institution that maximizes
 exact optimality depends on the prevalence of upstream proposal states and on
 the reviewer's state-conditional competence. On naturally generated spatial
 proposals, the gate improves compliance for both models but its exact-optimality
@@ -93,15 +96,16 @@ record correctly demonstrates that the proposal violates the protected duty and
 the recommended replacement satisfies it. Both institutions receive the same
 review output. Only the authorization rule changes.
 
-Our contribution is threefold. First, we define the correction--corruption
-frontier induced by reviewer jurisdiction. Second, controlled fault injection
-identifies state-conditional effects for proposals that are correct, violating,
-or compliant but suboptimal. Third, a second decision domain and naturally
-generated upstream proposals test transfer and expose the role of base rates.
-The core result is deliberately conditional: evidence-gated review reliably
-protects compliance and already-correct decisions, but broad review can dominate
-exact optimality when compliant suboptimal proposals are sufficiently common
-and the reviewer can improve them.
+Our contribution is not the definitional observation that a gate blocks changes
+outside its jurisdiction. We make that mechanical implication explicit, then
+estimate the quantities it leaves unknown: reviewer transitions in each proposal
+state, repairs rejected because their evidence is invalid, the proposal states
+that arise without fault injection, and the deployment mixtures under which each
+rule wins. A second decision domain tests whether those empirical quantities,
+rather than merely the rule's signs, transfer. The result is deliberately
+conditional: evidence-gated review protects compliance and already-correct
+decisions, but broad review can dominate exact optimality when compliant
+suboptimal proposals are sufficiently common and the reviewer can improve them.
 
 \section{Related work}
 
@@ -176,8 +180,9 @@ f_{G}(a_0,r) &=
   \text{ and a compliant repair},\\a_0&\text{otherwise.}\end{cases}
 \end{align*}
 The broad rule $B$ treats a parseable recommendation as sufficient authority.
-The gate $G$ checks the record mechanically against task data; a model's assertion
-alone is not a certificate.
+The reviewer may recommend retaining $a_0$; broad authority does not require a
+different choice. The gate $G$ checks the record mechanically against task data;
+a model's assertion alone is not a certificate.
 
 For outcome $Y$ (exact optimality or compliance), define the conditional
 jurisdiction effect
@@ -192,6 +197,15 @@ This identity separates reviewer behavior from deployment composition. The gate
 contracts the \emph{correction domain}---cases a reviewer is allowed to change---
 and simultaneously contracts the \emph{corruption surface}---cases where review
 can turn a success into a failure.
+
+Two effect directions follow mechanically from these rules when the checker is
+correct: $\delta_C\geq0$, because $G$ retains a correct proposal, and
+$\delta_U\leq0$, because $G$ cannot optimize a compliant proposal. These signs
+are policy implications, not empirical discoveries. Their magnitudes depend on
+how often broad review corrupts $C$ or repairs $U$; effects in $V$ also depend on
+whether a useful recommendation carries a valid certificate. Those transition
+and certificate rates, together with the naturally occurring state mixture, are
+the empirical objects estimated below.
 
 \section{Experimental design}
 
@@ -237,6 +251,13 @@ serves as a simpler prospective validation. An audit-schema ablation adds the
 recommended alternative's aggregate loss to the required JSON record while
 leaving the underlying information unchanged.
 
+The sequence was frozen in repository history before later results were run:
+the single-eligible protocol at commit \texttt{3e27cce}, the audit-schema
+ablation at \texttt{950a851}, and the natural-proposal and transfer validations
+at \texttt{47c41a3}. This is a timestamped design record rather than a registered
+preregistration; exploratory choices preceding the first freeze should not be
+interpreted as confirmatory.
+
 We then ask each model to generate its own upstream proposal on the 96
 multi-eligible tasks and pass that proposal to a separate reviewer call of the
 same model. This estimates benchmark-conditional state frequencies; it is not an
@@ -264,10 +285,13 @@ therefore emphasize conditional effects and Equation~\ref{eq:mixture}.
 
 \section{Results}
 
-\subsection{Jurisdiction creates a state-conditional tradeoff}
+\subsection{Reviewer transitions determine the magnitude of the tradeoff}
 
 Figure~\ref{fig:conditional} and Table~\ref{tab:conditional} report the primary
-controlled effects. On spatial tasks, broad review changed 85 of 96 correct
+controlled effects. As established above, the signs for states $C$ and $U$ are
+implied by the authorization rules; the experiments estimate how much reviewer
+behavior makes those restrictions matter. On spatial tasks, broad review changed
+85 of 96 correct
 proposals to non-optimal alternatives for each model. The evidence gate left all
 correct proposals unchanged, an $+88.5$ percentage-point exact effect for both
 models. The gate did not change exact repair performance on violations. Its cost
@@ -399,6 +423,12 @@ reaches the world. A broad reviewer has a larger correction domain and a larger
 corruption surface. An evidence gate shrinks both. Neither label---``review'' or
 ``oversight''---specifies that tradeoff.
 
+The framework is therefore a policy decomposition, not evidence that the gate
+causes a reviewer to reason differently. We estimate a fixed reviewer's
+state-conditional transitions and ask which are allowed to bind. An institution
+that changes reviewer incentives, information seeking, or deliberation could
+produce different review messages and lies outside this identification strategy.
+
 This reframing also clarifies what should be measured before deployment. A
 designer needs (i) the upstream frequencies $\pi_C,\pi_V,\pi_U$; (ii) the
 reviewer's transition rates in each state; (iii) the relative cost of violations
@@ -445,23 +475,31 @@ outputs across inference software or model revisions. Finally, a gate inherits
 the specification of its certificate: an incomplete protected duty can preserve
 the wrong objective very reliably.
 
+The broad rule is intentionally maximal: every parseable recommendation binds,
+although the reviewer can recommend retaining the original proposal. Production
+systems may instead offer explicit approval, abstention, confidence thresholds,
+or escalation. We do not establish that broad override as implemented here is
+the best alternative to evidence gating. Likewise, the portfolio benchmark
+changes objective direction and constraint structure but remains a discrete
+tabular task; it is structural rather than real-world transfer.
+
 These limitations constrain the claim to the tested mechanism. The experiments
 do not show that evidence gates make multi-agent systems generally safe, that
 reviewers reason causally, or that constrained authority always improves welfare.
-They show that authority scope itself is an experimentally identifiable source
-of system behavior.
+They show that, conditional on fixed reviewer behavior, authority scope is an
+experimentally identifiable source of final system behavior.
 
 \section{Conclusion}
 
 Adding a reviewer does not define an institution. One must also decide when the
 reviewer's recommendation can overrule the agent entrusted with the original
-decision. Across two models and two synthetic domains, evidence-gated authority
-preserved correct and compliant proposals and retained most violation repairs,
-but surrendered broad review's ability to improve compliant suboptimal choices.
-The resulting correction--corruption frontier is governed by upstream state
-prevalence and state-conditional reviewer competence. For LLM agent systems,
-reviewer jurisdiction is therefore a first-class design variable, not an
-implementation detail.
+decision. Our rules mechanically determine which proposal states are open to
+revision; model behavior determines whether that authority would correct or
+corrupt them and by how much. Across two models and two synthetic domains, the
+measured transition rates varied substantially, producing different prevalence
+frontiers and no universal exact-optimality winner. For LLM agent systems,
+reviewer jurisdiction and reviewer competence must therefore be evaluated
+jointly.
 
 \section*{Reproducibility statement}
 
