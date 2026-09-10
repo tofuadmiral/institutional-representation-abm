@@ -1,0 +1,13 @@
+scope,institution,metric,n,proposal_rate,reviewed_rate,net_effect,errors_corrected,successes_spoiled
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,broad_override,protected_oracle_match,96,0.041666666666666664,0.0625,0.020833333333333336,6,4
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,broad_override,constraint_followed,96,0.96875,0.9895833333333334,0.02083333333333337,3,1
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,certificate_gate,protected_oracle_match,96,0.041666666666666664,0.041666666666666664,0.0,0,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,certificate_gate,constraint_followed,96,0.96875,1.0,0.03125,3,0
+mlx-community/Qwen3-8B-4bit,broad_override,protected_oracle_match,96,0.08333333333333333,0.03125,-0.05208333333333333,2,7
+mlx-community/Qwen3-8B-4bit,broad_override,constraint_followed,96,0.8541666666666666,0.8958333333333334,0.04166666666666674,11,7
+mlx-community/Qwen3-8B-4bit,certificate_gate,protected_oracle_match,96,0.08333333333333333,0.09375,0.010416666666666671,1,0
+mlx-community/Qwen3-8B-4bit,certificate_gate,constraint_followed,96,0.8541666666666666,0.96875,0.11458333333333337,11,0
+pooled_models,broad_override,protected_oracle_match,192,0.0625,0.046875,-0.015625,8,11
+pooled_models,broad_override,constraint_followed,192,0.9114583333333334,0.9427083333333334,0.03125,14,8
+pooled_models,certificate_gate,protected_oracle_match,192,0.0625,0.06770833333333333,0.005208333333333329,1,0
+pooled_models,certificate_gate,constraint_followed,192,0.9114583333333334,0.984375,0.07291666666666663,14,0

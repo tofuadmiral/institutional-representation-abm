@@ -1,177 +1,182 @@
-# Institutional Representation ABM
+# Institutional Representation Research
 
-*How democratic institutions mediate the translation of citizen preferences into legislative outcomes.*
+*How institutions translate represented objectives into binding collective decisions.*
 
 [![CI](https://github.com/tofuadmiral/institutional-representation-abm/actions/workflows/ci.yml/badge.svg)](https://github.com/tofuadmiral/institutional-representation-abm/actions/workflows/ci.yml)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![arXiv](https://img.shields.io/badge/arXiv-2608.24554-b31b1b.svg)](https://arxiv.org/abs/2608.24554)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22119500.svg)](https://doi.org/10.5281/zenodo.22119500)
-[![Tests](https://img.shields.io/badge/tests-80%20passing-brightgreen.svg)](tests/)
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://institutional-representation-abm.streamlit.app/)
+[![Paper 1](https://img.shields.io/badge/arXiv-2608.24554-b31b1b.svg)](https://arxiv.org/abs/2608.24554)
+[![Paper 1 archive](https://zenodo.org/badge/DOI/10.5281/zenodo.22119500.svg)](https://doi.org/10.5281/zenodo.22119500)
+
+This repository contains two related but separate studies. Paper 1 uses a
+rule-based agent-based model of democratic legislative institutions. Paper 2
+uses open-weight language models in a proposer-reviewer decision pipeline. The
+shared question is how institutional rules shape the translation from represented
+preferences or duties to final outcomes.
+
+## Papers
+
+### Paper 1 — published preprint and frozen release
+
+**Why fragmented parliaments stop passing legislation: Opposition discipline
+and representation across four democratic institutions**
+
+- [arXiv:2608.24554](https://arxiv.org/abs/2608.24554)
+- [Manuscript PDF](paper/main.pdf)
+- [Conference poster](paper/poster.pdf)
+- [Interactive model](https://institutional-representation-abm.streamlit.app/)
+- Canonical reproducibility snapshot: [`v1.0.2`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v1.0.2)
+- Archived software DOI: [10.5281/zenodo.22119501](https://doi.org/10.5281/zenodo.22119501)
+
+Paper 1 compares parliamentary, presidential/republican,
+premier-presidential, and president-parliamentary systems. Across simulation,
+sensitivity analysis, and mechanism ablations, it finds that fragmentation
+alone does not stop legislation: collapse requires cohesive opposition
+discipline. It also identifies a passage-representation tradeoff between
+legislative throughput and the distance of enacted policy from constituency
+preferences.
+
+The root `CITATION.cff` and `.zenodo.json` describe the frozen Paper 1 software
+release. Later commits on `main` include Paper 2 and are not the tree analyzed by
+Paper 1.
+
+### Paper 2 — complete working manuscript
+
+**Who May Overrule the Agent? Evidence-Gated Authority in LLM Review
+Institutions**
+
+- [Manuscript PDF](paper2/main.pdf)
+- [Paper 2 source and reproduction guide](paper2/README.md)
+- [Frozen processed results and raw model outputs](paper2/data/README.md)
+
+Paper 2 studies a two-agent decision institution. An upstream language-model
+agent proposes a binding action, and a second language-model agent reviews it.
+The treatment changes only the reviewer's jurisdiction:
+
+- **Broad override:** any parseable recommendation can replace the proposal.
+- **Evidence gate:** replacement requires a mechanically valid record of a
+  binding-constraint violation and a compliant repair.
+
+Across Qwen3-8B and Mistral-Small-24B, the gate protects correct and compliant
+proposals while retaining most repairs of violations. It also prevents reviewers
+from improving compliant but suboptimal proposals. The resulting finding is a
+correction-corruption frontier: the exact-welfare winner depends on the upstream
+mix of proposal states and the reviewer's state-conditional competence.
 
 <p align="center">
-  <img src="docs/figures/forest_passage.png" width="85%" alt="Passage rates across four institutions and four scenarios (N=200 seeds)">
+  <img src="paper2/figures/state_conditional_effects.png" width="88%" alt="State-conditional effects of evidence-gated versus broad review authority">
 </p>
-
-<p align="center">
-  <b>🔗 <a href="https://institutional-representation-abm.streamlit.app/">Live interactive demo</a></b>
-  &nbsp;·&nbsp;
-  <b>📄 <a href="https://arxiv.org/abs/2608.24554">Paper (arXiv:2608.24554)</a></b>
-  &nbsp;·&nbsp;
-  <b>📋 <a href="paper/poster.pdf">Conference poster (A0)</a></b>
-  &nbsp;·&nbsp;
-  <b>📝 <a href="docs/blog_draft.pdf">Blog post (PDF)</a></b>
-  &nbsp;·&nbsp;
-  <a href="docs/PHASE_H_NOTES.md">Phase H notes</a>
-</p>
-
-This repository implements a Mesa-based agent-based model that compares four democratic legislative institutions (pure parliamentary, pure republican, premier-presidential, president-parliamentary) across four scenarios (baseline, fragmented, polarised, small-system) with a full statistical harness (N=200 seeds, bootstrap CIs, Morris and Sobol sensitivity, mechanism ablations).
 
 ## Quick start
 
+Create the shared analysis environment and run the full test suite:
+
 ```bash
-python3 -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 pytest tests/ -v
+```
 
-# full four-institution comparison at N=200 seeds (~5 minutes on 8 cores)
+### Reproduce Paper 1
+
+For exact Paper 1 reproduction, check out tag `v1.0.2`. On the current tree,
+the original commands remain available:
+
+```bash
+# Four institutions × four scenarios, N=200 seeds
 python -m experiments.multiseed_comparison --scenarios all --seeds 200 --output results/main/
 
-# hung-parliament variant comparison (Phase H decomposition)
+# Hung-parliament decomposition
 python -m experiments.hung_parliament --seeds 200 --output results/phase_h/
 
-# Morris + Sobol sensitivity analysis
+# Sensitivity analysis and mechanism ablations
 python -m experiments.sensitivity --output results/main/
-
-# mechanism ablations (committees / discipline / veto)
 python -m experiments.ablation --scenarios baseline fragmented polarized --seeds 200 --output results/main/
 
-# passage-representation tradeoff figure
-python -m experiments.representation --seeds 200 --output results/phase_g/
-
-# discipline-default robustness sweep
-python -m experiments.discipline_robustness --seeds 100 --output results/phase_f/
-
-# interactive UI with sliders over every config parameter
-# (or use the hosted version: https://institutional-representation-abm.streamlit.app/)
+# Interactive UI
 streamlit run streamlit_app/app.py
 ```
 
-## Headline findings
+Build the Paper 1 PDF with `make -C paper`.
 
-### 1. Fragmented parliaments collapse only when oppositions cohere
+### Reproduce Paper 2 without model calls
 
-Under fragmentation, no coalition can form, and parliamentary passage collapses to 0.05%. Formation failure by itself doesn't explain it: a new `hung_parliament_behavior` flag separates two readings of a hung parliament.
+All reported model outputs are frozen in `paper2/data/`. Regenerate the figures,
+tables, and PDF without downloading a model:
 
-| Institution | Cohesive obstruction | Personal vote | Δ |
-|---|---:|---:|---:|
-| Parliamentary | 0.0005 | **0.464** | +0.464 |
-| Premier-presidential | 0.013 | 0.333 | +0.320 |
-| President-parliamentary | 0.086 | 0.086 | 0 |
-| Republican | 0.448 | 0.448 | 0 |
+```bash
+MPLBACKEND=Agg python paper2/scripts/build_artifacts.py
+make -C paper2
+```
 
-With MPs voting personally (the issue-by-issue-majority world of Strøm-style minority governance), fragmented parliamentary passage is statistically indistinguishable from the presidential benchmark (46.4% vs 44.8%). Collapse requires cohesive obstruction — every MP whipped against all business, the anti-system pattern of polarised blocs like Weimar's. The flag binds only where the coalition list can be empty, so the other six cells are bit-identical across variants.
+### Rerun the Paper 2 model experiments
 
-The `no_discipline` ablation corroborates from an independent direction: zeroing the whip everywhere restores passage to 46.7%, and the rescue magnitude falls monotonically across the four institutions in the order of their dependence on parliamentary-majority government formation:
+The original runs used a local OpenAI-compatible MLX server and the model IDs
+`mlx-community/Qwen3-8B-4bit` and
+`mlx-community/Mistral-Small-24B-Instruct-2501-4bit`. After starting one model
+at `http://127.0.0.1:8000/v1`, the frozen experiments can be rerun as follows:
 
-| Institution | Passage @ fragmented | `no_discipline` Δ |
-|---|---:|---:|
-| Parliamentary | 0.0005 | **+0.466** |
-| Premier-presidential | 0.013 | +0.312 |
-| President-parliamentary | 0.086 | +0.228 |
-| Republican | 0.448 | −0.242 |
+```bash
+# Controlled spatial-policy states
+python -m experiments.prospective_certificate_gate \
+  --model mlx-community/Qwen3-8B-4bit \
+  --mandate-design multi_eligible --tasks-per-scenario 32 \
+  --base-seed 95000 --agents 7 --output results/paper2/spatial_qwen
 
-Under polarisation the same ordering holds in magnitude but with the opposite sign (`no_discipline` costs parliamentary 66 percentage points). Discipline is the mechanism blocs use to aggregate votes: governing coalitions pass, anti-system oppositions obstruct. The sign of its effect flips with scenario; which side holds the whip in a hung parliament decides whether it legislates at all.
+# Naturally generated upstream proposals
+python -m experiments.natural_proposer_validation \
+  --model mlx-community/Qwen3-8B-4bit \
+  --tasks-per-scenario 32 --base-seed 95000 --agents 7 \
+  --output results/paper2/natural_qwen
 
-### 2. Passage–representation tradeoff
+# Portfolio-transfer benchmark
+python -m experiments.portfolio_certificate_gate \
+  --model mlx-community/Qwen3-8B-4bit \
+  --tasks-per-stratum 32 --base-seed 120000 \
+  --output results/paper2/portfolio_qwen
+```
 
-A new `policy_representation_gap` metric (L2 distance between passed bills and constituency median) shows that filtering and throughput lie on a single spectrum:
+Repeat with the Mistral model ID for the cross-model replication. The command
+line accepts a different `--base-url`, so a compatible hosted endpoint can be
+used, but that would be a new replication rather than the frozen local run.
 
-| Institution | Passage @ polarised | Representation gap |
-|---|---:|---:|
-| Parliamentary | 0.882 | +0.037 |
-| Premier-presidential | 0.725 | −0.012 |
-| President-parliamentary | 0.730 | −0.010 |
-| Republican | 0.218 | **−0.530** |
+## Repository map
 
-Parliamentary maximises legislative throughput at the cost of representational fidelity. Republican maximises fidelity via the presidential veto at the cost of throughput. Semi-presidential variants split the difference.
-
-### Figures
-
-<table>
-  <tr>
-    <td align="center"><img src="docs/figures/hung_parliament_comparison.png" width="100%"><br><sub>Hung-parliament decomposition</sub></td>
-    <td align="center"><img src="docs/figures/ablation_forest.png" width="100%"><br><sub>Mechanism ablations</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="docs/figures/sobol_bars.png" width="100%"><br><sub>Sobol variance decomposition</sub></td>
-    <td align="center"><img src="docs/figures/representation_tradeoff.png" width="100%"><br><sub>Passage–representation tradeoff</sub></td>
-  </tr>
-</table>
-
-## Architecture
-
-| Package | Purpose |
+| Path | Purpose |
 |---|---|
-| `institutions/` | Four institutional presets across three Mesa `Model` classes (`ParliamentaryModel`, `RepublicanModel`, `SemiPresidentialModel`) |
-| `agents/` | `LegislatorAgent`, `ConstituencyAgent`, `PartyAgent`, `CommitteeAgent` |
-| `config/` | Frozen `@dataclass` configs; every mechanism knob lives here |
-| `experiments/` | CLI runners: `multiseed_comparison`, `hung_parliament`, `clustered_robustness`, `sensitivity`, `ablation`, `parameter_sweep`, `discipline_robustness`, `representation` |
-| `analysis/` | Bootstrap CIs, Welch/Mann-Whitney/Cohen's d (`aggregate.py`) and plotting (`plots.py`, `sensitivity_plots.py`, `representation_plots.py`, `robustness_plots.py`) |
-| `streamlit_app/` | Interactive UI exposing every config parameter as a slider, with scenario-comparison, parameter-sweep, and ablation tabs |
-| `tests/` | 80 tests covering determinism, config, mechanisms, multiseed, regression, sensitivity, ablation, semi-presidential, robustness, representation, clustered-init, and Streamlit |
-| `paper/` | LaTeX manuscript (`main.tex`), bibliography, Makefile |
-| `.github/workflows/ci.yml` | Python 3.13 CI on Ubuntu |
+| `paper/` | Paper 1 manuscript, bibliography, poster, and PDF |
+| `institutions/`, `agents/`, `bills/`, `config/` | Paper 1 Mesa model |
+| `analysis/` | Paper 1 statistical and plotting code |
+| `streamlit_app/` | Paper 1 interactive interface |
+| `agent_exploration/` | Paper 2 preferences, mandates, authority rules, metrics, and local-model interface |
+| `experiments/` | Runners and analyses for both papers |
+| `paper2/` | Paper 2 manuscript, frozen data, figures, tables, and artifact builder |
+| `tests/` | Regression and unit tests for both research programs |
+| `docs/` | Paper 1 ODD protocol, metadata, figures, and implementation notes |
 
-The `SemiPresidentialConfig` has two independent toggles (`government_formation` and `president_can_dismiss_pm`) that reach both Shugart-Carey variants from a single class. Use the `premier_presidential_config()` or `president_parliamentary_config()` presets, or mix toggles freely.
+## Reproducibility boundaries
 
-## Documentation
-
-| File | Contents |
-|---|---|
-| [`paper/main.tex`](paper/main.tex) | JASSS-targeted manuscript |
-| [`docs/ODD_PROTOCOL.md`](docs/ODD_PROTOCOL.md) | Full ODD description (Grimm et al. 2020) |
-| [`docs/COMSES_METADATA.md`](docs/COMSES_METADATA.md) | CoMSES Network deposit card |
-| [`docs/PHASE_A_NOTES.md`](docs/PHASE_A_NOTES.md) | Statistical harness and hypothesis tests |
-| [`docs/PHASE_B_NOTES.md`](docs/PHASE_B_NOTES.md) | Sensitivity analysis and mechanism ablations |
-| [`docs/PHASE_C_NOTES.md`](docs/PHASE_C_NOTES.md) | Semi-presidential variants |
-| [`docs/PHASE_D_NOTES.md`](docs/PHASE_D_NOTES.md) | Streamlit interactive UI |
-| [`docs/PHASE_E_NOTES.md`](docs/PHASE_E_NOTES.md) | Paper scaffold |
-| [`docs/PHASE_F_NOTES.md`](docs/PHASE_F_NOTES.md) | Robustness checks and the dismissal fix |
-| [`docs/PHASE_G_NOTES.md`](docs/PHASE_G_NOTES.md) | Representation metric and real-world benchmarks |
-| [`docs/PHASE_H_NOTES.md`](docs/PHASE_H_NOTES.md) | Hung-parliament decomposition and bibliography audit |
-
-## Reproducibility
-
-All results are deterministic under seed. The pinned regression fixture [`institutional_comparison_results.csv`](institutional_comparison_results.csv) is checked against [`tests/test_regression.py`](tests/test_regression.py) on every push, so any mechanism change that shifts seed-42 outputs for parliamentary or republican fails CI. The Phase H `hung_parliament_behavior` flag defaults to `cohesive_obstruction`, which reproduces all pre-Phase-H numbers exactly — the fixture is unchanged. A second regression test enforces that the Phase F monotone rescue ordering survives at representative discipline levels.
-
-Full 200-seed four-institution runs complete in under five minutes on eight cores. All figures in this README and in the paper are reproducible from the CLI entry points listed in Quick Start.
+Paper 1's exact published tree is release tag `v1.0.2`; its deterministic
+seed-42 fixture is enforced by CI. Paper 2 uses deterministic task generators,
+fixed task streams, temperature-zero decoding, task-clustered bootstrap
+intervals, and a checked-in archive of every prompt and raw response. Exact
+language-model generations can still depend on model revisions and inference
+software, so the frozen outputs—not a newly downloaded checkpoint—are the source
+for the manuscript's reported numbers.
 
 ## Citation
 
-If you use this work, please cite the paper ([`CITATION.cff`](CITATION.cff) carries the machine-readable version):
+For Paper 1:
 
-```
+```text
 Ali, F. (2026). Why fragmented parliaments stop passing legislation:
   Opposition discipline and representation across four democratic institutions.
   arXiv:2608.24554. https://arxiv.org/abs/2608.24554
 ```
 
-To cite the software artifact itself (the archived snapshot matching the paper):
-
-```
-Ali, F. (2026). Institutional Representation ABM (v1.0.2) [Software]. Zenodo.
-  https://doi.org/10.5281/zenodo.22119501
-```
-
-The arXiv v1 preprint corresponds to repository tags
-[`v1.0.1`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v1.0.1)
-and [`v1.0.2`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v1.0.2)
-(identical trees apart from citation metadata; v1.0.2 is the Zenodo-archived
-one — DOI [10.5281/zenodo.22119501](https://doi.org/10.5281/zenodo.22119501)).
-Every figure and table in the paper regenerates from that tree. Later commits
-on `main` may extend the model beyond what the paper describes.
+Paper 2 is a working manuscript and does not yet have an archival identifier.
+Its title, author, and frozen evidence are recorded in `paper2/`.
 
 ## License
 

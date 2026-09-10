@@ -1,0 +1,13 @@
+model,scenario,proposal_state,n,broad_rate,certificate_gate_rate,effect
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,fragmented,aggregate_pressure_violation,32,1.0,1.0,0.0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,fragmented,oracle_correct,32,1.0,1.0,0.0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,intense_minority,aggregate_pressure_violation,32,0.96875,0.96875,0.0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,intense_minority,oracle_correct,32,0.90625,1.0,0.09375
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,polarized,aggregate_pressure_violation,32,0.96875,0.96875,0.0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,polarized,oracle_correct,32,0.9375,1.0,0.0625
+mlx-community/Qwen3-8B-4bit,fragmented,aggregate_pressure_violation,32,0.96875,0.90625,-0.0625
+mlx-community/Qwen3-8B-4bit,fragmented,oracle_correct,32,0.90625,1.0,0.09375
+mlx-community/Qwen3-8B-4bit,intense_minority,aggregate_pressure_violation,32,1.0,1.0,0.0
+mlx-community/Qwen3-8B-4bit,intense_minority,oracle_correct,32,0.96875,1.0,0.03125
+mlx-community/Qwen3-8B-4bit,polarized,aggregate_pressure_violation,32,0.90625,0.90625,0.0
+mlx-community/Qwen3-8B-4bit,polarized,oracle_correct,32,0.875,1.0,0.125

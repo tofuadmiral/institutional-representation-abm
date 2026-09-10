@@ -1,0 +1,4 @@
+proposal_state,n,valid_response_rate,format_normalization_rate,valid_certificate_rate,valid_repair_certificate_rate
+compliant_suboptimal,74,1.0,0.0,1.0,0.0
+oracle_correct,8,1.0,0.0,1.0,0.0
+protected_violation,14,1.0,0.0,1.0,0.7857142857142857

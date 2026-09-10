@@ -1,0 +1,17 @@
+model,scope,metric,n_tasks,n_conditions,broad_rate,certificate_gate_rate,effect,ci_low,ci_high,broad_wrong_gate_correct,broad_correct_gate_wrong
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,all,protected_oracle_match,96,96,0.0625,0.041666666666666664,-0.020833333333333332,-0.08333333333333333,0.041666666666666664,4,6
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,all,constraint_followed,96,96,0.9895833333333334,1.0,0.010416666666666666,0.0,0.03125,1,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,protected_oracle_match,89,89,0.06741573033707865,0.0,-0.06741573033707865,-0.12359550561797752,-0.02247191011235955,0,6
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,constraint_followed,89,89,0.9887640449438202,1.0,0.011235955056179775,0.0,0.033707865168539325,1,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,oracle_correct,protected_oracle_match,4,4,0.0,1.0,1.0,1.0,1.0,4,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,oracle_correct,constraint_followed,4,4,1.0,1.0,0.0,0.0,0.0,0,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,protected_violation,protected_oracle_match,3,3,0.0,0.0,0.0,0.0,0.0,0,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,protected_violation,constraint_followed,3,3,1.0,1.0,0.0,0.0,0.0,0,0
+mlx-community/Qwen3-8B-4bit,all,protected_oracle_match,96,96,0.03125,0.09375,0.0625,0.010416666666666666,0.125,7,1
+mlx-community/Qwen3-8B-4bit,all,constraint_followed,96,96,0.8958333333333334,0.96875,0.07291666666666667,0.020833333333333332,0.125,7,0
+mlx-community/Qwen3-8B-4bit,compliant_suboptimal,protected_oracle_match,74,74,0.013513513513513514,0.0,-0.013513513513513514,-0.04054054054054054,0.0,0,1
+mlx-community/Qwen3-8B-4bit,compliant_suboptimal,constraint_followed,74,74,0.918918918918919,1.0,0.08108108108108109,0.02702702702702703,0.14864864864864866,6,0
+mlx-community/Qwen3-8B-4bit,oracle_correct,protected_oracle_match,8,8,0.125,1.0,0.875,0.625,1.0,7,0
+mlx-community/Qwen3-8B-4bit,oracle_correct,constraint_followed,8,8,0.875,1.0,0.125,0.0,0.375,1,0
+mlx-community/Qwen3-8B-4bit,protected_violation,protected_oracle_match,14,14,0.07142857142857142,0.07142857142857142,0.0,0.0,0.0,0,0
+mlx-community/Qwen3-8B-4bit,protected_violation,constraint_followed,14,14,0.7857142857142857,0.7857142857142857,0.0,0.0,0.0,0,0

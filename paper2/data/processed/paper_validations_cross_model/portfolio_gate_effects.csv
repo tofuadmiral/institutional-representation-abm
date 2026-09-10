@@ -1,0 +1,17 @@
+model,scope,metric,n_tasks,n_conditions,broad_rate,certificate_gate_rate,effect,ci_low,ci_high,broad_wrong_gate_correct,broad_correct_gate_wrong
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,all,protected_oracle_match,96,288,0.6770833333333334,0.5208333333333334,-0.15625,-0.2013888888888889,-0.1111111111111111,39,84
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,all,constraint_followed,96,288,0.9583333333333334,1.0,0.041666666666666664,0.017361111111111112,0.06944444444444445,12,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,aggregate_pressure_violation,protected_oracle_match,96,96,0.5625,0.5625,0.0,0.0,0.0,0,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,aggregate_pressure_violation,constraint_followed,96,96,1.0,1.0,0.0,0.0,0.0,0,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,protected_oracle_match,96,96,0.875,0.0,-0.875,-0.9375,-0.8020833333333334,0,84
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,constraint_followed,96,96,0.9479166666666666,1.0,0.052083333333333336,0.010416666666666666,0.10416666666666667,5,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,oracle_correct,protected_oracle_match,96,96,0.59375,1.0,0.40625,0.3125,0.5104166666666666,39,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,oracle_correct,constraint_followed,96,96,0.9270833333333334,1.0,0.07291666666666667,0.03125,0.125,7,0
+mlx-community/Qwen3-8B-4bit,all,protected_oracle_match,96,288,0.5243055555555556,0.5451388888888888,0.020833333333333332,-0.041666666666666664,0.08333333333333333,57,51
+mlx-community/Qwen3-8B-4bit,all,constraint_followed,96,288,0.7013888888888888,0.9861111111111112,0.2847222222222222,0.2222222222222222,0.3472222222222222,85,3
+mlx-community/Qwen3-8B-4bit,aggregate_pressure_violation,protected_oracle_match,96,96,0.65625,0.6354166666666666,-0.020833333333333332,-0.052083333333333336,0.0,0,2
+mlx-community/Qwen3-8B-4bit,aggregate_pressure_violation,constraint_followed,96,96,0.9895833333333334,0.9583333333333334,-0.03125,-0.07291666666666667,0.0,0,3
+mlx-community/Qwen3-8B-4bit,compliant_suboptimal,protected_oracle_match,96,96,0.5104166666666666,0.0,-0.5104166666666666,-0.6041666666666666,-0.40625,0,49
+mlx-community/Qwen3-8B-4bit,compliant_suboptimal,constraint_followed,96,96,0.6041666666666666,1.0,0.3958333333333333,0.3020833333333333,0.4895833333333333,38,0
+mlx-community/Qwen3-8B-4bit,oracle_correct,protected_oracle_match,96,96,0.40625,1.0,0.59375,0.5,0.6875,57,0
+mlx-community/Qwen3-8B-4bit,oracle_correct,constraint_followed,96,96,0.5104166666666666,1.0,0.4895833333333333,0.3958333333333333,0.59375,47,0
