@@ -117,6 +117,11 @@ from experiments.analyze_certificate_replications import (
     multi_state_tradeoffs,
     prevalence_tradeoffs,
 )
+from experiments.analyze_paper_validations import (
+    natural_review_transitions,
+    natural_state_summary,
+    wilson_interval,
+)
 from experiments.natural_proposer_validation import (
     PROTECTED_VIOLATION,
     classify_proposal,
@@ -1212,6 +1217,55 @@ def test_portfolio_review_parser_is_strict_but_normalizes_one_fence():
     assert fenced.format_normalized is True
     with pytest.raises(ValueError, match="missing or unexpected"):
         parse_portfolio_review(raw[:-1] + ',"extra":1}', {"plan_A", "plan_B"})
+
+
+def test_validation_analysis_reports_frequencies_and_review_transitions():
+    proposers = pd.DataFrame(
+        [
+            {
+                "model": "fake-model",
+                "task_id": f"task-{index}",
+                "scenario": "fragmented",
+                "proposal_state": state,
+            }
+            for index, state in enumerate((ORACLE_CORRECT, COMPLIANT_SUBOPTIMAL))
+        ]
+    )
+    frequencies = natural_state_summary(proposers)
+    exact = frequencies[
+        (frequencies["scope"] == "fake-model")
+        & (frequencies["scenario"] == "all")
+        & (frequencies["proposal_state"] == ORACLE_CORRECT)
+    ].iloc[0]
+    assert exact["rate"] == pytest.approx(0.5)
+    low, high = wilson_interval(1, 2)
+    assert 0 < low < 0.5 < high < 1
+
+    rows = []
+    for task_id, proposal_exact in (("task-0", True), ("task-1", False)):
+        for institution, reviewed_exact in (
+            ("no_review", proposal_exact),
+            (CERTIFICATE_BROAD_OVERRIDE, False),
+            (CERTIFICATE_GATE, proposal_exact),
+        ):
+            rows.append(
+                {
+                    "model": "fake-model",
+                    "task_id": task_id,
+                    "scenario": "fragmented",
+                    "proposal_state": ORACLE_CORRECT,
+                    "institution": institution,
+                    "protected_oracle_match": reviewed_exact,
+                    "constraint_followed": True,
+                }
+            )
+    transitions = natural_review_transitions(pd.DataFrame(rows))
+    broad_exact = transitions[
+        (transitions["scope"] == "fake-model")
+        & (transitions["institution"] == CERTIFICATE_BROAD_OVERRIDE)
+        & (transitions["metric"] == "protected_oracle_match")
+    ].iloc[0]
+    assert broad_exact["successes_spoiled"] == 1
 
 
 def test_local_baseline_runner_measures_representative_choice_accuracy():
