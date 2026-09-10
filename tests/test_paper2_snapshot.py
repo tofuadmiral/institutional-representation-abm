@@ -26,6 +26,7 @@ def test_arxiv_source_bundle_is_minimal_and_self_contained():
         "figures/prevalence_frontiers.pdf",
         "figures/state_conditional_effects.pdf",
         "tables",
+        "tables/action_aware_validation.tex",
         "tables/natural_results.tex",
         "tables/state_effects.tex",
     }
@@ -45,7 +46,38 @@ def _effects(directory: str, filename: str) -> pd.DataFrame:
 
 def test_raw_completion_archive_is_the_frozen_snapshot():
     digest = hashlib.sha256((ROOT / "raw_completion_caches.tar.gz").read_bytes()).hexdigest()
-    assert digest == "7041c25347664cf86d8dc8540fe9c2d57493a1d062a255265a8a00b5397feea2"
+    assert digest == "6716e16109303b1b1583473b1faae44e1bee2d37eff3752e6f4e036f89f58545"
+
+
+@pytest.mark.parametrize(
+    ("directory", "dispositions"),
+    [
+        (
+            "action_aware_qwen_n48",
+            {
+                "oracle_correct": {"retain": 48},
+                "aggregate_pressure_violation": {"retain": 19, "replace": 29},
+                "compliant_suboptimal": {"retain": 48},
+            },
+        ),
+        (
+            "action_aware_mistral_n48",
+            {
+                "oracle_correct": {"replace": 48},
+                "aggregate_pressure_violation": {"replace": 48},
+                "compliant_suboptimal": {"retain": 2, "replace": 46},
+            },
+        ),
+    ],
+)
+def test_action_aware_validation_snapshot(directory, dispositions):
+    reviews = pd.read_csv(PROCESSED / directory / "action_aware_reviews.csv")
+    assert len(reviews) == 144
+    assert reviews["response_valid"].all()
+    assert reviews["certificate_fields_valid"].all()
+    for state, expected in dispositions.items():
+        scoped = reviews[reviews["proposal_state"] == state]
+        assert scoped["disposition"].value_counts().to_dict() == expected
 
 
 @pytest.mark.parametrize(

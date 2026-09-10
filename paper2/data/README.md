@@ -8,7 +8,7 @@ tables and the original request/response cache.
 
 ## Contents
 
-- `processed/`: row-level CSV outputs and cross-model summaries from the five
+- `processed/`: row-level CSV outputs and cross-model summaries from the six
   frozen studies.
 - `raw_completion_caches.tar.gz`: every model request and response used in those
   studies, including the prompt, model identifier, decoding settings, and raw
@@ -17,12 +17,13 @@ tables and the original request/response cache.
 The SHA-256 digest of `raw_completion_caches.tar.gz` is:
 
 ```text
-7041c25347664cf86d8dc8540fe9c2d57493a1d062a255265a8a00b5397feea2
+6716e16109303b1b1583473b1faae44e1bee2d37eff3752e6f4e036f89f58545
 ```
 
-The archive expands under `results/agent_exploration/`. It contains only the
-completion caches for the frozen Qwen and Mistral runs; the processed CSV files
-are already available without extracting it.
+The archive expands under `results/agent_exploration/` for the original five
+studies and under `results/paper2/` for the action-aware validation. It contains
+only the completion caches for the valid frozen Qwen and Mistral runs; the
+processed CSV files are already available without extracting it.
 
 ## Frozen studies
 
@@ -33,6 +34,7 @@ are already available without extracting it.
 | Audit-schema ablation | 95000 | 288 | Checks whether one extra objective field explains behavior |
 | Natural spatial proposals | 95000 | 96 proposals + 96 reviews | Observes upstream state frequencies on the benchmark |
 | Portfolio transfer | 120000 | 288 | Transfers the mechanism to two conjunctive constraints and a different objective |
+| Action-aware reviewer validation | 95000 | 144 | Tests explicit retain, replace, and escalate dispositions on a frozen 48-task subset |
 
 All experiments use seven synthetic principals or seven portfolio options, as
 appropriate. Each model is fixed within a run. Confidence intervals in the

@@ -21,6 +21,7 @@ cp "$paper_dir/figures/prevalence_frontiers.pdf" "$stage_dir/figures/"
 cp "$paper_dir/figures/natural_proposal_outcomes.pdf" "$stage_dir/figures/"
 cp "$paper_dir/tables/state_effects.tex" "$stage_dir/tables/"
 cp "$paper_dir/tables/natural_results.tex" "$stage_dir/tables/"
+cp "$paper_dir/tables/action_aware_validation.tex" "$stage_dir/tables/"
 
 COPYFILE_DISABLE=1 tar -C "$stage_dir" -czf "$paper_dir/arxiv-submission.tar.gz" \
   main.tex main.bbl references.bib plainurl.bst figures tables

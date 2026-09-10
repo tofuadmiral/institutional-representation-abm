@@ -304,6 +304,45 @@ def build_natural_table() -> None:
     (TABLES / "natural_results.tex").write_text("\n".join(lines) + "\n")
 
 
+def build_action_aware_table() -> None:
+    dispositions = read("action_aware_cross_model", "disposition_summary.csv")
+    outcomes = read("action_aware_cross_model", "institutional_summary.csv")
+    outcomes = outcomes[outcomes["institution"] == "action_aware_broad"]
+    rows = []
+    for model_id, model_label in MODEL_LABELS.items():
+        model_dispositions = dispositions[dispositions["model"] == model_id].set_index(
+            "proposal_state"
+        )
+        model_outcomes = outcomes[outcomes["model"] == model_id].set_index(
+            "proposal_state"
+        )
+        correct = model_outcomes.loc["oracle_correct"]
+        violation = model_outcomes.loc["aggregate_pressure_violation"]
+        suboptimal = model_outcomes.loc["compliant_suboptimal"]
+        rows.append(
+            (
+                model_label,
+                pct(model_dispositions.loc["oracle_correct", "retain_rate"]),
+                pct(1 - correct["exact_rate"]),
+                pct(violation["compliance_rate"]),
+                pct(suboptimal["exact_rate"]),
+                pct(1 - suboptimal["compliance_rate"]),
+            )
+        )
+    lines = [
+        r"\begin{tabular}{lrrrrr}",
+        r"\toprule",
+        r"Model & $C$: retain & $C$: corrupt & $V$: compliant & $U$: exact & $U$: violate \\",
+        r"\midrule",
+    ]
+    for row in rows:
+        lines.append(
+            f"{tex_escape(row[0])} & {row[1]} & {row[2]} & {row[3]} & {row[4]} & {row[5]} \\\\"
+        )
+    lines.extend([r"\bottomrule", r"\end{tabular}"])
+    (TABLES / "action_aware_validation.tex").write_text("\n".join(lines) + "\n")
+
+
 def main() -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
     TABLES.mkdir(parents=True, exist_ok=True)
@@ -320,6 +359,7 @@ def main() -> None:
     build_frontier_figure()
     build_main_results_table()
     build_natural_table()
+    build_action_aware_table()
     print(f"Wrote figures to {FIGURES} and tables to {TABLES}")
 
 

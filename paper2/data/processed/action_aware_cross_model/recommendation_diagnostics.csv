@@ -1,0 +1,9 @@
+model,proposal_state,disposition,n,recommendation_exact_rate,recommendation_compliance_rate,recommendation_change_rate
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,aggregate_pressure_violation,replace,48,0.1875,0.9791666666666666,1.0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,replace,46,0.6521739130434783,0.8913043478260869,0.8043478260869565
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,retain,2,0.0,1.0,0.0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,oracle_correct,replace,48,0.0,0.9375,1.0
+mlx-community/Qwen3-8B-4bit,aggregate_pressure_violation,replace,29,0.034482758620689655,0.9310344827586207,1.0
+mlx-community/Qwen3-8B-4bit,aggregate_pressure_violation,retain,19,0.21052631578947367,1.0,1.0
+mlx-community/Qwen3-8B-4bit,compliant_suboptimal,retain,48,0.0,1.0,0.0
+mlx-community/Qwen3-8B-4bit,oracle_correct,retain,48,0.8541666666666666,1.0,0.14583333333333334

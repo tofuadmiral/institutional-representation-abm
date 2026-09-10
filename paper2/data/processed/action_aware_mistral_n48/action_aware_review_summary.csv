@@ -1,0 +1,4 @@
+proposal_state,n,parse_rate,format_normalization_rate,certificate_fields_valid_rate,valid_repair_certificate_rate,action_consistent_rate,escalate_rate,replace_rate,retain_rate
+aggregate_pressure_violation,48,1.0,1.0,1.0,0.9791666666666666,1.0,0.0,1.0,0.0
+compliant_suboptimal,48,1.0,1.0,1.0,0.0,0.8125,0.0,0.9583333333333334,0.041666666666666664
+oracle_correct,48,1.0,1.0,1.0,0.0,1.0,0.0,1.0,0.0

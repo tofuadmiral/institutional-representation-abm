@@ -51,7 +51,7 @@ Institutions**
 
 Paper 2 studies a two-agent decision institution. An upstream language-model
 agent proposes a binding action, and a second language-model agent reviews it.
-The treatment changes only the reviewer's jurisdiction:
+The primary treatment changes only the reviewer's jurisdiction:
 
 - **Broad override:** any parseable recommendation can replace the proposal.
 - **Evidence gate:** replacement requires a mechanically valid record of a
@@ -61,7 +61,12 @@ Across Qwen3-8B and Mistral-Small-24B, the gate protects correct and compliant
 proposals while retaining most repairs of violations. It also prevents reviewers
 from improving compliant but suboptimal proposals. The resulting finding is a
 correction-corruption frontier: the exact-welfare winner depends on the upstream
-mix of proposal states and the reviewer's state-conditional competence.
+mix of proposal states and the reviewer's state-conditional competence. A
+prospectively frozen validation also gives the reviewer explicit retain,
+replace, and escalate actions. This removes correct-proposal corruption for
+Qwen but not for Mistral, while making Qwen decline every welfare-only repair.
+Reviewer interface and binding jurisdiction are therefore separate,
+interacting institutional choices.
 
 <p align="center">
   <img src="paper2/figures/state_conditional_effects.png" width="88%" alt="State-conditional effects of evidence-gated versus broad review authority">

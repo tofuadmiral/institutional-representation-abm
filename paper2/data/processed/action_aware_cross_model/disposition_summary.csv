@@ -1,0 +1,7 @@
+model,proposal_state,n,parse_rate,certificate_fields_valid_rate,retain_rate,replace_rate,escalate_rate
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,aggregate_pressure_violation,48,1.0,1.0,0.0,1.0,0.0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,48,1.0,1.0,0.041666666666666664,0.9583333333333334,0.0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,oracle_correct,48,1.0,1.0,0.0,1.0,0.0
+mlx-community/Qwen3-8B-4bit,aggregate_pressure_violation,48,1.0,1.0,0.3958333333333333,0.6041666666666666,0.0
+mlx-community/Qwen3-8B-4bit,compliant_suboptimal,48,1.0,1.0,1.0,0.0,0.0
+mlx-community/Qwen3-8B-4bit,oracle_correct,48,1.0,1.0,1.0,0.0,0.0

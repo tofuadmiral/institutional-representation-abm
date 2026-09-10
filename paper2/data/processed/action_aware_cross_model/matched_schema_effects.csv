@@ -1,0 +1,13 @@
+model,proposal_state,metric,n_tasks,forced_broad_rate,action_aware_broad_rate,effect,ci_low,ci_high,forced_wrong_action_correct,forced_correct_action_wrong
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,aggregate_pressure_violation,protected_oracle_match,48,0.10416666666666667,0.1875,0.08333333333333333,0.020833333333333332,0.16666666666666666,4,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,aggregate_pressure_violation,constraint_followed,48,1.0,0.9791666666666666,-0.020833333333333332,-0.0625,0.0,0,1
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,protected_oracle_match,48,0.08333333333333333,0.625,0.5416666666666666,0.3958333333333333,0.6875,26,0
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,compliant_suboptimal,constraint_followed,48,0.9791666666666666,0.8958333333333334,-0.08333333333333333,-0.16666666666666666,-0.020833333333333332,0,4
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,oracle_correct,protected_oracle_match,48,0.10416666666666667,0.0,-0.10416666666666667,-0.20833333333333334,-0.020833333333333332,0,5
+mlx-community/Mistral-Small-24B-Instruct-2501-4bit,oracle_correct,constraint_followed,48,0.9583333333333334,0.9375,-0.020833333333333332,-0.0625,0.0,0,1
+mlx-community/Qwen3-8B-4bit,aggregate_pressure_violation,protected_oracle_match,48,0.16666666666666666,0.020833333333333332,-0.14583333333333334,-0.25,-0.0625,0,7
+mlx-community/Qwen3-8B-4bit,aggregate_pressure_violation,constraint_followed,48,0.9375,0.5625,-0.375,-0.5208333333333334,-0.22916666666666666,1,19
+mlx-community/Qwen3-8B-4bit,compliant_suboptimal,protected_oracle_match,48,0.041666666666666664,0.0,-0.041666666666666664,-0.10416666666666667,0.0,0,2
+mlx-community/Qwen3-8B-4bit,compliant_suboptimal,constraint_followed,48,0.8958333333333334,1.0,0.10416666666666667,0.020833333333333332,0.1875,5,0
+mlx-community/Qwen3-8B-4bit,oracle_correct,protected_oracle_match,48,0.1875,1.0,0.8125,0.7083333333333334,0.9166666666666666,39,0
+mlx-community/Qwen3-8B-4bit,oracle_correct,constraint_followed,48,0.9166666666666666,1.0,0.08333333333333333,0.020833333333333332,0.16666666666666666,4,0

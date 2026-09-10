@@ -5,21 +5,22 @@ in LLM Review Institutions*.
 
 The paper studies a two-agent decision pipeline: an upstream language-model
 agent proposes a binding action and a second language-model agent reviews it.
-The experimental treatment changes only the reviewer's jurisdiction:
+The primary controlled treatment changes only the reviewer's jurisdiction:
 
 - **Broad override:** the reviewer may replace any proposal.
 - **Evidence gate:** the reviewer may replace a proposal only after producing a
   valid record that demonstrates a binding-constraint violation and names a
   compliant repair.
 
-The central result is a correction–corruption tradeoff. Its directions are
-partly implied by the authorization rules: an evidence gate preserves
-nonviolating proposals, including correct and suboptimal ones. The empirical
-contribution measures how often fallible reviewers would corrupt or correct
-each proposal state, how many repairs are lost to invalid evidence, and which
-upstream mixtures favor each rule. Broader review can repair more suboptimal
-decisions, but it also changes correct decisions; no rule universally maximizes
-exact welfare.
+The central result is a correction–corruption tradeoff shaped by two separate
+institutional choices: the action interface that induces a reviewer policy and
+the jurisdiction rule that determines which actions bind. The authorization
+rule mechanically preserves some proposal states, while the empirical
+contribution measures reviewer transition rates and tests an explicit
+retain/replace/escalate interface. That interface eliminates correct-proposal
+corruption for Qwen but not for Mistral, and it makes Qwen decline useful
+welfare-only repairs. No tested interface or authority rule universally
+maximizes exact welfare.
 
 ## Reproduce the paper from frozen outputs
 
@@ -33,6 +34,10 @@ cd paper2 && make
 The first command regenerates every manuscript table and figure from
 `paper2/data/processed/`; it does not call a language model. The second command
 builds the PDF with `pdflatex` and `bibtex`.
+
+The cross-model action-aware summaries can be rebuilt from the frozen row-level
+tables with `experiments/analyze_action_aware_validation.py`; the checked-in
+summary CSVs are the direct inputs to the manuscript table builder.
 
 ## Build the arXiv submission package
 

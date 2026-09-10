@@ -42,17 +42,15 @@ binding-constraint violation and a compliant repair. Across two locally run
 open-weight models, 96 spatial-policy tasks, and a 96-task portfolio-transfer
 benchmark, the gate sharply reduces corruption of correct proposals while
 retaining most repairs of violations. The directions of this tradeoff are partly
-implied by the rule: the gate preserves nonviolating proposals, including both
-correct and suboptimal ones. The empirical quantities are its magnitude, the
-repairs lost to invalid certificates, and the reviewer transition rates that
-determine deployment outcomes. Consequently, the institution that maximizes
-exact optimality depends on the prevalence of upstream proposal states and on
-the reviewer's state-conditional competence. On naturally generated spatial
-proposals, the gate improves compliance for both models but its exact-optimality
-effect differs by model. The result is not that restricted review is universally
-better. It is that reviewer competence alone is insufficient for institutional
-design: the scope of authorized intervention determines both the correction
-domain and the corruption surface.
+implied by the rule; its magnitude depends on reviewer transitions and upstream
+proposal states. A prospective validation then gives the reviewer an explicit
+choice to retain, replace, or escalate. This eliminates correct-proposal
+corruption for Qwen, but Mistral still replaces all 48 correct proposals; Qwen
+also declines every welfare-only repair that Mistral frequently attempts. Thus
+interface design changes reviewer behavior but is not a model-independent
+safeguard. The result is not that restricted review is universally better. It is
+that reviewer competence, action interface, and binding jurisdiction jointly
+determine both the correction domain and the corruption surface.
 \end{abstract}
 
 \section{Introduction}
@@ -109,6 +107,10 @@ rather than merely the rule's signs, transfer. The result is deliberately
 conditional: evidence-gated review protects compliance and already-correct
 decisions, but broad review can dominate exact optimality when compliant
 suboptimal proposals are sufficiently common and the reviewer can improve them.
+We then prospectively test a stronger comparator with explicit
+retain--replace--escalate actions. Its sharply different effects across the two
+models distinguish an interface-induced reviewer policy from the downstream
+authorization rule that determines whether a proposed change binds.
 
 \section{Related work}
 
@@ -190,6 +192,14 @@ The reviewer may recommend retaining $a_0$; broad authority does not require a
 different choice. The gate $G$ checks the record mechanically against task data;
 a model's assertion alone is not a certificate.
 
+The prospective validation adds a disposition $d(r)\in\{\mathrm{retain},
+\mathrm{replace},\mathrm{escalate}\}$. Action-aware broad review applies the
+recommendation only when $d(r)=\mathrm{replace}$; retain and escalate leave
+$a_0$ in force. The action-aware evidence gate additionally requires the same
+valid repair certificate. This second comparison changes the reviewer interface
+and therefore may change $r$; within that interface, each paired institutional
+comparison still recombines one fixed response.
+
 For outcome $Y$ (exact optimality or compliance), define the conditional
 jurisdiction effect
 \begin{equation}
@@ -264,6 +274,18 @@ at \texttt{47c41a3}. This is a timestamped design record rather than a registere
 preregistration; exploratory choices preceding the first freeze should not be
 interpreted as confirmatory.
 
+After a blind-review critique of the broad comparator, we froze an additional
+action-aware validation at commit \texttt{6ad06c4}. It reuses the first 16
+multi-eligible tasks in each scenario, for 48 tasks, and again injects states
+$C$, $V$, and $U$, producing 144 new reviews per model. The JSON schema adds
+one field: retain when the proposal satisfies both duties, replace only when a
+named alternative is better under those duties, and escalate when the reviewer
+cannot verify the comparison. The task information, deterministic option order,
+and evidence fields are unchanged. Responses use temperature zero and a
+prospectively fixed 160-token limit. Action-aware broad review binds only an
+explicit replacement; the gate also requires the original mechanical
+certificate.
+
 We then ask each model to generate its own upstream proposal on the 96
 multi-eligible tasks and pass that proposal to a separate reviewer call of the
 same model. This estimates benchmark-conditional state frequencies; it is not an
@@ -314,7 +336,7 @@ appeared in state $U$: broad review found the exact optimum in 2 Qwen cases and
   \label{fig:conditional}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[htbp]
   \centering
   \small
   \caption{Evidence gate minus broad override exact-optimality rate, percentage
@@ -322,6 +344,47 @@ appeared in state $U$: broad review found the exact optimum in 2 Qwen cases and
   \label{tab:conditional}
   \input{tables/state_effects.tex}
 \end{table}
+
+\subsection{An explicit action menu helps one model and fails on the other}
+
+The original interface always requested a recommendation, although retaining
+the proposed identifier was permitted. The prospective action-aware validation
+tests whether that schema manufactured the corruption result. All 288 responses
+parsed, all copied evidence fields were correct, and neither model escalated.
+Table~\ref{tab:action-aware} shows that the interface did not have a uniform
+effect.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Action-aware broad-review outcomes, in percent, across 48 tasks per
+  state and model. ``Compliant'' and ``exact'' are successful repairs; ``violate''
+  is a new violation introduced from state $U$.}
+  \label{tab:action-aware}
+  \input{tables/action_aware_validation.tex}
+\end{table}
+
+Qwen retained all 48 correct and all 48 compliant-suboptimal proposals. Correct
+proposal corruption therefore fell to zero, but so did welfare-only repair. It
+also retained 19 of 48 violations; action-aware broad review repaired compliance
+in 27 cases (56.3\%) and reached the exact optimum once. By contrast, Mistral
+selected replace for all 48 correct proposals and corrupted every one, including
+three replacements that violated the protected duty. It selected replace in 46
+of 48 compliant-suboptimal cases, reaching the exact optimum in 30 (62.5\%) but
+introducing five new violations. It repaired 47 of 48 violations and reached the
+exact optimum in nine.
+
+On the same 48-task subset, moving from the forced-recommendation interface to
+the action-aware interface increased Qwen's correct-state exact rate by $81.3$
+points (95\% CI $[70.8,91.7]$), but decreased Mistral's by $10.4$ points
+($[-20.8,-2.1]$). This matched contrast changes the prompt and generates a new
+review message, so it does not isolate authorization while holding reviewer
+behavior fixed. It instead shows that the review interface induces a
+model-dependent intervention policy. Within the action-aware interface, the
+evidence gate made no exact or compliance difference for Qwen. For Mistral it
+protected all correct proposals ($+100$ exact points) and prevented five new
+violations in state $U$ ($+10.4$ compliance points), while forgoing the 30 exact
+welfare repairs ($-62.5$ exact points, 95\% CI $[-75.1,-47.9]$).
 
 The portfolio benchmark reproduced the mechanism but not a universal winner.
 The gate's protection of correct proposals was $+59.4$ points for Qwen (95\%
@@ -429,11 +492,21 @@ reaches the world. A broad reviewer has a larger correction domain and a larger
 corruption surface. An evidence gate shrinks both. Neither label---``review'' or
 ``oversight''---specifies that tradeoff.
 
-The framework is therefore a policy decomposition, not evidence that the gate
+Nor does adding an explicit abstention action settle it. Qwen used retain as a
+conservative default, protecting correct proposals but declining every
+welfare-only improvement and many violation repairs. Mistral treated essentially
+the same action menu as a mandate to replace, even when the proposal was already
+correct. The interface is therefore an institutional design variable that can
+change the reviewer's policy; the authorization layer determines which resulting
+actions can bind. Testing only one of these layers can give false confidence.
+
+The primary framework is a policy decomposition, not evidence that the gate
 causes a reviewer to reason differently. We estimate a fixed reviewer's
-state-conditional transitions and ask which are allowed to bind. An institution
-that changes reviewer incentives, information seeking, or deliberation could
-produce different review messages and lies outside this identification strategy.
+state-conditional transitions and ask which are allowed to bind. The
+action-aware validation separately demonstrates that changing the interface can
+produce different review messages and dispositions. It does not identify whether
+the difference arises from the semantic action labels, schema position, or their
+interaction with each model's instruction tuning.
 
 This reframing also clarifies what should be measured before deployment. A
 designer needs (i) the upstream frequencies $\pi_C,\pi_V,\pi_U$; (ii) the
@@ -481,19 +554,21 @@ outputs across inference software or model revisions. Finally, a gate inherits
 the specification of its certificate: an incomplete protected duty can preserve
 the wrong objective very reliably.
 
-The broad rule is intentionally maximal: every parseable recommendation binds,
-although the reviewer can recommend retaining the original proposal. Production
-systems may instead offer explicit approval, abstention, confidence thresholds,
-or escalation. We do not establish that broad override as implemented here is
-the best alternative to evidence gating. Likewise, the portfolio benchmark
-changes objective direction and constraint structure but remains a discrete
-tabular task; it is structural rather than real-world transfer.
+The original broad rule is intentionally maximal: every parseable recommendation
+binds, although the reviewer can recommend retaining the original proposal. We
+test one explicit retain--replace--escalate alternative, but not confidence
+thresholds, human escalation, or learned routing. The two models' opposite
+responses make generalization from either interface especially unsafe. Likewise,
+the portfolio benchmark changes objective direction and constraint structure but
+remains a discrete tabular task; it is structural rather than real-world
+transfer.
 
 These limitations constrain the claim to the tested mechanism. The experiments
 do not show that evidence gates make multi-agent systems generally safe, that
 reviewers reason causally, or that constrained authority always improves welfare.
 They show that, conditional on fixed reviewer behavior, authority scope is an
-experimentally identifiable source of final system behavior.
+experimentally identifiable source of final system behavior, and that the
+interface can itself change that reviewer behavior in model-dependent ways.
 
 \section{Conclusion}
 
@@ -501,17 +576,19 @@ Adding a reviewer does not define an institution. One must also decide when the
 reviewer's recommendation can overrule the agent entrusted with the original
 decision. Our rules mechanically determine which proposal states are open to
 revision; model behavior determines whether that authority would correct or
-corrupt them and by how much. Across two models and two synthetic domains, the
-measured transition rates varied substantially, producing different prevalence
-frontiers and no universal exact-optimality winner. For LLM agent systems,
-reviewer jurisdiction and reviewer competence must therefore be evaluated
-jointly.
+corrupt them and by how much. An explicit action menu can alter that behavior,
+but it eliminated corruption for only one of two models and made that model
+decline useful interventions as well. Across two models and two synthetic
+domains, the measured transition rates varied substantially, producing no
+universal exact-optimality winner. For LLM agent systems, reviewer interface,
+competence, and jurisdiction must therefore be evaluated jointly.
 
 \section*{Reproducibility statement}
 
 The repository contains deterministic task generators, experiment runners,
 row-level results, generated tables and figures, and a compressed archive of all
-model requests and raw responses. Paper 1 is preserved at release tag
+model requests and raw responses used in the reported analyses, including the
+action-aware validation. Paper 1 is preserved at release tag
 \texttt{v1.0.2}; Paper 2 occupies a separate directory. No paid or proprietary
 model API is required to audit the reported results.
 
@@ -533,6 +610,20 @@ achieved 96.35\% and the gate 98.96\%, a $+2.60$ point effect
 ($[0.52,5.21]$): five corruptions were prevented and no repair was blocked.
 This study established the safeguard before the harder multi-eligible design
 separated compliance from exact optimality.
+
+\section{Action-aware validation execution notes}
+
+The reported action-aware validation contains 144 valid responses per model.
+Before those runs, two infrastructure-only executions were excluded. The first
+Qwen launch inadvertently enabled the server's hidden reasoning mode; every
+request exhausted the fixed 160-token budget before returning the required JSON
+answer. The second Mistral launch stalled after 11 cached requests because the
+server's prompt cache was not bounded. We did not inspect those partial outputs
+substantively or use them in any analysis. We then committed the corrected
+serving configuration---disabled hidden reasoning for Qwen and bounded Mistral's
+prompt cache---and reran each arm from the frozen task set. All 288 reported
+responses parsed and reproduced the supplied evidence fields exactly. The raw
+archive contains only these valid reported runs.
 
 \section{Mechanical enforcement baseline}
 

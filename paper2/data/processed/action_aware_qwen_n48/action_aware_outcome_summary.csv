@@ -1,0 +1,10 @@
+proposal_state,institution,n,exact_rate,compliance_rate,override_rate
+aggregate_pressure_violation,action_aware_broad,48,0.020833333333333332,0.5625,0.6041666666666666
+aggregate_pressure_violation,evidence_gate,48,0.020833333333333332,0.5625,0.5625
+aggregate_pressure_violation,no_review,48,0.0,0.0,0.0
+compliant_suboptimal,action_aware_broad,48,0.0,1.0,0.0
+compliant_suboptimal,evidence_gate,48,0.0,1.0,0.0
+compliant_suboptimal,no_review,48,0.0,1.0,0.0
+oracle_correct,action_aware_broad,48,1.0,1.0,0.0
+oracle_correct,evidence_gate,48,1.0,1.0,0.0
+oracle_correct,no_review,48,1.0,1.0,0.0
