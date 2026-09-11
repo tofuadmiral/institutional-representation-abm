@@ -17,7 +17,7 @@ tables and the original request/response cache.
 The SHA-256 digest of `raw_completion_caches.tar.gz` is:
 
 ```text
-6716e16109303b1b1583473b1faae44e1bee2d37eff3752e6f4e036f89f58545
+4fe83a4df6ace60efcbbaa6c321d0802c323212b5378670a0b90da2d6736dcea
 ```
 
 The archive expands under `results/agent_exploration/` for the original five

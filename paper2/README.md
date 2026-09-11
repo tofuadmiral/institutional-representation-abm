@@ -1,6 +1,6 @@
 # Paper 2: Evidence-Gated Authority in LLM Review Institutions
 
-Working manuscript for *Who May Overrule the Agent? Evidence-Gated Authority
+Submission manuscript for *Who May Overrule the Agent? Evidence-Gated Authority
 in LLM Review Institutions*.
 
 The paper studies a two-agent decision pipeline: an upstream language-model
@@ -36,8 +36,24 @@ The first command regenerates every manuscript table and figure from
 builds the PDF with `pdflatex` and `bibtex`.
 
 The cross-model action-aware summaries can be rebuilt from the frozen row-level
-tables with `experiments/analyze_action_aware_validation.py`; the checked-in
-summary CSVs are the direct inputs to the manuscript table builder.
+tables with:
+
+```bash
+python -m experiments.analyze_action_aware_validation \
+  --action-reviews \
+    paper2/data/processed/action_aware_qwen_n48/action_aware_reviews.csv \
+    paper2/data/processed/action_aware_mistral_n48/action_aware_reviews.csv \
+  --action-outcomes \
+    paper2/data/processed/action_aware_qwen_n48/action_aware_outcomes.csv \
+    paper2/data/processed/action_aware_mistral_n48/action_aware_outcomes.csv \
+  --forced-outcomes \
+    paper2/data/processed/multi_eligible_certificate_gate_qwen3_8b_n96/certificate_gate_outcomes.csv \
+    paper2/data/processed/multi_eligible_certificate_gate_mistral_24b_n96/certificate_gate_outcomes.csv \
+  --output paper2/data/processed/action_aware_cross_model
+```
+
+The resulting summary CSVs are the direct inputs to the manuscript table
+builder.
 
 ## Build the arXiv submission package
 

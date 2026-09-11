@@ -45,8 +45,17 @@ def _effects(directory: str, filename: str) -> pd.DataFrame:
 
 
 def test_raw_completion_archive_is_the_frozen_snapshot():
-    digest = hashlib.sha256((ROOT / "raw_completion_caches.tar.gz").read_bytes()).hexdigest()
-    assert digest == "6716e16109303b1b1583473b1faae44e1bee2d37eff3752e6f4e036f89f58545"
+    archive_path = ROOT / "raw_completion_caches.tar.gz"
+    digest = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+    assert digest == "4fe83a4df6ace60efcbbaa6c321d0802c323212b5378670a0b90da2d6736dcea"
+    with tarfile.open(archive_path, "r:gz") as archive:
+        action_members = [
+            member.name
+            for member in archive.getmembers()
+            if member.name.startswith("results/paper2/") and member.name.endswith(".json")
+        ]
+    assert len(action_members) == 288
+    assert all("failed" not in name for name in action_members)
 
 
 @pytest.mark.parametrize(

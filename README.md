@@ -40,7 +40,7 @@ The root `CITATION.cff` and `.zenodo.json` describe the frozen Paper 1 software
 release. Later commits on `main` include Paper 2 and are not the tree analyzed by
 Paper 1.
 
-### Paper 2 — complete working manuscript
+### Paper 2 — complete manuscript
 
 **Who May Overrule the Agent? Evidence-Gated Authority in LLM Review
 Institutions**
@@ -198,7 +198,7 @@ Ali, F. (2026). Why fragmented parliaments stop passing legislation:
   arXiv:2608.24554. https://arxiv.org/abs/2608.24554
 ```
 
-Paper 2 is a working manuscript and does not yet have an archival identifier.
+Paper 2 is a complete manuscript awaiting an archival identifier.
 Its title, author, and frozen evidence are recorded in `paper2/`.
 
 ## License
