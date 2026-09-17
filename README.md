@@ -8,7 +8,7 @@
 [![Paper 1](https://img.shields.io/badge/arXiv-2608.24554-b31b1b.svg)](https://arxiv.org/abs/2608.24554)
 [![Paper 1 archive](https://zenodo.org/badge/DOI/10.5281/zenodo.22119500.svg)](https://doi.org/10.5281/zenodo.22119500)
 
-This repository contains two related but separate studies. Paper 1 uses a
+This repository contains two completed studies and an exploratory third implementation. Paper 1 uses a
 rule-based agent-based model of democratic legislative institutions. Paper 2
 uses open-weight language models in a proposer-reviewer decision pipeline. The
 shared question is how institutional rules shape the translation from represented
@@ -71,6 +71,14 @@ interacting institutional choices.
 <p align="center">
   <img src="paper2/figures/state_conditional_effects.png" width="88%" alt="State-conditional effects of evidence-gated versus broad review authority">
 </p>
+
+### Paper 3 — exploratory implementation, not a manuscript
+
+[Paper 3 instrumentation and local checks](paper3/README.md) cover seven-agent
+negotiation, ratification, sequential voting, and commitment-state diagnostics.
+These pilots have not established a publication-quality institutional effect.
+Their preserved outputs include negative results and instrument-validity checks;
+they are not part of the evidence for Papers 1 or 2.
 
 ## Quick start
 
