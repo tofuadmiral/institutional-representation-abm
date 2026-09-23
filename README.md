@@ -74,8 +74,9 @@ interacting institutional choices.
 
 ### Paper 3 — exploratory implementation, not a manuscript
 
-[Paper 3 instrumentation and local checks](paper3/README.md) cover seven-agent
-negotiation, ratification, sequential voting, and commitment-state diagnostics.
+[Paper 3 instrumentation and experimental checks](paper3/README.md) cover seven-agent
+negotiation, agenda and amendment rights, ratification, and commitment-state diagnostics,
+using local open-weight models and separately frozen hosted-model pilots.
 These pilots have not established a publication-quality institutional effect.
 Their preserved outputs include negative results and instrument-validity checks;
 they are not part of the evidence for Papers 1 or 2.

@@ -1,0 +1,69 @@
+{
+  "no_model_calls": true,
+  "weights_loaded": false,
+  "scope": "synthetic-token component check; not live stream integration or model competence",
+  "manifest_sha256": "d1c6e88339f673d810bd79d736d09a2292966cd52f8f3b9e2d58a894583e99e3",
+  "tokenizer_sha256": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3",
+  "versions": {
+    "mlx": "0.32.0",
+    "mlx-vlm": "0.6.3",
+    "llguidance": "1.8.0",
+    "transformers": "5.5.0"
+  },
+  "source_sha256": {
+    "/Users/fali/projects/institutional-representation-abm/analysis/paper3_action_format_preflight.py": "7bffa927f33eb6bf6293c501dd87401b20aa7f254e4aa44c755f000a9209c3f1",
+    "/Users/fali/projects/institutional-representation-abm/results/paper3/runtimes/bonsai2/lib/python3.13/site-packages/mlx_vlm/structured.py": "11a0a2619b50f39ca7f05584e92319db64f56aa9a0b3125462ba7b0ac47ce9ed",
+    "/Users/fali/projects/institutional-representation-abm/results/paper3/runtimes/bonsai2/lib/python3.13/site-packages/mlx_vlm/utils.py": "7e7c9068f38f8a23353e8c25be68dad6eba85113a6889483f1854065f3ac1f5a"
+  },
+  "thinking_budget": 1024,
+  "results": {
+    "pairwise": {
+      "legal_paths_per_closure": 2,
+      "malformed_paths_rejected": 4,
+      "natural_closure": true,
+      "forced_closure": true,
+      "reset": true,
+      "clone": true
+    },
+    "single_pairwise": {
+      "legal_paths_per_closure": 1,
+      "malformed_paths_rejected": 3,
+      "natural_closure": true,
+      "forced_closure": true,
+      "reset": true,
+      "clone": true
+    },
+    "ratification": {
+      "legal_paths_per_closure": 4,
+      "malformed_paths_rejected": 3,
+      "natural_closure": true,
+      "forced_closure": true,
+      "reset": true,
+      "clone": true
+    },
+    "single_ratification": {
+      "legal_paths_per_closure": 2,
+      "malformed_paths_rejected": 2,
+      "natural_closure": true,
+      "forced_closure": true,
+      "reset": true,
+      "clone": true
+    },
+    "public": {
+      "legal_paths_per_closure": 2,
+      "malformed_paths_rejected": 2,
+      "natural_closure": true,
+      "forced_closure": true,
+      "reset": true,
+      "clone": true
+    },
+    "selector_gate": {
+      "legal_paths_per_closure": 8,
+      "malformed_paths_rejected": 3,
+      "natural_closure": true,
+      "forced_closure": true,
+      "reset": true,
+      "clone": true
+    }
+  }
+}

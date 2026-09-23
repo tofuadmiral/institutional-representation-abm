@@ -2,6 +2,10 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
+# Local credentials and environment files (never commit real API keys).
+.env
+.env.*
+!.env.example
 .pytest_cache/
 .coverage
 htmlcov/
