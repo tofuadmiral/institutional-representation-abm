@@ -7,12 +7,24 @@ The 15 October checkpoint preserves implementation, analysis code, tests and
 technical documentation. It is not a release or a claim that the entire test
 suite passes from a fresh clone: later frozen evidence and private historical
 ledger inputs are not all bundled in Git. See [archive availability](data/README.md).
-The current recovery implementation's long offline verification is still running;
-275 checks have passed on its current source pins, with the complete-pipeline
-suite pending. No fresh recovery model run has launched. Do not treat historical
+The current recovery implementation passed all four required local suites:
+31 operating checks, 24 runner checks, 220 component checks and 6 complete-pipeline
+checks (281 total). The latter completed in 15,239.06 seconds and includes both
+scripted blocks, actual fresh-extracted isolated replays, preserved uncertain
+costs and rejection of forged financial closure. All 111 before/after/current
+source pins and the scientific specification match. Genuine operating readiness
+is pinned at SHA256
+`458165e42a9a34608dcbc9b43a579a347af1f8ceb729a31dcfa8005b365df475`.
+No new qualification calls were made. The fresh experiment has been prepared once
+with 112 frozen source/evidence files under protocol
+`f81bc5019d840e7cb4fe147d084a4ad699523f382541f33dd485927c154d64fc`;
+no model run or new inference allocation has launched. These local checks do not
+prove fresh-clone CI passes: the workflow runs the entire test directory and
+later evidence-dependent tests need assets not all bundled in Git. Resolve that
+boundary before merging the checkpoint into `main`. Do not treat historical
 checkpoint text below as current authority to launch or resume a run.
 
-### Prospective recovery integration — 12 October; not launched
+### Historical recovery integration checkpoints — 12–15 October
 
 New `retrospective_recovery_{budget,calls,journal,retirement,design}_v2.py`
 components implement the separately approved $17 **total** authority, immutable

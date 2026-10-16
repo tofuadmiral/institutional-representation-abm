@@ -80,8 +80,10 @@ scored by majority approval versus summed constituent utility, changes how seven
 representatives bargain for 63 synthetic citizens over two terms. The previous
 institutional run stopped on upstream rate limits before completing a two-term
 episode; it provides no complete accountability comparison. A fresh recovery
-implementation is undergoing offline end-to-end verification and has not launched
-model calls. Software checks and scripted responses are not research findings.
+implementation has passed 281 required local software checks, including a full
+scripted run and isolated archive replay. The fresh experiment is prepared under
+a separate source freeze; model calls have not launched. This does not establish
+fresh-clone CI readiness. Software checks and scripted responses are not research findings.
 Paper 1's release and Paper 2's results are unchanged.
 
 This is a work-in-progress code checkpoint, not a reproducibility release. Some
