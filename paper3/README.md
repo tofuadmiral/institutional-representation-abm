@@ -3,7 +3,7 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
-### Separate bounded late-context gate — approved, offline testing (16 October)
+### Separate bounded late-context gate — frozen and live (16 October)
 
 `experiments/paper3_retrospective_late_context_bounded_gate_v1.py` is a fresh
 16-task diagnostic, not a restart of the closed gate below. It preserves the
@@ -16,8 +16,14 @@ fallback or action repair is allowed. All sixteen must pass.
 Fresh frame 2026101801, seeds 2026101900–2026101915; the full 25-request
 reservation is $0.39191762 within its $0.40 cap. This diagnostic intentionally
 retains the stricter $17 ledger while pinning the user's $19 total authority.
-All old charges, uncertainty and unused commitments remain. No new run freeze,
-allocation or paid request yet; actual isolated replay is part of offline tests.
+All old charges, uncertainty and unused commitments remain. The new protocol
+`28339d0a5b7019567a4b69f30e6d4b3cda4c858bba819e4c1ac7316ee26143e7`
+freezes 85 source/evidence files. All 35 genuine whole-file checks passed in
+68.60 seconds, including actual fresh-extracted fabricated `-I -S` replay;
+Ruff and exact before/after source equality passed. Readiness SHA256:
+`eedd55709f9d7642d0a63b44e901d81af3837a3a348b62991fd80e5a2765b7c1`.
+Funding and the exact healthy route passed; the original process has admitted
+its first request. No full institutional successor or old-block retirement ran.
 An initial fabricated archive replay caught a missing scope-record export;
 that packaging error was corrected before any model calls. A gate pass would
 only satisfy one prerequisite for the separately tested/frozen full pilot.
