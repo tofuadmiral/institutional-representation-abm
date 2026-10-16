@@ -3,9 +3,9 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
-### Current prospective qualification — 16 October
+### Closed late-context qualification — 16 October
 
-`experiments/paper3_retrospective_late_context_gate_v1.py` has launched one fresh
+`experiments/paper3_retrospective_late_context_gate_v1.py` assigned one fresh
 16-action late-context qualification: all four phases and economic arms in term
 two, the same DeepSeek V3.2/AtlasCloud FP8 native reasoning and complete
 seven-district/63-citizen information. Protocol
@@ -19,8 +19,23 @@ Only one exact answerless rate-limit reissue is allowed, after 300 seconds,
 with both full reservations retained. Every assigned task/failure remains, and
 all 16 must pass. It deliberately enforces the stricter existing $17 ledger;
 the newly approved **$19 total** authority neither resets old costs nor releases
-the old unused block. No full successor is launched. A separately frozen pilot
-is conditional on the gate, lawful unused-cap disposition and complete admission.
+the old unused block. The gate is now **failed**: six legal native actions,
+two exact answerless upstream shared-pool 429s, one permitted reissue and nine
+logical tasks unstarted. The second 429 exhausted the frozen allowance. This
+is not a credit rejection, content failure or institutional result. The all-16
+condition for the full pilot was not met; no full successor or replacement gate
+is authorized by this run. The finished-run follow-up is paused.
+
+Exact audit, production export and actual fresh-extracted standard-library-only
+`-I -S` replay matched the entire report; network/child-process denial and the
+actual-private-key scan passed. All 83 gate sources, 112 closed-recovery sources
+and 6,688 prior incurred entry hashes remain unchanged. Local ZIP SHA256:
+`5458f112ad607a2bfa7ede40f408ed25a7de4e315a9c0d21f94e0b7d5e7d0e37`.
+The gate retains $0.12266158 in full uncertified reservations, not the $0.02276152
+reported by six response usage fields. Cumulative conservative accounting is
+$8.878901871, four pending/274 uncertified entries. Old block 1's $4.39193944 and
+this gate's unused $0.27733842 remain earmarked; neither was silently released.
+No old-block retirement, new-$19 adapter or full-pilot allocation occurred.
 
 `retrospective_resource_failure_v1.py` and `retrospective_resource_execution_v1.py`
 are prospective offline components, with 62 fabricated checks passing in 24.97
@@ -75,8 +90,8 @@ invoice**: all 132 new entries remain uncertified. Cumulative accounting is
 $8.756240291 under its frozen $17 view, including four pending/266 uncertified
 entries. Stage 0's unused cap was audited closed; unstarted block 1's $4.39193944
 commitment remains earmarked, leaving $3.851820269 available for new allocations.
-No more inference from that closed root. The existing follow-up now monitors
-only the separate qualification above; it cannot launch an institutional successor.
+No more inference from that closed root or the failed qualification above.
+The existing finished-run follow-up is paused; no automatic scientific successor.
 
 The actual tracked-files CI diagnostic is not green: 2,677 passed, 193 failed,
 908 errors, two skipped and 166 subtests passed. Most failure/error entries

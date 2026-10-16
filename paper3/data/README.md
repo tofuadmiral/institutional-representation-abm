@@ -14,6 +14,32 @@ claiming complete reproduction of the later Paper 3 work.
 The entries below preserve historical terminal states and accounting; they are
 not instructions to reopen a stopped run or statements of today's available cap.
 
+## Late-context qualification: terminal shared-pool stop (16 October)
+
+Local archive `pivot_b_retrospective_late_context_gate_v1.zip`, protocol
+`81bb972a51fe21f3f844dbcd3a2a890f3048741e52ecea0cac3c11029e89509a`.
+Six legal native actions, two exact answerless upstream shared-pool 429 attempts,
+one permitted identical reissue after the full cooldown, nine of 16 tasks unstarted.
+The second rate limit exhausted the allowance. Gate failed; no full pilot or
+replacement gate launched. This is not a credit rejection or institutional finding.
+Every assignment, attempt and full uncertain reservation remains.
+
+All 83 gate sources, 112 older recovery sources and 6,688 prior entry hashes match.
+Production audit/export and actual fresh-extracted bundled Python `-I -S` replay
+matched the entire report. Network/child-process denial was self-tested and
+actual-private-key/ZIP integrity scans passed. ZIP: 8,518,261 bytes, 6,874 members,
+SHA256 `5458f112ad607a2bfa7ede40f408ed25a7de4e315a9c0d21f94e0b7d5e7d0e37`.
+Entire report SHA256:
+`9c4edd20f18b38c73683d825d66ec7e5578175221a5d05f044dd682420eb5615`.
+Stage $0.12266158 remains fully uncertified; stream-reported $0.02276152 is not
+a certified invoice. Cumulative conservative accounting $8.878901871 retains
+four pending/274 uncertified entries. The gate enforced the stricter old $17
+ledger despite approved total-$19 authority. Old block-1 $4.39193944 and gate
+unused $0.27733842 remain earmarked; no closure, retirement or incurred-cost
+release was fabricated. Follow-up paused. This archive is retained locally,
+not included in this Git checkpoint. Private concise terminal certificate:
+`results/paper3/pivot_b_retrospective_late_context_gate_v1_terminal_summary_2026_10_16.json`.
+
 ## Recovery pilot: terminal output limit, incomplete science (16 October)
 
 Local archive `pivot_b_retrospective_anticipation_recovery_v2_batch0.zip`, protocol

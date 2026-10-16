@@ -89,12 +89,13 @@ CI also exposes missing evidence inputs and legacy test-interface debt; the
 checkpoint is not merge- or release-ready. Software success is not research success.
 Paper 1's release and Paper 2's results are unchanged.
 
-A separately approved 16-action late-context qualification is now running with
-a $0.40 cap; it is not a new institutional result. It preserves native reasoning,
-all four phases/arms and the full seven-district/63-citizen task. The prospective
-failure-isolation code leaves failed episodes missing rather than inventing
-actions. Any full successor remains conditional on qualification, a new freeze
-and complete financial admission; the closed run is never reinterpreted.
+A separate 16-action late-context qualification is now closed: six legal native
+actions, two upstream rate-limit responses, nine tasks unstarted. The second
+rate limit exhausted its single permitted retry, so its all-16 gate failed.
+Exact audit and actual isolated replay match; this is an infrastructure stop,
+not an institutional finding. No full successor launched. Prospective
+failure-isolation code retains missing episodes without inventing decisions;
+it cannot rescue either closed run or override the failed qualification gate.
 
 This is a work-in-progress code checkpoint, not a reproducibility release. Some
 exploratory evidence archives referenced below are retained locally rather than
