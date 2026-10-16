@@ -26,6 +26,11 @@ is conditional on the gate, lawful unused-cap disposition and complete admission
 are prospective offline components, with 62 fabricated checks passing in 24.97
 seconds. They preserve the old accepted-action validator; a narrowly verified
 output-limit failure ends only its own episode and leaves missing outcomes.
+Four additional fabricated whole-inventory science checks passed in 96.45
+seconds: a first-term failure leaves the screen incomplete, a second-term
+failure leaves full-horizon outcomes missing, all 16 assignments and citizen
+bounds remain, and successful-case filtering is rejected. These tests do not
+use historical model replies or constitute empirical null results.
 Unknown instrument failures still stop globally. They do not rescue old records,
 provide a paid production pilot, establish missing-at-random, change the strict
 all-16-first-terms scientific screen, or constitute an institutional finding.
