@@ -80,8 +80,12 @@ only the separate qualification above; it cannot launch an institutional success
 
 The actual tracked-files CI diagnostic is not green: 2,677 passed, 193 failed,
 908 errors, two skipped and 166 subtests passed. Most failure/error entries
-reference missing evidence; five legacy tests call absent Qwen helper attributes,
-and six other assertion/historical-root issues need diagnosis. This does not
+reference missing evidence; five legacy tests call absent Qwen helper attributes.
+The other six cases were reproduced and traced: five require absent historical
+prerequisite inventories; the sixth is also state-bound and rejects the now-used
+seeds when run in the real post-run checkout. The production seed guard is working,
+not evidence that an old run should be reseeded or its protected test edited.
+These targeted diagnoses do not replace full current-source CI. This does not
 invalidate the separate 281-check operating-readiness evidence, but neither may
 be presented as a fresh-clone CI pass. Preserve frozen files and resolve the
 explicit evidence/test boundary before merging into `main`; do not skip failures
