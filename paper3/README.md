@@ -3,6 +3,36 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
+### Current prospective qualification — 16 October
+
+`experiments/paper3_retrospective_late_context_gate_v1.py` has launched one fresh
+16-action late-context qualification: all four phases and economic arms in term
+two, the same DeepSeek V3.2/AtlasCloud FP8 native reasoning and complete
+seven-district/63-citizen information. Protocol
+`81bb972a51fe21f3f844dbcd3a2a890f3048741e52ecea0cac3c11029e89509a`
+pins 83 files. Its 19 whole-file offline checks passed in 31.01 seconds, including
+actual fresh-extracted isolated fabricated replay, with exact before/after source
+and specification equality. This is software evidence, not provider reliability.
+
+The stage cap is $0.40; the full 17-physical-request reservation is $0.26330074.
+Only one exact answerless rate-limit reissue is allowed, after 300 seconds,
+with both full reservations retained. Every assigned task/failure remains, and
+all 16 must pass. It deliberately enforces the stricter existing $17 ledger;
+the newly approved **$19 total** authority neither resets old costs nor releases
+the old unused block. No full successor is launched. A separately frozen pilot
+is conditional on the gate, lawful unused-cap disposition and complete admission.
+
+`retrospective_resource_failure_v1.py` and `retrospective_resource_execution_v1.py`
+are prospective offline components, with 62 fabricated checks passing in 24.97
+seconds. They preserve the old accepted-action validator; a narrowly verified
+output-limit failure ends only its own episode and leaves missing outcomes.
+Unknown instrument failures still stop globally. They do not rescue old records,
+provide a paid production pilot, establish missing-at-random, change the strict
+all-16-first-terms scientific screen, or constitute an institutional finding.
+The prior run and historical financial view below remain unchanged.
+
+### Closed recovery pilot — 16 October
+
 The 15 October checkpoint preserves implementation, analysis code, tests and
 technical documentation. It is not a release or a claim that the entire test
 suite passes from a fresh clone: later frozen evidence and private historical
@@ -37,10 +67,11 @@ has SHA256 `b1312b3d91053821d9005b4a7e5382e928505fe9621e0d94519359e3a6680f75`;
 [archive details](data/README.md). Generic and actual-private-key scans passed.
 Conservative stage charge/reservation accounting is $1.92765120, **not a certified
 invoice**: all 132 new entries remain uncertified. Cumulative accounting is
-$8.756240291 of the approved $17 total, including four pending/266 uncertified
+$8.756240291 under its frozen $17 view, including four pending/266 uncertified
 entries. Stage 0's unused cap was audited closed; unstarted block 1's $4.39193944
 commitment remains earmarked, leaving $3.851820269 available for new allocations.
-No more inference or automatic successor; the finished-run follow-up is paused.
+No more inference from that closed root. The existing follow-up now monitors
+only the separate qualification above; it cannot launch an institutional successor.
 
 The actual tracked-files CI diagnostic is not green: 2,677 passed, 193 failed,
 908 errors, two skipped and 166 subtests passed. Most failure/error entries

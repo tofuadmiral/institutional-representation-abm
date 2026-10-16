@@ -89,6 +89,13 @@ CI also exposes missing evidence inputs and legacy test-interface debt; the
 checkpoint is not merge- or release-ready. Software success is not research success.
 Paper 1's release and Paper 2's results are unchanged.
 
+A separately approved 16-action late-context qualification is now running with
+a $0.40 cap; it is not a new institutional result. It preserves native reasoning,
+all four phases/arms and the full seven-district/63-citizen task. The prospective
+failure-isolation code leaves failed episodes missing rather than inventing
+actions. Any full successor remains conditional on qualification, a new freeze
+and complete financial admission; the closed run is never reinterpreted.
+
 This is a work-in-progress code checkpoint, not a reproducibility release. Some
 exploratory evidence archives referenced below are retained locally rather than
 bundled in Git; see the [archive availability note](paper3/data/README.md).
