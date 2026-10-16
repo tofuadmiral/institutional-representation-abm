@@ -82,7 +82,8 @@ institutional run stopped on upstream rate limits before completing a two-term
 episode; it provides no complete accountability comparison. A fresh recovery
 implementation has passed 281 required local software checks, including a full
 scripted run and isolated archive replay. The fresh experiment is prepared under
-a separate source freeze; model calls have not launched. This does not establish
+a separate source freeze, and its first approved model block is now running.
+No complete comparison is available yet. This does not establish
 fresh-clone CI readiness. Software checks and scripted responses are not research findings.
 Paper 1's release and Paper 2's results are unchanged.
 

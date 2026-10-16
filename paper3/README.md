@@ -17,8 +17,12 @@ is pinned at SHA256
 `458165e42a9a34608dcbc9b43a579a347af1f8ceb729a31dcfa8005b365df475`.
 No new qualification calls were made. The fresh experiment has been prepared once
 with 112 frozen source/evidence files under protocol
-`f81bc5019d840e7cb4fe147d084a4ad699523f382541f33dd485927c154d64fc`;
-no model run or new inference allocation has launched. These local checks do not
+`f81bc5019d840e7cb4fe147d084a4ad699523f382541f33dd485927c154d64fc`.
+Its first block has launched once as detached PID 57439; the saved coordinator
+start PID agrees. Fresh funding and exact healthy-route checks passed. The first
+model decision was accepted under the frozen interface; the run is still live,
+not a complete institutional comparison or scientific finding. No new paid
+qualification calls, restart or automatic successor. These local checks do not
 prove fresh-clone CI passes: the workflow runs the entire test directory and
 later evidence-dependent tests need assets not all bundled in Git. Resolve that
 boundary before merging the checkpoint into `main`. Do not treat historical
