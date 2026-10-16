@@ -1,6 +1,6 @@
 # Exploratory pilot archives
 
-## Availability at the 15 October code checkpoint
+## Availability at the 15–16 October code checkpoints
 
 This page inventories both checked-in archives and later locally retained
 exploratory evidence. Not every named ZIP or extracted directory is included in
@@ -13,6 +13,39 @@ claiming complete reproduction of the later Paper 3 work.
 
 The entries below preserve historical terminal states and accounting; they are
 not instructions to reopen a stopped run or statements of today's available cap.
+
+## Recovery pilot: terminal output limit, incomplete science (16 October)
+
+Local archive `pivot_b_retrospective_anticipation_recovery_v2_batch0.zip`, protocol
+`f81bc5019d840e7cb4fe147d084a4ad699523f382541f33dd485927c154d64fc`.
+132 physical attempts/109 logical attempts, 108 valid decisions, 23 permitted
+identical reissues; one unsafe response reached 14,000 output tokens and had
+inconsistent native token telemetry. No repair, case replacement or restart.
+Only three of 16 episodes and four first terms completed; block 1 never ran.
+All assignments, partials, seven-district/63-citizen outcomes and both-horizon
+missingness bounds remain. The frozen screen is `incomplete_first_term`, not an
+identified institutional effect or scientific null. Both primary support bounds
+include improvement and harm; they are missingness bounds, not confidence intervals.
+
+All 112 current/88 older source files and 6,556 prior entry hashes are unchanged.
+Exact audit and audited close passed. Production export performed actual
+fresh-extracted standard-library-only Python `-I -S` replay with network/child
+process denial; the entire report and original qualification/retired-run proof
+matched. ZIP: 81,802,247 bytes, 27,869 members, SHA256
+`b1312b3d91053821d9005b4a7e5382e928505fe9621e0d94519359e3a6680f75`.
+Entire report SHA256:
+`91601aea398f17fe2a61e8212ab54e2eda344cd8549134ee86759d573ac0351b`.
+Generic and actual-private-key credential scans passed without exposing a key.
+
+Stage conservative accounting $1.92765120 retains all 132 uncertified attempts.
+The 109 responses report $0.42400928 in stream usage, but this is not a certified
+invoice, and 23 failed attempts have no such usage cost. No reservation was
+released on that basis. Cumulative accounting $8.756240291/$17 retains four
+pending/266 uncertified entries. Only stage 0's unused $2.46490054 cap was audited
+closed; the unstarted block 1 $4.39193944 cap remains earmarked. Available for new
+allocations is $3.851820269, not the gross remaining balance. Follow-up paused;
+no successor authority. Private technical certificate:
+`results/paper3/pivot_b_retrospective_anticipation_recovery_v2_terminal_summary_2026_10_16.json`.
 
 ## First-term accountability discovery: terminal rate-limit stop, incomplete science
 

@@ -18,14 +18,38 @@ is pinned at SHA256
 No new qualification calls were made. The fresh experiment has been prepared once
 with 112 frozen source/evidence files under protocol
 `f81bc5019d840e7cb4fe147d084a4ad699523f382541f33dd485927c154d64fc`.
-Its first block has launched once as detached PID 57439; the saved coordinator
-start PID agrees. Fresh funding and exact healthy-route checks passed. The first
-model decision was accepted under the frozen interface; the run is still live,
-not a complete institutional comparison or scientific finding. No new paid
-qualification calls, restart or automatic successor. These local checks do not
-prove fresh-clone CI passes: the workflow runs the entire test directory and
-later evidence-dependent tests need assets not all bundled in Git. Resolve that
-boundary before merging the checkpoint into `main`. Do not treat historical
+Its first block is now **terminal**: 132 physical attempts, 109 logical attempts,
+108 structurally valid decisions, 23 permitted identical reissues and one unsafe
+output-limit/native-telemetry failure. The failed response reached 14,000 output
+tokens with `finish_reason=length`; the provider reported 14,002 reasoning tokens,
+inconsistent with the reported completion total. No action was inferred, repaired
+or retried. HTTP 200 and completed native output distinguish this from a credit
+rejection. Three of 16 episodes and four first terms completed; all assignments,
+failures, both horizons, citizen harms and missingness bounds remain. The frozen
+screen is `incomplete_first_term`, not a null, lead or publication result. Block 1
+never started and its clean-complete prerequisite is not met.
+
+Exact production audit and audited close passed; actual fresh-extracted `-I -S`
+network-disabled portable replay reproduced the entire report, genuine
+qualification and original stopped-run/retirement evidence. All 112 current and
+88 older sources and all 6,556 prior entry hashes are unchanged. The partial ZIP
+has SHA256 `b1312b3d91053821d9005b4a7e5382e928505fe9621e0d94519359e3a6680f75`;
+[archive details](data/README.md). Generic and actual-private-key scans passed.
+Conservative stage charge/reservation accounting is $1.92765120, **not a certified
+invoice**: all 132 new entries remain uncertified. Cumulative accounting is
+$8.756240291 of the approved $17 total, including four pending/266 uncertified
+entries. Stage 0's unused cap was audited closed; unstarted block 1's $4.39193944
+commitment remains earmarked, leaving $3.851820269 available for new allocations.
+No more inference or automatic successor; the finished-run follow-up is paused.
+
+The actual tracked-files CI diagnostic is not green: 2,677 passed, 193 failed,
+908 errors, two skipped and 166 subtests passed. Most failure/error entries
+reference missing evidence; five legacy tests call absent Qwen helper attributes,
+and six other assertion/historical-root issues need diagnosis. This does not
+invalidate the separate 281-check operating-readiness evidence, but neither may
+be presented as a fresh-clone CI pass. Preserve frozen files and resolve the
+explicit evidence/test boundary before merging into `main`; do not skip failures
+merely to get green. Do not treat historical
 checkpoint text below as current authority to launch or resume a run.
 
 ### Historical recovery integration checkpoints — 12–15 October

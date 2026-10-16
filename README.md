@@ -74,17 +74,19 @@ interacting institutional choices.
 
 ### Paper 3 — exploratory implementation, not a manuscript
 
-**Current checkpoint (15 October): accountability discovery remains exploratory.**
-The next implementation studies whether binding versus advisory accountability,
+**Current checkpoint (16 October): accountability discovery is incomplete.**
+The exploration studies whether binding versus advisory accountability,
 scored by majority approval versus summed constituent utility, changes how seven
 representatives bargain for 63 synthetic citizens over two terms. The previous
 institutional run stopped on upstream rate limits before completing a two-term
-episode; it provides no complete accountability comparison. A fresh recovery
-implementation has passed 281 required local software checks, including a full
-scripted run and isolated archive replay. The fresh experiment is prepared under
-a separate source freeze, and its first approved model block is now running.
-No complete comparison is available yet. This does not establish
-fresh-clone CI readiness. Software checks and scripted responses are not research findings.
+episode. A separately frozen recovery pilot passed 281 required local software
+checks, then recorded 108 valid decisions before an output-limit/native-telemetry
+safety stop. Only 3 of 16 assigned two-term episodes completed. Its exact audit
+and actual fresh-extracted offline archive replay match, but the scientific
+screen is incomplete: this is neither an accountability finding nor a null.
+The run is closed, with no restart or automatic successor. Fresh tracked-files
+CI also exposes missing evidence inputs and legacy test-interface debt; the
+checkpoint is not merge- or release-ready. Software success is not research success.
 Paper 1's release and Paper 2's results are unchanged.
 
 This is a work-in-progress code checkpoint, not a reproducibility release. Some
