@@ -97,6 +97,12 @@ not an institutional finding. No full successor launched. Prospective
 failure-isolation code retains missing episodes without inventing decisions;
 it cannot rescue either closed run or override the failed qualification gate.
 
+A newly approved, separate late-context gate is being tested offline. It keeps
+the same model, information and all-16-pass requirement, but permits up to three
+identical reissues per task and nine total, only for the pinned answerless
+upstream rate-limit error. Its 25-request reservation fits a $0.40 stage cap.
+This is not a reopened run, model-reliability result or institutional experiment.
+
 This is a work-in-progress code checkpoint, not a reproducibility release. Some
 exploratory evidence archives referenced below are retained locally rather than
 bundled in Git; see the [archive availability note](paper3/data/README.md).

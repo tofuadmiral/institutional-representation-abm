@@ -3,6 +3,25 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
+### Separate bounded late-context gate — approved, offline testing (16 October)
+
+`experiments/paper3_retrospective_late_context_bounded_gate_v1.py` is a fresh
+16-task diagnostic, not a restart of the closed gate below. It preserves the
+model/provider/native-reasoning configuration, output/interface and complete
+institutional information. At most three identical-wire/seed reissues per task,
+nine total, are permitted only for the exact answerless AtlasCloud shared-pool
+429, with shared 300/600/1200-second cooldowns. No content or receipt retry,
+fallback or action repair is allowed. All sixteen must pass.
+
+Fresh frame 2026101801, seeds 2026101900–2026101915; the full 25-request
+reservation is $0.39191762 within its $0.40 cap. This diagnostic intentionally
+retains the stricter $17 ledger while pinning the user's $19 total authority.
+All old charges, uncertainty and unused commitments remain. No new run freeze,
+allocation or paid request yet; actual isolated replay is part of offline tests.
+An initial fabricated archive replay caught a missing scope-record export;
+that packaging error was corrected before any model calls. A gate pass would
+only satisfy one prerequisite for the separately tested/frozen full pilot.
+
 ### Closed late-context qualification — 16 October
 
 `experiments/paper3_retrospective_late_context_gate_v1.py` assigned one fresh
