@@ -33,7 +33,15 @@ and original full report `91601aea398f17fe2a61e8212ab54e2eda344cd8549134ee86759d
 remain unchanged. These private accounting records are not a new scientific
 archive or publication result. Current conservative accounting $9.265784851,
 four pending/299 uncertified entries, both gate unused caps $0.29045544 retained.
-The $9 pilot remains unstarted pending genuine current-source operating readiness.
+The $9 pilot remains unstarted, but genuine current-source operating readiness
+now passed all four suites (358 tests), including actual isolated partial/full
+scripted archive replay. One-time preparation passed exact route and full account
+funding checks. Its 138-file freeze is protocol
+`c6670ffdf43d14226db7253fb3fc0353e4b42e68952f6d33e55558ea017d5159`;
+readiness SHA256
+`6663990c72b825778d1be26bf6c91aa2c3f92e44b871911f04c9d3083c0cf3f2`.
+No institutional allocation, model call or scientific archive exists for this
+pilot yet. The private software-test archives are not experimental observations.
 
 ## Bounded late-context qualification: terminal 16/16 pass (16 October)
 

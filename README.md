@@ -109,8 +109,13 @@ successor was launched. Earlier failed runs and all uncertain charges remain.
 
 As of 18 October, the prospective $19-total adapter and the approved retirement
 of only the never-started old block's unused allocation are implemented. Every
-incurred reservation remains. The resource-isolating pilot's operating readiness
-checks are running offline; no new institutional run or model calls have started.
+incurred reservation remains. All four current-source operating-readiness suites
+passed (358 tests, including the complete 480-action scripted workflow and actual
+isolated archive replays). The resource-isolating pilot is prepared and frozen
+under protocol `c6670ffdf43d14226db7253fb3fc0353e4b42e68952f6d33e55558ea017d5159`,
+with 138 source/evidence files. Funding and exact-route preparation checks passed;
+no allocation, institutional run or new model call has started. Software readiness
+is not an institutional finding or a claim that full-repository CI is clean.
 
 This is a work-in-progress code checkpoint, not a reproducibility release. Some
 exploratory evidence archives referenced below are retained locally rather than

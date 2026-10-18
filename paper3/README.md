@@ -3,7 +3,7 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
-### Prospective resource-isolating pilot — offline readiness (18 October)
+### Resource-isolating pilot — prepared, not launched (18 October)
 
 `experiments/paper3_retrospective_resource_pilot_v1.py` preserves the four-arm,
 two-term, seven-representative/63-citizen study and accepted-action validator.
@@ -26,11 +26,24 @@ any response. Full 480-logical/560-physical reservation bound $8.78521918 fits t
 approved $9 pilot ceiling. Exact offline late-gate replay/configuration equality
 covers all 480 proposed slots. No new qualification calls were made.
 
-Focused controller/bookkeeping checks pass; genuine whole-file operating,
-runner, component and full-pipeline readiness verification is currently running.
-Its before inventory pins 137 source/evidence files. There is **no actual pilot
-root, freeze, allocation or model process yet**. Software consistency or a gate
-pass is not an institutional result, and existing full-repository CI debt remains.
+All four genuine whole-file readiness suites passed: complete pipeline 7 tests
+in 18,807.41 seconds, operating 31, runner 24, components 296 (358 total).
+The 137-file before/after inventory and specification match. Actual partial/full
+isolated archive replays and deliberate-tampering rejection are included, not
+cached success flags. Earlier archive-lock and stale fixture-count failures remain
+preserved; no older model response or frozen evidence was changed.
+
+Readiness SHA256:
+`6663990c72b825778d1be26bf6c91aa2c3f92e44b871911f04c9d3083c0cf3f2`.
+One-time production preparation passed funding (the full fresh bound plus all
+unresolved historical reservations), exact qualified-route health/configuration,
+old source closures and inherited qualification checks. The actual root is
+`results/paper3/pivot_b_retrospective_resource_pilot_v1`, frozen at protocol
+`c6670ffdf43d14226db7253fb3fc0353e4b42e68952f6d33e55558ea017d5159`
+with 138 sources/evidence files. **Prepared, not launched:** no stage allocation,
+start record or model call exists. Launch requires fresh production admission;
+never prepare or restart this root. Software consistency is not an institutional
+result, long-run model reliability, or a clean full-repository CI claim.
 
 ### Separate bounded late-context gate — terminal pass (16 October)
 
