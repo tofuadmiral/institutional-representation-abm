@@ -30,6 +30,18 @@ from tests import test_paper3_retrospective_independent_calls as fabricated
 
 REPO = Path(__file__).resolve().parents[1]
 QUALIFIED = REPO / "paper3/data/pivot_b_retrospective_score_ledger_gate_v1"
+HISTORICAL_UNCERTIFIED = 299
+SCRIPTED_UNCERTIFIED_ADDITIONS = 3 + 1  # Three answerless429s + one absent receipt.
+
+
+def test_sealed_historical_fixture_counts_match_full_cost_preservation_expectation():
+    """Fail cheaply before any full pipeline if its pinned ledger baseline drifts."""
+    ledger = REPO / "paper3/data/pivot_b_retrospective_late_context_bounded_gate_v1/ledger"
+    rows = [journal.load(p) for p in (ledger / "entries").glob("*.json")]
+    assert len(rows) == 6721
+    assert sum(r["status"] == "reserved" for r in rows) == 4
+    assert sum(r.get("certified") is False for r in rows) == HISTORICAL_UNCERTIFIED
+    assert HISTORICAL_UNCERTIFIED + SCRIPTED_UNCERTIFIED_ADDITIONS == 303
 
 
 def _copy_fixture_file(source, target):
@@ -228,7 +240,9 @@ def complete(tmp_path_factory):
             report = runner.offline(root, protocol, "close", batch)
             after = report["budget"]
             assert before["accounted_usd"] == after["accounted_usd"]
-            assert before["uncertified"] == after["uncertified"] == 138
+            assert before["uncertified"] == after["uncertified"] == (
+                HISTORICAL_UNCERTIFIED + SCRIPTED_UNCERTIFIED_ADDITIONS
+            )
             assert before["pending"] == after["pending"] == 4
             assert (
                 after["unspent_active_stage_caps_usd"]
