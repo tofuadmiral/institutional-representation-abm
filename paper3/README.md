@@ -3,7 +3,36 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
-### Separate bounded late-context gate — frozen and live (16 October)
+### Prospective resource-isolating pilot — offline readiness (18 October)
+
+`experiments/paper3_retrospective_resource_pilot_v1.py` preserves the four-arm,
+two-term, seven-representative/63-citizen study and accepted-action validator.
+Only the approved, verified output-limit disposition is episode-local; it never
+supplies an action. All missing outcomes, both horizons, citizen harms and the
+unchanged all-16-first-term scientific screen remain.
+
+The new budget adapter enforces the exact $10→12→15→17→19 authority chain in a
+new namespace. Actual fresh isolated replay of the old recovery-v2 archive
+preceded the one-time retirement of **only** its unstarted block-1 unused
+$4.39193944. All 6,721 existing charge/reservation hashes and older sources are
+unchanged. Append-only retirement SHA256:
+`04c8df6dfbf089084d84a46f8b738076f790b2377009f7ddab285f9e97b76778`.
+Cumulative conservative accounting remains $9.265784851, four pending/299
+uncertified entries; both gate unused commitments totaling $0.29045544 remain.
+Available new authority is $9.443759709. Old frozen adapters are unchanged.
+
+Fresh frames 2026101802/2026101803 and paired request bases 2026102000/+64 precede
+any response. Full 480-logical/560-physical reservation bound $8.78521918 fits the
+approved $9 pilot ceiling. Exact offline late-gate replay/configuration equality
+covers all 480 proposed slots. No new qualification calls were made.
+
+Focused controller/bookkeeping checks pass; genuine whole-file operating,
+runner, component and full-pipeline readiness verification is currently running.
+Its before inventory pins 137 source/evidence files. There is **no actual pilot
+root, freeze, allocation or model process yet**. Software consistency or a gate
+pass is not an institutional result, and existing full-repository CI debt remains.
+
+### Separate bounded late-context gate — terminal pass (16 October)
 
 `experiments/paper3_retrospective_late_context_bounded_gate_v1.py` is a fresh
 16-task diagnostic, not a restart of the closed gate below. It preserves the
@@ -22,11 +51,30 @@ freezes 85 source/evidence files. All 35 genuine whole-file checks passed in
 68.60 seconds, including actual fresh-extracted fabricated `-I -S` replay;
 Ruff and exact before/after source equality passed. Readiness SHA256:
 `eedd55709f9d7642d0a63b44e901d81af3837a3a348b62991fd80e5a2765b7c1`.
-Funding and the exact healthy route passed; the original process has admitted
-its first request. No full institutional successor or old-block retirement ran.
+All 16 assigned native legal actions completed in 25 physical attempts, with
+nine exact answerless shared-pool 429s and all nine allowed identical reissues.
+Exact serial/cooldown/wire proofs passed; no global stop. The original process
+exited with a valid terminal record. Production audit/export and actual fresh
+extracted bundled `-I -S` replay matched the entire report. Network/child-process
+denial was also self-tested in a separate fresh isolated interpreter; credential,
+ZIP CRC, path and symlink checks passed. Archive SHA256:
+`87697c9d3c45de43d2a8f88557254c244cbf1ff6a28a7f396930dcac88dfe7c1`.
+Entire report SHA256:
+`4d11ab795ec533dfeb5af0d0160093341d7fd9ee8f2118cd9784b97b35ea6fb4`.
+
+All 25 stage reservations remain uncertified, totaling $0.38688298; the response
+usage sum of $0.07097390 is not a certified invoice. Cumulative conservative
+accounting is $9.265784851, four pending/299 uncertified entries. All 6,696 prior
+entry hashes and older 83/112-source freezes match. Old block 1's $4.39193944,
+old gate unused $0.27733842 and this gate unused $0.01311702 remain earmarked.
+No full institutional successor, old-block retirement or new-$19 adapter ran.
+The monitor is confirmed paused after terminal reporting. This is a local archive,
+not a reproducibility release; existing clean-checkout CI limitations remain.
 An initial fabricated archive replay caught a missing scope-record export;
-that packaging error was corrected before any model calls. A gate pass would
-only satisfy one prerequisite for the separately tested/frozen full pilot.
+that packaging error was corrected before any model calls. This gate pass only
+satisfies one prerequisite for the separately tested/frozen full pilot. Using
+every retry allowance leaves infrastructure fragility unresolved; a scripted
+legal-action pass is not strategic competence or a scientific result.
 
 ### Closed late-context qualification — 16 October
 

@@ -97,12 +97,20 @@ not an institutional finding. No full successor launched. Prospective
 failure-isolation code retains missing episodes without inventing decisions;
 it cannot rescue either closed run or override the failed qualification gate.
 
-A newly approved, separate late-context gate is now frozen and running. It keeps
+A separately approved late-context gate has now passed all 16 tasks. It kept
 the same model, information and all-16-pass requirement, but permits up to three
 identical reissues per task and nine total, only for the pinned answerless
-upstream rate-limit error. Its 25-request reservation fits a $0.40 stage cap.
+upstream rate-limit error. It used 25 physical attempts and all nine allowed
+reissues; $0.38688298 remains conservatively accounted within the $0.40 stage cap.
 All 35 targeted software checks passed, including actual isolated archive replay.
-This is not a reopened run, model-reliability result or institutional experiment.
+The terminal audit and fresh-extracted offline replay match. This is limited
+feasibility, not long-run reliability or an institutional finding; no full
+successor was launched. Earlier failed runs and all uncertain charges remain.
+
+As of 18 October, the prospective $19-total adapter and the approved retirement
+of only the never-started old block's unused allocation are implemented. Every
+incurred reservation remains. The resource-isolating pilot's operating readiness
+checks are running offline; no new institutional run or model calls have started.
 
 This is a work-in-progress code checkpoint, not a reproducibility release. Some
 exploratory evidence archives referenced below are retained locally rather than

@@ -14,7 +14,66 @@ claiming complete reproduction of the later Paper 3 work.
 The entries below preserve historical terminal states and accounting; they are
 not instructions to reopen a stopped run or statements of today's available cap.
 
-## Late-context qualification: terminal shared-pool stop (16 October)
+## Approved unused-block retirement: complete (18 October)
+
+The separate prospective adapter now enforces total $19 without modifying old
+authority or ledger namespaces. Actual fresh isolated replay reproduced the
+original recovery-v2 archive's entire report before retiring **only** its
+never-started second block's unused $4.39193944. Every one of 6,721 incurred-entry
+hashes is unchanged. No charge, pending or uncertified reservation was released;
+no model call, old run restart or successor launch occurred.
+
+Append-only certificate:
+`results/paper3/pivot_b_budget/resource_stage_abandonments_v1/anticipation-r2-f81bc5019d840e7cb4fe147d-1.json`,
+SHA256 `04c8df6dfbf089084d84a46f8b738076f790b2377009f7ddab285f9e97b76778`.
+Actual operation/replay result:
+`results/paper3/pivot_b_resource_retirement_2026_10_18.json`.
+Old ZIP `b1312b3d91053821d9005b4a7e5382e928505fe9621e0d94519359e3a6680f75`
+and original full report `91601aea398f17fe2a61e8212ab54e2eda344cd8549134ee86759d573ac0351b`
+remain unchanged. These private accounting records are not a new scientific
+archive or publication result. Current conservative accounting $9.265784851,
+four pending/299 uncertified entries, both gate unused caps $0.29045544 retained.
+The $9 pilot remains unstarted pending genuine current-source operating readiness.
+
+## Bounded late-context qualification: terminal 16/16 pass (16 October)
+
+Local archive `pivot_b_retrospective_late_context_bounded_gate_v1.zip`, protocol
+`28339d0a5b7019567a4b69f30e6d4b3cda4c858bba819e4c1ac7316ee26143e7`.
+All 16 native legal actions passed on the single fresh scripted diagnostic
+frame; 25 actual attempts, nine exact answerless shared-pool 429s, all nine
+identical reissues used. All 64 potential slots, full raw/requested/executed
+evidence, failed attempts, serial/cooldown/identical-wire proofs and full
+uncertain reservations remain. No safety stop or institutional successor.
+
+All 85 sources, older 83/112-source freezes and 6,696 prior entry hashes match.
+Production audit/export and ACTUAL fresh-extracted bundled Python `-I -S` replay
+matched the entire report. Separately fresh isolated socket/child-process denial
+was self-tested; ZIP CRC, safe paths/no symlinks and actual-private-key scan pass.
+ZIP: 9,694,919 bytes, 6,929 members. SHA256:
+`87697c9d3c45de43d2a8f88557254c244cbf1ff6a28a7f396930dcac88dfe7c1`.
+Entire report SHA256:
+`4d11ab795ec533dfeb5af0d0160093341d7fd9ee8f2118cd9784b97b35ea6fb4`.
+
+Stage $0.38688298 is entirely uncertified/full-reserved. Stream usage $0.07097390
+is not a certified invoice. Cumulative accounting $9.265784851, four pending/299
+uncertified entries. Old B1 $4.39193944, old gate unused $0.27733842 and this gate
+unused $0.01311702 all remain held; no retirement or invented close mode.
+The stricter $17 ledger was enforced despite human total-$19 authority. No new
+$19 adapter/full-pilot allocation, main merge, commit or publication in this
+terminal follow-up. Certificate:
+`results/paper3/pivot_b_retrospective_late_context_bounded_gate_v1_terminal_summary_2026_10_16.json`.
+
+Replay from a fresh extraction with its bundled ledger, not current live code:
+
+```bash
+python3 -I -S code/experiments/paper3_retrospective_late_context_bounded_gate_v1.py . --replay --expected-protocol 28339d0a5b7019567a4b69f30e6d4b3cda4c858bba819e4c1ac7316ee26143e7
+```
+
+This is one scripted-frame feasibility pass, not 480-action reliability,
+strategic competence, an institutional effect or publication evidence. The
+earlier gate below remains failed. Archives are local, not bundled in Git.
+
+## Earlier late-context qualification: terminal shared-pool stop (16 October)
 
 Local archive `pivot_b_retrospective_late_context_gate_v1.zip`, protocol
 `81bb972a51fe21f3f844dbcd3a2a890f3048741e52ecea0cac3c11029e89509a`.
