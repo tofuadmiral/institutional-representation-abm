@@ -12,10 +12,33 @@ import zipfile
 import pytest
 
 from paper3 import retrospective_resource_archive_v1 as archive
+from paper3 import retrospective_resource_design_v1 as design
+from paper3 import retrospective_resource_late_qualification_v1 as late_qualification
 
 REPO = Path(__file__).resolve().parents[1]
 RETIRED = REPO / "paper3/data/pivot_b_retrospective_anticipation_recovery_v2_batch0"
 ZIPPED = RETIRED.with_suffix(".zip")
+
+
+def test_late_qualification_repeated_replay_preserves_entire_sealed_inventory(tmp_path):
+    """A qualification replay must never create ledger.lock in its snapshot."""
+    zipped = REPO / "paper3/data/pivot_b_retrospective_late_context_bounded_gate_v1.zip"
+    extracted = tmp_path / "late"
+    extracted.mkdir()
+    with zipfile.ZipFile(zipped) as bundle:
+        for name in bundle.namelist():
+            target = archive.portable.safe(extracted, name)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(bundle.read(name))
+    before = {str(p.relative_to(extracted)): p.read_bytes()
+              for p in extracted.rglob("*") if p.is_file()}
+    first = late_qualification.prove(extracted, zipped, design.assignments())
+    second = late_qualification.prove(extracted, zipped, design.assignments())
+    assert first == second and first["all_sixteen_passed"]
+    assert first["compared_slots"] == 480 and first["actual_new_model_calls"] == 0
+    assert {str(p.relative_to(extracted)): p.read_bytes()
+            for p in extracted.rglob("*") if p.is_file()} == before
+    assert not (extracted / "ledger/ledger.lock").exists()
 
 
 def test_entire_original_bundle_matches_original_zip_and_report():

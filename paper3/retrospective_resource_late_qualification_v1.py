@@ -30,7 +30,12 @@ def prove(directory, archive, assignments):
         for name in names:
             institution.require(zipped.read(name) == helper.safe(directory, name).read_bytes(),
                                 "late gate extraction differs from ZIP")
-    report = gate.audit(directory / "run", directory / "ledger")
+    # This is an immutable, fully verified historical snapshot, not the live
+    # research ledger. The public audit wrapper creates ledger.lock and would
+    # invalidate the very bundle inventory just verified above. Recompute the
+    # unchanged production audit without acquiring a writable snapshot lock,
+    # exactly as the original qualification-inheritance adapter does.
+    report = gate._audit_locked(directory / "run", directory / "ledger")
     institution.require(gate.t.sha(gate.t.canonical(report).encode()) == REPORT_SHA and
         gate.t.canonical(report) == gate.t.canonical(gate.t.load(directory / "expected_report.json"))
         and report["gate_passed"] is True and len(report["assignments"]) == 16,
@@ -56,6 +61,9 @@ def prove(directory, archive, assignments):
     institution.require(len(checked) == 30 * len(assignments) and
         all(c["literal_full_schema_equal"] and c["native_equal"] and c["system_equal"]
             for c in checked), "exact late gate native/schema/system mismatch")
+    # Prove that replay itself did not add a lock, bytecode, or other artifact.
+    institution.require(helper.verify_bundle(directory, PROTOCOL) == metadata,
+                        "late gate snapshot changed during read-only replay")
     return dict(protocol=PROTOCOL, archive_sha256=ARCHIVE_SHA, report_sha256=REPORT_SHA,
         entire_report_recomputed=True, all_sixteen_passed=True, compared_slots=len(checked),
         compared_assignments=len(assignments), native_system_schema_equal=True,
