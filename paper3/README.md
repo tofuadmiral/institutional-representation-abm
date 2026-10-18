@@ -3,7 +3,7 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
-### Resource-isolating pilot — first block running (18 October)
+### Resource-isolating pilot — terminal/incomplete (18 October)
 
 `experiments/paper3_retrospective_resource_pilot_v1.py` preserves the four-arm,
 two-term, seven-representative/63-citizen study and accepted-action validator.
@@ -43,9 +43,25 @@ old source closures and inherited qualification checks. The actual root is
 `c6670ffdf43d14226db7253fb3fc0353e4b42e68952f6d33e55558ea017d5159`
 with 138 sources/evidence files. **First block launched once:** fresh production
 funding and exact healthy-route admission passed, the whole study was allocated,
-start records were saved, and the original process is running. No completed
-scientific outcome is claimed yet. Never prepare, restart, or duplicate the first
-block. Software consistency is not an institutional result, long-run model
+start records were saved. The original process has now stopped under its frozen
+safety rule: 66 physical attempts, 42 valid actions, one content failure and 23
+answerless provider 429s, with 22 permitted identical reissues. The fourth attempt
+at one action exhausted its recovery ceiling. Only two first terms and zero full
+episodes finished; all 16 assignments remain in the incomplete scientific screen.
+The terminal offline audit, accounting closure and actual fresh-extracted
+network-disabled Python `-I -S` replay passed with the entire report matching.
+Partial local ZIP `paper3/data/pivot_b_retrospective_resource_pilot_v1_batch0.zip`:
+208,290,935 bytes, 48,856 members, SHA256
+`e37ea582b07fa546c82b4c80b1774405009ab27fa4c3c055e19dcf7377c85bfb`.
+CRC, inventory, path/symlink and actual-key/credential scans passed. This is
+locally retained evidence, not a complete checked-in reproducibility release.
+New stage: $0.17538484 certified plus $0.33857600 full uncertain reservations;
+cumulative conservative accounting $9.779745691, four pending/322 uncertified.
+Only the started first block's unused $3.87726100 was closed; unstarted block 2
+$4.39399734 and both gate unused caps $0.29045544 remain held. No incurred cost
+or scientific record changed. **Block 2 is forbidden after the global safety stop.** Never prepare,
+restart, or duplicate the first block. This is incomplete evidence, not a null
+accountability result. Software consistency is not an institutional result, long-run model
 reliability, or a clean full-repository CI claim.
 
 ### Separate bounded late-context gate — terminal pass (16 October)

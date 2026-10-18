@@ -33,7 +33,7 @@ and original full report `91601aea398f17fe2a61e8212ab54e2eda344cd8549134ee86759d
 remain unchanged. These private accounting records are not a new scientific
 archive or publication result. Pre-launch conservative accounting $9.265784851,
 four pending/299 uncertified entries, both gate unused caps $0.29045544 retained.
-The $9 pilot's first block is now running after genuine current-source operating
+The $9 pilot's first block was launched after genuine current-source operating
 readiness passed all four suites (358 tests), including actual isolated partial/
 full scripted archive replay. Preparation and subsequent fresh production launch
 both passed exact route and full account funding checks; whole-study allocation
@@ -41,8 +41,24 @@ and start records are saved. Its 138-file freeze is protocol
 `c6670ffdf43d14226db7253fb3fc0353e4b42e68952f6d33e55558ea017d5159`;
 readiness SHA256
 `6663990c72b825778d1be26bf6c91aa2c3f92e44b871911f04c9d3083c0cf3f2`.
-No completed scientific outcome or experimental archive is claimed for this
-live pilot yet. The private software-test archives are not model observations.
+It is now terminal/incomplete after 66 physical attempts: 42 valid actions,
+one content failure and 23 answerless provider 429s, including 22 permitted
+identical reissues. Only two first terms and no full two-term episodes finished.
+The frozen global safety stop forbids block 2. The scientific screen remains
+incomplete, not a null finding. Offline audit and production closure passed.
+Local partial archive `pivot_b_retrospective_resource_pilot_v1_batch0.zip` is
+208,290,935 bytes / 48,856 members, SHA256
+`e37ea582b07fa546c82b4c80b1774405009ab27fa4c3c055e19dcf7377c85bfb`.
+Actual fresh-extracted isolated offline replay matched the entire report SHA256
+`1d217eaf647bb7e49e74d73d391739db0a66abae1b5a8229925e92024ba04dff`;
+network/process denial, genuine qualifications and retirement replay passed.
+CRC, safe paths/no symlinks and actual-key/credential scans passed. Stage accounted
+$0.51396084 ($0.17538484 certified; $0.33857600 uncertain full reservations).
+Cumulative $9.779745691 includes four pending/322 uncertified entries. Only unused
+started-block-0 $3.87726100 closed; unstarted block 1 $4.39399734 and gate caps
+$0.29045544 remain held. All 6,721 prior entry hashes are unchanged. Archive is
+retained locally, not silently included in the public checkpoint or release.
+The private software-test archives are not model observations.
 
 ## Bounded late-context qualification: terminal 16/16 pass (16 October)
 
