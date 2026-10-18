@@ -113,9 +113,10 @@ incurred reservation remains. All four current-source operating-readiness suites
 passed (358 tests, including the complete 480-action scripted workflow and actual
 isolated archive replays). The resource-isolating pilot is prepared and frozen
 under protocol `c6670ffdf43d14226db7253fb3fc0353e4b42e68952f6d33e55558ea017d5159`,
-with 138 source/evidence files. Funding and exact-route preparation checks passed;
-no allocation, institutional run or new model call has started. Software readiness
-is not an institutional finding or a claim that full-repository CI is clean.
+with 138 source/evidence files. Fresh launch-time funding and exact-route checks
+passed, the whole study was allocated, and the first institutional block is now
+running. No scientific outcome is claimed yet. Software readiness is not an
+institutional finding or a claim that full-repository CI is clean.
 
 This is a work-in-progress code checkpoint, not a reproducibility release. Some
 exploratory evidence archives referenced below are retained locally rather than

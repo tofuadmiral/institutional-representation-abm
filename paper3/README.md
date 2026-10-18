@@ -3,7 +3,7 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
-### Resource-isolating pilot — prepared, not launched (18 October)
+### Resource-isolating pilot — first block running (18 October)
 
 `experiments/paper3_retrospective_resource_pilot_v1.py` preserves the four-arm,
 two-term, seven-representative/63-citizen study and accepted-action validator.
@@ -17,9 +17,10 @@ preceded the one-time retirement of **only** its unstarted block-1 unused
 $4.39193944. All 6,721 existing charge/reservation hashes and older sources are
 unchanged. Append-only retirement SHA256:
 `04c8df6dfbf089084d84a46f8b738076f790b2377009f7ddab285f9e97b76778`.
-Cumulative conservative accounting remains $9.265784851, four pending/299
-uncertified entries; both gate unused commitments totaling $0.29045544 remain.
-Available new authority is $9.443759709. Old frozen adapters are unchanged.
+Pre-launch conservative accounting was $9.265784851, four pending/299 uncertified
+entries; both gate unused commitments totaling $0.29045544 were retained.
+Pre-launch available new authority was $9.443759709; the full pilot group is now
+allocated, not additional spending headroom. Old frozen adapters are unchanged.
 
 Fresh frames 2026101802/2026101803 and paired request bases 2026102000/+64 precede
 any response. Full 480-logical/560-physical reservation bound $8.78521918 fits the
@@ -40,10 +41,12 @@ unresolved historical reservations), exact qualified-route health/configuration,
 old source closures and inherited qualification checks. The actual root is
 `results/paper3/pivot_b_retrospective_resource_pilot_v1`, frozen at protocol
 `c6670ffdf43d14226db7253fb3fc0353e4b42e68952f6d33e55558ea017d5159`
-with 138 sources/evidence files. **Prepared, not launched:** no stage allocation,
-start record or model call exists. Launch requires fresh production admission;
-never prepare or restart this root. Software consistency is not an institutional
-result, long-run model reliability, or a clean full-repository CI claim.
+with 138 sources/evidence files. **First block launched once:** fresh production
+funding and exact healthy-route admission passed, the whole study was allocated,
+start records were saved, and the original process is running. No completed
+scientific outcome is claimed yet. Never prepare, restart, or duplicate the first
+block. Software consistency is not an institutional result, long-run model
+reliability, or a clean full-repository CI claim.
 
 ### Separate bounded late-context gate — terminal pass (16 October)
 
