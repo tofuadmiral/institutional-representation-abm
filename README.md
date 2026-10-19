@@ -74,6 +74,18 @@ interacting institutional choices.
 
 ### Paper 3 — exploratory implementation, not a manuscript
 
+**19 October: one fresh bounded comparison is being prepared.** The approved
+DeepInfra FP4 migration preserves all four institutional arms, two terms,
+seven representatives/63 synthetic citizens and the original outcome screen.
+No separate paid qualification rounds or inherited provider pass are claimed.
+The old run remains incomplete and immutable. Its approved never-started block's
+unused allocation was retired only after actual isolated replay; every incurred
+cost is preserved. The new full reservation is $8.78231108 within the unchanged
+$19 cumulative authority. Final offline scripted pipeline verification is running;
+the new institutional run has **not** been frozen, allocated or launched.
+FP4 differs from the earlier FP8 configuration; this is not a provider comparison
+or publication evidence. [Implementation status](paper3/README.md).
+
 **Current checkpoint (16 October): accountability discovery is incomplete.**
 The exploration studies whether binding versus advisory accountability,
 scored by majority approval versus summed constituent utility, changes how seven

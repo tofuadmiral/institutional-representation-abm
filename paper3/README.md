@@ -3,6 +3,38 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
+### Approved DeepInfra migration — final offline verification running (19 October)
+
+The separate `retrospective_deepinfra_*_v1.py` implementation and
+`experiments/paper3_retrospective_deepinfra_pilot_v1.py` prepare **one** bounded
+attempt, not another paid qualification ladder. Same economic controller,
+entrusted two-term SUM mandate, all four arms, 16 assigned episodes, 480 logical
+actions and at most 560 physical attempts. Fresh paired frames/seeds precede any
+answers; the first included episode is the technical shakedown. Existing typed
+actions, native reasoning, sampling, 14,000-output ceiling and missingness-aware
+two-sided scientific screen remain. No provider qualification pass is inherited.
+
+The exact approved route is `deepinfra/fp4`, not the former `atlas-cloud/fp8`.
+Current public metadata advertises the required controls and matching prices;
+it is not a reliability guarantee or launch-time health observation. The original
+failed DeepInfra forced-tool check remains counterevidence, not erased.
+
+Approved retirement of only old unstarted block 1's unused $4.39399734 is complete
+after actual old sealed-archive isolated replay. New certificate SHA256:
+`fec1b64001790a8837935583c0533c4714df063ab09717c5962323197e123258`.
+All 6,787 prior charge/reservation hashes are unchanged: cumulative conservative
+accounting $9.779745691, four pending/322 uncertified entries; both old gate unused
+commitments $0.29045544 stay held. New full reservation $8.78231108 implies worst
+cumulative $18.852512211 within the existing **$19 total**, not additional funding.
+
+Twenty-two targeted offline migration/retirement checks and lint passed. The
+final genuine 165-source full scripted pipeline verification is running, including
+partial/full actual isolated replay. These are software checks, not model data.
+No new actual experiment root, freeze, allocation or model process exists yet.
+The historical results and old 138-file source freeze below remain immutable.
+Earlier whole-repository CI debt and locally retained evidence are not resolved
+by the targeted checks. No merge, push or publication claim is made.
+
 ### Resource-isolating pilot — terminal/incomplete (18 October)
 
 `experiments/paper3_retrospective_resource_pilot_v1.py` preserves the four-arm,

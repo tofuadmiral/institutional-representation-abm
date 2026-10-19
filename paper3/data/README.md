@@ -1,5 +1,16 @@
 # Exploratory pilot archives
 
+## 19 October migration — no new institutional archive yet
+
+One approved DeepInfra FP4 comparison is implemented but not yet frozen or
+launched. Final offline scripted pipeline verification is running; private test
+archives are fabricated software evidence, not experimental observations. The
+old resource-pilot partial ZIP below remains unchanged. Its never-started block's
+unused $4.39399734 was retired only after actual isolated replay; all 6,787
+incurred-entry hashes and uncertain costs remain. Append-only migration certificate
+SHA256 `fec1b64001790a8837935583c0533c4714df063ab09717c5962323197e123258`.
+No inherited provider pass or new scientific outcome is claimed.
+
 ## Availability at the 15–16 October code checkpoints
 
 This page inventories both checked-in archives and later locally retained
