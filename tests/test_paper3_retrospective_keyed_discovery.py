@@ -1,0 +1,262 @@
+from decimal import Decimal
+import json
+import subprocess
+import sys
+from threading import Barrier, Lock
+import time
+import zipfile
+
+import pytest
+
+from experiments import paper3_retrospective_keyed_discovery as runner
+from paper3.pivot_b_budget import BUDGET_ID, atomic
+from tests.test_paper3_retrospective_deepseek_gate import endpoint
+from tests.test_paper3_retrospective_keyed_gate import fake as fake_gate
+
+
+@pytest.fixture
+def factory(tmp_path, monkeypatch):
+    monkeypatch.setattr(runner.gate, "seed_audit", lambda: dict(planned=[], overlap=[], historical_files=0))
+    monkeypatch.setattr(runner, "seed_audit", lambda: dict(planned=[], overlap=[], historical_files=0))
+
+    def build(pending=".01"):
+        ledger = tmp_path / "ledger"
+        ledger.mkdir()
+        (ledger / "entries").mkdir()
+        atomic(ledger / "authority.json", dict(budget_id=BUDGET_ID, cap_usd="10.00",
+                                               credit_purchases_authorized=False))
+        atomic(ledger / "entries/old-pending.json", dict(stage="old", status="reserved", reserved_usd=pending))
+        atomic(ledger / "entries/old-uncertified.json", dict(stage="old", status="settled",
+            reserved_usd=".01", accounted_usd=".01", certified=False))
+        gate_root = tmp_path / "gate"
+        gate_protocol = runner.gate.prepare(gate_root, metadata=endpoint(), ledger_root=ledger)
+        fake_gate((gate_root, ledger, gate_protocol))
+        gate_archive = tmp_path / "gate.zip"
+        info = runner.gate.export(gate_root, ledger, tmp_path / "gate-portable", gate_archive)
+        root = tmp_path / "plan"
+        protocol = runner.prepare(root, gate_archive, gate_protocol, info["sha256"], endpoint(), ledger)
+        return root, ledger, protocol
+    return build
+
+
+@pytest.fixture
+def prepared(factory):
+    return factory()
+
+
+def fake(prepared, batch=0, bad_at=None, transport_at=None, native=True,
+         certified=True, prose=False, policy=0, charge=".0001", worker_fault=False):
+    root, ledger, _ = prepared
+    sends, guard = [], Lock()
+    concurrent = Barrier(4)
+
+    def send(wire, secret):
+        request = json.loads(wire)
+        with guard:
+            sends.append(request)
+            n = len(sends)
+        if worker_fault and 31 <= n <= 34:
+            concurrent.wait(timeout=20)
+            if n != 31:
+                time.sleep(.2)
+        now = time.time()
+        if n == transport_at:
+            return dict(http_status=502, error_type="HTTPError", secret_redacted=False, lines=[],
+                        started_unix=now, ended_unix=now)
+        value = json.loads(request["messages"][1]["content"])
+        assert "hypothetical_assumptions" not in value
+        stage = value["stage"]
+        action = (dict(policy=policy, message="fabricated") if stage in ("draft", "final") else
+                  dict(support=True, counter_policy=policy, message="fabricated")
+                  if stage == "response" else dict(vote=policy != 0))
+        if n == bad_at:
+            action["extra"] = True
+        gid = f"fixture-b{batch}-{n}"
+        frames = [dict(id=gid, model=runner.route.MODEL_ALIAS, provider=runner.route.PROVIDER,
+            choices=[dict(index=0, delta=dict(reasoning="fabricated" if native else ""), finish_reason=None)]),
+            dict(choices=[dict(index=0, delta=dict(tool_calls=[dict(index=0, id="one", type="function",
+                function=dict(name="submit_decision", arguments=json.dumps(action)))]), finish_reason="tool_calls")]),
+            dict(choices=[], usage=dict(prompt_tokens=100, completion_tokens=100, cost=float(charge),
+                                       completion_tokens_details=dict(reasoning_tokens=80)))]
+        if prose:
+            frames[1] = dict(choices=[dict(index=0, delta=dict(content=json.dumps(action)), finish_reason="stop")])
+        return dict(http_status=200, error_type=None, secret_redacted=False,
+            lines=[line for f in frames for line in ("data: " + json.dumps(f), "")] + ["data: [DONE]", ""],
+            started_unix=now, ended_unix=time.time())
+
+    def lookup(gid, secret):
+        if not certified:
+            return dict(http_status=404, error_type="HTTPError", secret_redacted=False, data=None)
+        return dict(http_status=200, error_type=None, secret_redacted=False,
+            data=dict(id=gid, model=runner.route.MODEL_ALIAS,
+                      provider_name=runner.route.PROVIDER, total_cost=float(charge)))
+
+    terminal = runner.execute(root, batch, ledger, metadata=endpoint(), secret="fixture-secret",
+                              send=send, lookup=lookup, sleep=lambda _: None)
+    return terminal, sends
+
+
+def replay(prepared, tmp_path, label):
+    root, ledger, protocol = prepared
+    target, archive = tmp_path / (label + "-portable"), tmp_path / (label + ".zip")
+    runner.auditor().export(root, ledger, target, archive)
+    fresh = tmp_path / (label + "-fresh")
+    with zipfile.ZipFile(archive) as z:
+        z.extractall(fresh)
+    p = subprocess.run([sys.executable, "-I", "-S",
+        str(fresh / "code/experiments/paper3_retrospective_keyed_discovery.py"), str(fresh),
+        "--replay", "--expected-protocol", protocol], capture_output=True, text=True, timeout=120)
+    assert p.returncode == 0, p.stderr
+    v = json.loads(p.stdout)
+    assert v["portable_replay"]["exact_report_match"]
+    return v
+
+
+def test_all16_assignments_frozen_zero_new_gate_calls_and_complete_staging(prepared, tmp_path):
+    root, ledger, _ = prepared
+    before = {p.name: p.read_bytes() for p in (ledger / "entries").glob("*.json")}
+    first, sends = fake(prepared)
+    report = runner.audit(root, ledger)
+    assert first["serial_episode_passed"] and len(sends) == report["calls"] == 240
+    assert report["completed"] == 8 and len(report["assignments"]) == 16
+    assert report["selected_case_screen"]["verdict"] == "incomplete"
+    assert report["new_gate_calls"] == 0
+    assert all(r["status"] == "not_started" for r in report["batches"][1]["assignments"])
+    assert replay(prepared, tmp_path, "first")["completed"] == 8
+    # Scientific null-looking first block must not stop or redesign the second.
+    second, more = fake(prepared, batch=1)
+    final = runner.audit(root, ledger)
+    assert second["serial_episode_passed"] and len(more) == 240
+    assert final["calls"] == 480 and final["completed"] == 16
+    assert final["selected_case_screen"]["verdict"] == "no_selected_case_lead"
+    assert not final["publication_evidence"]
+    assert Decimal(final["accounted_usd"]) == Decimal(".048")
+    assert before == {n: (ledger / "entries" / n).read_bytes() for n in before}
+    assert replay(prepared, tmp_path, "both")["completed"] == 16
+
+
+@pytest.mark.parametrize("options", [dict(bad_at=1), dict(transport_at=1), dict(native=False),
+                                     dict(certified=False), dict(prose=True)])
+def test_first_action_fault_blocks_workers_second_batch_and_is_not_null(prepared, options):
+    terminal, sends = fake(prepared, **options)
+    report = runner.audit(*prepared[:2])
+    assert len(sends) == report["calls"] == 1
+    assert not terminal["serial_episode_passed"] and terminal["global_safety_stop"]
+    assert report["completed"] == 0 and len(report["assignments"]) == 16
+    assert report["selected_case_screen"]["verdict"] == "incomplete"
+    with pytest.raises(ValueError, match="previous batch"):
+        fake(prepared, batch=1)
+    with pytest.raises(ValueError, match="restart"):
+        fake(prepared)
+
+
+def test_partial_first_term_preserved_and_failed_run_replays(prepared, tmp_path):
+    _, sends = fake(prepared, bad_at=16)
+    report = runner.audit(*prepared[:2])
+    assert len(sends) == 16 and report["completed"] == 0
+    assert report["assignments"][0]["terms"][0] is not None
+    assert report["assignments"][0]["terms"][1] is None
+    assert report["selected_case_screen"]["first_terms_available"] == 1
+    assert report["selected_case_screen"]["verdict"] == "incomplete"
+    assert replay(prepared, tmp_path, "partial")["completed"] == 0
+
+
+def test_real_handover_all_principal_outcomes_replayed(prepared):
+    fake(prepared, policy=4)
+    fake(prepared, batch=1, policy=4)
+    report = runner.audit(*prepared[:2])
+    assert report["completed"] == 16
+    outcomes = [r["outcome"] for r in report["assignments"]]
+    assert all(len(o["cumulative_citizen_utilities"]) == 7 and
+               all(len(row) == 9 for row in o["cumulative_citizen_utilities"]) for o in outcomes)
+    assert any(any(x.startswith("successor") for x in o["terms"][1]["occupants"]) for o in outcomes)
+
+
+def test_second_batch_budget_stop_precedes_any_admission(factory):
+    prepared = factory(pending="4.97")
+    fake(prepared, charge=".001")
+    root, ledger, _ = prepared
+    before = runner.Ledger(ledger).snapshot()
+    assert Decimal(before["accounted_usd"]) + runner.CAP > 8
+    with pytest.raises(ValueError, match="eight-dollar"):
+        fake(prepared, batch=1)
+    assert not list((runner.batch_root(root, 1) / "sessions").iterdir())
+    assert runner.Ledger(ledger).snapshot() == before
+
+
+def test_qualification_archive_tamper_blocks_before_requests(prepared):
+    root, ledger, _ = prepared
+    p = root / "qualification.zip"
+    p.write_bytes(p.read_bytes() + b"tamper")
+    with pytest.raises(ValueError, match="qualification archive changed"):
+        fake(prepared)
+    assert not list((runner.batch_root(root, 0) / "calls").iterdir())
+
+
+def test_reconstructed_request_and_metrics_tampering_rejected(prepared):
+    fake(prepared)
+    root, ledger, _ = prepared
+    p = next((runner.batch_root(root, 0) / "decisions").glob("*.json"))
+    value = runner.t.load(p)
+    value["case"]["context"]["actor"] = 99
+    atomic(p, value)
+    with pytest.raises(ValueError):
+        runner.audit(root, ledger)
+
+
+def test_source_closure_and_bounds_are_complete_before_first_call():
+    specification = runner.specification()
+    assert len(specification["assignments"]) == 16 and specification["new_gate_calls"] == 0
+    assert specification["total_maximum_calls"] == 480
+    assert [r["maximum_calls"] for r in specification["batches"]] == [240, 240]
+    assert all(Decimal(r["full_reservation_usd"]) <= runner.CAP for r in specification["batches"])
+    assert runner.CAP == Decimal("2.90") and runner.route.OUTPUT_BOUND == 14000
+    assert {r["seed"] for r in runner.requests.assignments()} == {3171001, 3171002}
+
+
+def test_worker_failure_retains_inflight_and_stops_new_admissions(prepared, tmp_path):
+    terminal, sends = fake(prepared, bad_at=31, worker_fault=True)
+    report = runner.audit(*prepared[:2])
+    assert terminal["serial_episode_passed"] and terminal["global_safety_stop"]
+    assert len(sends) == report["calls"] == 34
+    assert report["completed"] == 1 and report["selected_case_screen"]["verdict"] == "incomplete"
+    assert len(report["assignments"]) == 16
+    assert replay(prepared, tmp_path, "worker-failure")["calls"] == 34
+
+
+def test_controller_fault_retains_prefix_without_claiming_cause(prepared, monkeypatch, tmp_path):
+    original = runner.action_call
+
+    def fault(assignment, actor, identity, term, stage, context, index):
+        if index == 16:
+            raise RuntimeError("fabricated controller interruption")
+        return original(assignment, actor, identity, term, stage, context, index)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(runner, "action_call", fault)
+        terminal, sends = fake(prepared)
+    report = runner.audit(*prepared[:2])
+    assert terminal["global_safety_stop"] and len(sends) == 16
+    assert report["assignments"][0]["status"] == "instrument_error"
+    assert report["assignments"][0]["controller_failure_cause_verified"] is False
+    assert report["assignments"][0]["terms"][0] is not None
+    assert report["selected_case_screen"]["verdict"] == "incomplete"
+    assert replay(prepared, tmp_path, "controller-failure")["completed"] == 0
+
+
+@pytest.mark.parametrize("kind", ["citizens", "safety_time"])
+def test_saved_principal_or_stop_timing_tamper_rejected(prepared, kind):
+    fake(prepared, bad_at=16)
+    root, ledger, _ = prepared
+    local = runner.batch_root(root, 0)
+    if kind == "citizens":
+        p = local / "episodes" / (runner.scheduled(0)[0]["id"] + ".json")
+        value = runner.t.load(p)
+        value["terms"][0]["citizen_utilities"][0][0] += 1
+    else:
+        p = local / "sessions/safety_stop.json"
+        value = runner.t.load(p)
+        value["detected_unix"] = 0
+    atomic(p, value)
+    with pytest.raises(ValueError):
+        runner.audit(root, ledger)

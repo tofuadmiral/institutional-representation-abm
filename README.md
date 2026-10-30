@@ -74,9 +74,485 @@ interacting institutional choices.
 
 ### Paper 3 — exploratory implementation, not a manuscript
 
-[Paper 3 instrumentation and local checks](paper3/README.md) cover seven-agent
-negotiation, ratification, sequential voting, and commitment-state diagnostics.
+**29 October: the fresh comparison is COMPLETE; the earlier lead did not
+replicate.** All 480 decisions / 16 two-term episodes finished. The frozen
+first-term interaction has opposite signs in the two fresh settings, and both
+control checks fail; this is no selected-case lead, not a consistent reversal.
+The full production audit and actual isolated portable replay passed; cases,
+screens and TOTAL $21.31 authority remain unchanged. This validation accounts
+$2.23476130 including full uncertain reservations. The follow-up is paused; no
+successor was launched. See
+[the exact result and limitations](paper3/README.md).
+
+**Historical 28 October: the same validation RESUMED under an approved transport-only
+recovery.** All 16 saved decisions replayed byte-exactly without model calls;
+the interrupted request was reissued with identical wire and seed. The bounded
+amendment permits verified reasoning-only timeouts with no received action,
+retaining the old failure and charge, existing retry limits, cases and total
+$21.31 authority. Genuine 76-test verification passed; one live worker and quiet
+monitoring are confirmed. No completed validation result is claimed yet. See
+[current technical status](paper3/README.md).
+
+**Historical 27 October: fresh validation PAUSED, not complete.** After 16 accepted
+decisions, the next response stream timed out after native reasoning but before
+any action arrived. The frozen policy excludes partial-stream retries; no
+request was resent. All evidence and costs remain, and the follow-up is paused
+for a human decision about a narrowly bounded retry amendment. There is no
+validation finding yet. The completed discovery below is unchanged.
+See [technical status](paper3/README.md).
+
+**26 October: the discovery comparison is COMPLETE and independently replayed.**
+All 480 decisions and 16 two-term episodes finished. The unchanged prespecified
+screen passed: the first-term normalized district-regret interaction was
+positive in both selected settings (mean +0.16754), consistent with greater
+first-term distortion under the institutional comparison. The two-term contrast
+was -0.01337, so this is not evidence of persistent welfare loss or full-mandate
+abandonment. This is a selected-case lead on one model, not a finished paper.
+Exact production audit and actual fresh-extracted, network/process-disabled
+full-report/ledger replay passed. New portable archive and older failures are
+preserved; cumulative accounting is $12.225935431 including all uncertain and
+pending reservations under total $19.30. The follow-up is paused; no successor
+was launched. See [results and caveats](paper3/README.md) and
+[portable evidence](paper3/data/README.md).
+
+**Historical 26 October: billing-only recovery and resumption.**
+One receipt GET recovered the already-saved response with no model call. All 379
+restored decisions replayed byte-exactly, and the next original request is now
+admitted. The original timeout, response, paused verdict and full uncertain
+charge remain unchanged. The new amendment continues receipt lookup after known
+temporary errors, retaining all observations and full uncertified reservations;
+invalid/conflicting receipts and scientific safety failures still stop. All 45
+current-source checks passed, including a full 480-decision private replay.
+Cases, seeds, scientific rules, model/provider and the $19.30 total cap are
+unchanged. This remains exploratory technical recovery, not a paper result.
+
+**Historical 23 October, 21:11 New York: receipt-lookup timeout pause.**
+The model returned a complete HTTP200/tool-call response, but the separate billing
+lookup timed out. The frozen policy stops on unknown receipt errors; the answer
+was not regenerated or accepted, and its full $0.01398762 reservation remains
+uncertified. Accepted work is preserved: 378/480 actions, 12/16 full episodes and
+13/16 first terms. This is incomplete, not a null or accountability finding.
+All 196 frozen files, 7,022 historical entries, 112 original raw references and
+the previous archive are unchanged. Cumulative accounted cost is $11.824383891;
+all uncertain charges and unused commitments remain held under total $19.30.
+The follow-up is paused pending a human decision on billing-only recovery of the
+saved response, never a model reissue. No final-report audit or new archive/replay
+is claimed; see `results/paper3/pivot_b_graceful_continuation_v1_pause_2026_10_23.json`.
+
+**Historical 23 October launch: resumable recovery started.** After the explicit request to
+gracefully retry, a separately frozen continuation preserves the original archive,
+replays all 111 accepted actions without model calls, and resumes the exact pending
+request. All 31 targeted recovery/integration checks passed, including the full
+480-action scripted institution, interruption recovery and real budget adapter.
+No new paid qualification or full-study restart; scientific rules and the $19.30
+cumulative cap are unchanged. The continuation is an openly documented technical
+amendment, not pristine confirmatory evidence or independent validation.
+
+**22 October UTC: the overload-recovery comparison stopped incomplete.**
+The new transport tolerates the actual transient-error variant, honors retry
+timing and preserves all action, cost and frozen-evidence safeguards. Fuad approved
+one full rerun under a $19.30 cumulative cap. Its version-2 runner and unused-only
+funding adapter passed all 49 required offline checks in 318.90 seconds with
+exact 190-source before/after equality. One-time preparation passed fresh account
+funding and route checks and froze 191 source/evidence files. The original first
+block is now terminal: 112 physical requests, three complete two-term episodes,
+one global safety stop and no reissues. A DeepInfra shared-pool HTTP429 included
+a generation header and four unavailable (HTTP404) receipts. That combination
+is outside the approved answerless retry policy; its full $0.01400374 reservation
+is retained. Block 1 is forbidden. Exact audit/unused-cap closeout and the actual
+fresh-extracted, network-disabled full-report replay passed. The partial evidence
+archive and costs are preserved; the follow-up is paused. This incomplete run is
+neither a null finding nor an accountability result.
+
+**20 October UTC: the bounded comparison stopped incomplete.** The approved
+DeepInfra FP4 migration preserves all four institutional arms, two terms,
+seven representatives/63 synthetic citizens and the original outcome screen.
+No separate paid qualification rounds or inherited provider pass are claimed.
+The old run remains incomplete and immutable. Its approved never-started block's
+unused allocation was retired only after actual isolated replay; every incurred
+cost is preserved. The new full reservation is $8.78231108 within the unchanged
+$19 cumulative authority. All 25 required offline checks passed, including the
+scripted 480-action workflow and actual partial/full isolated archive replay.
+Exact 165-source before/after equality and genuine readiness passed. Production
+preparation passed fresh funding/route checks and froze 166 source/evidence files.
+The first block stopped after 122 valid actions and four complete two-term episodes
+out of 16 assigned. An answerless upstream HTTP429 carried `engine_overloaded`
+metadata outside the frozen retry policy; the global safety stop forbids block 1.
+Exact offline audit passed, but the scientific screen is `incomplete_first_term`,
+not a null or an accountability finding. Unused block-0 allocation is closed;
+the partial archive's actual fresh-extracted, network-disabled replay matched
+the full report and passed credential checks. No restart, replacement
+qualification or successor has been launched; the follow-up is paused.
+FP4 differs from the earlier FP8 configuration; this is not a provider comparison
+or publication evidence. [Implementation status](paper3/README.md).
+
+**Current checkpoint (16 October): accountability discovery is incomplete.**
+The exploration studies whether binding versus advisory accountability,
+scored by majority approval versus summed constituent utility, changes how seven
+representatives bargain for 63 synthetic citizens over two terms. The previous
+institutional run stopped on upstream rate limits before completing a two-term
+episode. A separately frozen recovery pilot passed 281 required local software
+checks, then recorded 108 valid decisions before an output-limit/native-telemetry
+safety stop. Only 3 of 16 assigned two-term episodes completed. Its exact audit
+and actual fresh-extracted offline archive replay match, but the scientific
+screen is incomplete: this is neither an accountability finding nor a null.
+The run is closed, with no restart or automatic successor. Fresh tracked-files
+CI also exposes missing evidence inputs and legacy test-interface debt; the
+checkpoint is not merge- or release-ready. Software success is not research success.
+Paper 1's release and Paper 2's results are unchanged.
+
+A separate 16-action late-context qualification is now closed: six legal native
+actions, two upstream rate-limit responses, nine tasks unstarted. The second
+rate limit exhausted its single permitted retry, so its all-16 gate failed.
+Exact audit and actual isolated replay match; this is an infrastructure stop,
+not an institutional finding. No full successor launched. Prospective
+failure-isolation code retains missing episodes without inventing decisions;
+it cannot rescue either closed run or override the failed qualification gate.
+
+A separately approved late-context gate has now passed all 16 tasks. It kept
+the same model, information and all-16-pass requirement, but permits up to three
+identical reissues per task and nine total, only for the pinned answerless
+upstream rate-limit error. It used 25 physical attempts and all nine allowed
+reissues; $0.38688298 remains conservatively accounted within the $0.40 stage cap.
+All 35 targeted software checks passed, including actual isolated archive replay.
+The terminal audit and fresh-extracted offline replay match. This is limited
+feasibility, not long-run reliability or an institutional finding; no full
+successor was launched. Earlier failed runs and all uncertain charges remain.
+
+As of 18 October, the prospective $19-total adapter and the approved retirement
+of only the never-started old block's unused allocation are implemented. Every
+incurred reservation remains. All four current-source operating-readiness suites
+passed (358 tests, including the complete 480-action scripted workflow and actual
+isolated archive replays). The resource-isolating pilot is prepared and frozen
+under protocol `c6670ffdf43d14226db7253fb3fc0353e4b42e68952f6d33e55558ea017d5159`,
+with 138 source/evidence files. Fresh launch-time funding and exact-route checks
+passed and the whole study was allocated. The first block is now terminal and
+incomplete: 66 physical attempts yielded 42 valid actions, one content failure
+and 23 answerless provider rate-limit failures. Only two first terms and no full
+two-term episodes finished. The frozen safety stop forbids block 2; the scientific
+screen is incomplete, not a null result. Offline audit, accounting closure and
+actual fresh-extracted isolated replay of the partial archive passed. All earlier
+charges and failures remain; no successor has launched. Software readiness is not an
+institutional finding or a claim that full-repository CI is clean.
+
+This is a work-in-progress code checkpoint, not a reproducibility release. Some
+exploratory evidence archives referenced below are retained locally rather than
+bundled in Git; see the [archive availability note](paper3/data/README.md).
+[Current implementation and verification status](paper3/README.md).
+
+The following are historical checkpoints, not the current launch or budget state.
+
+**Historical (4 October): conditional-score-ledger qualification passed 24/24 checks.**
+Four role/score reports, eight counterfactual ballot questions and twelve legal
+actions; 25 physical requests including one approved answerless rate-limit
+reissue. Frozen-source audit and actual isolated archive replay match exactly.
+This is limited technical readiness, not an accountability or publication result.
+Conservative cumulative accounting is $6.608958611 of the approved total $12,
+including every pending/uncertified reservation. Follow-up paused; no institutional
+successor launched. Earlier failed qualifications and pilots remain unchanged.
+[Protocol and technical status](paper3/README.md).
+
+**Historical qualification terminal (4 October reporting): gate failed.**
+21physical requests:18logical passes(11facts/7legalactions), one genuine payoff-
+report error, one rate-limit stop and four unstarted tasks. One bounded answerless
+retry succeeded; a second429stopped the run. This is not just formatting or
+infrastructure: the substantive error also fails the frozen all24gate. All54sources
+unchanged; audit/clean archive/actual fresh offline replay match. No accountability
+finding or institutional successor launched. Stage$0.17086064; cumulative
+$6.378452451includes all reservations, leaving$5.621547549under approvedTOTAL$12.
+Follow-up PAUSED. [Details](paper3/README.md).
+
+**Historical qualification terminal: upstream rate-limit stop (3 October).**
+Six factual tasks passed; request7received an answerless provider429. The frozen
+no-retry rule stopped the gate, leaving17of24tasks unstarted, including every
+strategic action task. No inferred answer/retry/restart or institutional launch.
+All51frozen files unchanged; production audit, credential-scanned archive and
+actual fresh isolated offline replay match. Qualification NOT met, no accountability
+finding. Conservative stage$0.05177908; cumulative$6.207591811/10 includes all
+pending/uncertified reservations. Follow-up PAUSED. [Details](paper3/README.md).
+
+**Accountability pilot (3 October UTC): terminal output-interface stop.**
+The billing-separated pilot completed two of16assigned episodes, then stopped
+when the model wrote a function name plus JSON rather than an accepted response
+form.73logical/75physical calls; no inferred ballot, content repair or restart.
+All77frozen files unchanged; production audit and actual fresh-extracted offline
+archive replay match exactly. Scientific screen **incomplete**, not an
+accountability finding or a null. Block1 blocked and follow-up paused. Conservative
+accounting $6.155812731/10 includes every pending/uncertified reservation;
+budget remains but technical completion failed. [Details/archive](paper3/README.md).
+
+**Previous accountability pilot (2 October): terminal billing-certification stop.**
+The public-text-prefix pilot completed one of16assigned episodes, then stopped:
+the next response finished, but all four billing-receipt lookups returned404.
+33logical/34physical requests; no inference retry or retrospective acceptance.
+All72 frozen sources unchanged; production audit and actual fresh-extracted
+offline archive replay match. Scientific screen **incomplete**, not a null or
+accountability finding; no accepted message needed clipping. Block1 blocked,
+follow-up paused. Cumulative conservative accounting $5.527274391 of $10 retains
+all pending/uncertified reservations. [Details/archive](paper3/README.md).
+Earlier failures stay immutable; no successor launched.
+
+**Previous accountability pilot (2 October): terminal interface stop.**
+One complete two-term episode passed exact replay; the next draft contained a
+legal policy in valid tool output but a 143-character public message against the
+frozen 128-character bound. The run stopped without content repair: 31 logical
+actions, 32 physical requests, one completed episode among 16 assignments.
+The scientific screen is **incomplete**, not evidence for or against
+accountability. All 70 frozen sources are unchanged; production audit and actual
+fresh-extracted isolated archive replay agree. The conditional second block is
+blocked and the finished run's follow-up is paused. Cumulative conservative
+accounting is $5.423564031 of $10, retaining all unresolved reservations.
+No accountability finding yet; operational details and archive are in
+[Paper 3's guide](paper3/README.md).
+
+**Previous engineering interruption (2 October):** the separately frozen
+rate-limit-recovery runner failed during startup on an incorrect live transport
+binding, before any model request or new reservation. All 70 sources and all 16
+assignments remain unchanged. There is no terminal controller record, so full
+production audit/replay is unavailable; no restart or second block. The 92
+offline checks covered injected transport, not the missing default binding.
+Conservative accounting remains $5.334021871 of $10. The follow-up remains
+paused; a separate corrected adapter must test that default path before calls.
+
+**Previous bargaining pilot (2 October): terminal upstream rate limit.**
+Twelve valid decisions were followed by a pre-answer AtlasCloud HTTP429.
+No term/episode completed; all 16 assignments remain and the scientific screen
+is **incomplete**, not a behavioral null or a publication result. No retry,
+restart or second block. All 65 frozen sources are unchanged; exact production
+audit and actual fresh-extracted network-disabled replay agree. Conservative
+accounting is $5.334021871 of $10, including unresolved reservations.
+The 18/18 V2 qualification remains a limited interface pass. The finished run's
+follow-up is paused; a transport-policy successor is a proposal, not a live run.
+The earlier failed runs remain unchanged. See the
+[implementation guide](paper3/README.md) and [archive guide](paper3/data/README.md).
+
+**Output-contract preparation (2 October):** a new prospective parser accepts
+one actual function call or one exact structured final answer, with no repairs
+or conflicting decisions.182 offline tests and network-disabled isolated
+controller checks pass; all earlier freezes remain unchanged. No new model
+calls, qualification or institutional result. See the
+[implementation guide](paper3/README.md) for the63-source engineering freeze.
+
+**Latest bargaining stage (1 October): terminal output-channel failure.**
+The first serial AtlasCloud block stopped after11 requests:10 actual tool actions,
+then a complete/native/billing-valid response returned its vote as ordinary text,
+not a function call. Frozen strict channel checks failed; no retry or repair.
+Zero terms/episodes completed. All16 assignments and missingness bounds remain;
+scientific verdict is **incomplete**, not an accountability no-go or paper result.
+60 frozen sources unchanged; exact production audit and actual fresh-extracted
+network-disabled Python `-I -S` replay agree. Stage certified cost$0.02971850,
+cumulative$5.248862691; four pending/30 older uncertified and all prior entries
+preserved. Follow-up PAUSED; no restart or batch1. See the
+[implementation](paper3/README.md) and [archive](paper3/data/README.md) guides.
+
+**Prior qualification (1 October):** all18 fresh explicit-presence checks
+passed under an unchanged51-source freeze:12 exact facts/six legal actions,
+complete native reasoning, accepted tools and certified billing. No retries
+or repairs; no institutional finding. The terminal-report encoding changed,
+not payoffs, histories or actions. Fresh isolated offline archive replay agrees
+exactly. Stage charge$0.04357160, cumulative$5.219144191 including preserved
+reservations. Follow-up PAUSED; no automatic successor. See the
+[implementation guide](paper3/README.md).
+
+**Prior check (1 October):** portable nullable-schema qualification stopped
+after one complete native/tool/billing-valid response: the returned identity
+and score matched, but `successor_score` was the string `"null"`, not JSON null.
+The frozen type check failed; no repair/retry or institutional episode occurred.
+All18 assignments retained,17 unstarted. This is an output-interface failure,
+not evidence of faulty institutional reasoning. Stage accounting$0.00215488,
+cumulative$5.175572591 including old reservations. Follow-up PAUSED; no paid
+successor authorized. The previous upstream schema error remains archived.
+See the
+[implementation guide](paper3/README.md).
+
+**Prior checkpoint (1 October):** the serial-only accountability pilot is closed
+under its unchanged 58-source freeze, protocol
+`2aa999f9ab46f2fbd8604dfcd633388c7cb9a67114a2f0e60d83cf8e46d537c4`.
+Nine physical requests yielded seven native/tool-valid, certified responses.
+One pre-answer HTTP429 received its permitted identical reissue successfully;
+a later partial stream ended without a valid final action or billing receipt
+and correctly stopped the run. Its underlying cause is unknown. No first term
+or episode completed; all 16 assignments and failures remain retained. The
+scientific screen is `incomplete`, not a null or institutional finding. Exact
+fresh-extracted offline replay agrees with the audit. Stage accounting is
+$0.04107466, cumulative $5.169434731 including pending/uncertified reservations.
+The follow-up is PAUSED; no restart, second stage or paid successor is approved.
+See [Paper 3's implementation and archive guides](paper3/README.md).
+
+The following qualification and terminal checkpoints are historical:
+
+A subsequent retrospective-accountability qualification attempt stopped after
+two certified reasoning calls: its second factual counterfactual was incorrect.
+No institutional episodes started. The failed gate and exact portable replay
+are retained; it provides no evidence for or against an accountability effect.
+A fresh gate with explicit data axes/ballot semantics also failed its second
+counterfactual case; it too is archived, with no institutional episodes run.
+A separately frozen DeepSeek V3.2/DeepInfra automatic-tool qualification
+passed twelve factual reports and two legal actions, then stopped on an
+incomplete, uncertified stream. Three cases were not started. Exact audit and
+fresh-extracted replay preserve `qualification_failed`; no bargaining ran.
+Reused cases are not held-out evidence, and qualification is not an
+institutional result. The failure's cause is unknown, not an observed
+accountability effect.
+A fresh transport-aware qualification stopped after three certified calls:
+two factual reports passed, but the terminal incumbent score was23 instead
+of20. Saved reasoning uses a different policy's payoff column; the exact
+sum was already disclosed. No retry was eligible or used. All eighteen tasks
+and36 attempt slots remain in the audited, exact-replay archive. No institution
+ran, and no paid successor is running. This is an instrument failure, not an
+accountability result; any revised representation needs fresh qualification.
+A final fresh qualification on common policy-keyed payoff cards passed all
+twelve exact factual checks and six legal-action checks, with native reasoning,
+certified charges and no retries. Its42 frozen sources and178 offline tests,
+independent audit and exact portable replay are retained. This qualifies the
+instrument on those tasks, not an accountability effect or randomized interface
+improvement. The full bargaining pilot now has a separate fifty-source freeze
+and194 passing retrospective tests. All sixteen episodes are assigned before
+responses; the first budget batch stopped on request14: upstream HTTP429,
+with no response content/generation ID. Its13 prior actions were native/tool-
+valid and certified. No term completed, no parallel workers or second batch
+started. The audited archive and fresh isolated replay retain all16 assignments
+and classify the screen as `incomplete`, not a scientific null. No retries or
+repairs were made. That closed run produced no completed institutional outcome;
+see [Paper3 implementation](paper3/README.md) for the pinned protocol.
+
+A transport-tolerant successor approved on 1 October has also closed under a
+56-source freeze, protocol
+`574829e49c216b242c77ae30192197603faea51e3662f1728255be52e2432b9d`.
+The serial two-term episode completed, but a subsequent pre-answer upstream
+HTTP429 also defeated its one permitted identical retry. The frozen safety rule
+stopped new admissions. Of 118 physical requests, 109 were native/tool-valid
+and billing-certified; nine failed reservations remain retained. Eight approved
+reissue events occurred. All 16 assignments remain: one complete episode,
+four interrupted episodes, and eleven unstarted episodes across both batches.
+Five first-term outcomes are available, but the prespecified scientific screen
+is `incomplete`; missingness bounds permit both effect directions. This is not
+an accountability finding or scientific null. Independent audit and an actual
+fresh-extracted, network-disabled `-I -S` replay exactly agree; see the
+[terminal archive](paper3/data/README.md). Stage conservative accounting is
+$0.37310728, cumulative $5.128360071, including every retained reservation.
+At that closed checkpoint no model process or paid successor was running,
+and the follow-up was paused.
+All frozen sources and older archives are unchanged. No new qualification
+calls, content repairs, case replacements or second-batch launch occurred.
+The following describes the historical offline integration checkpoint:
+Sixty-three new recovery/preflight/coordinator/full-institution checks pass,
+including fabricated two-term bargaining, successor handover, complete and
+partial archives, concurrent failures and actual fresh-extracted `-I -S`
+replay. All seven closed source/evidence sets remain unchanged. These are
+engineering checks, not model findings; the candidate has no paid-launch CLI.
+At that checkpoint, human transport-policy approval and a reviewed live source
+freeze were still required; its fabricated checks used no model spending.
+
+A separately frozen release-right go/no-go test completed all 432 valid actions
+on six fresh, opportunity-conditioned games across three coalition topologies.
+Its prespecified verdict is `no_go_agreements_rare`: only one of twelve episodes
+activated an agreement, none of the three pivotal pairs changed exposed-contract
+activation, and no active control agreement was stable across arms. Exact audit
+and fresh-extracted offline replay agree. This closes the release-right exploration
+without establishing that release rights never matter. No Paper 3 publication
+result exists; protocol, costs and archive are in [Paper 3's guide](paper3/README.md).
+
+[Paper 3 instrumentation and experimental checks](paper3/README.md) cover seven-agent
+negotiation, agenda and amendment rights, ratification, and commitment-state diagnostics,
+using local open-weight models and separately frozen hosted-model pilots.
+An earlier exploratory extension tested endogenous coalition agreements,
+enforceability, and whether nonmembers have approval rights, retaining each
+constituent's outcomes separately from mechanically enforced compliance.
+The first complete Qwen coalition pilot has 270 decisions across nine episodes,
+with audited, portable replay. A later structural-jurisdiction pilot recorded 664
+calls across 24 assignments, but only 22 episodes completed; its prespecified
+feasibility and primary discovery screens failed. Selected proposal and voting
+paths differed, but no ballot was changed by enforcement in either pilot.
 These pilots have not established a publication-quality institutional effect.
+A newer constituent-level pilot retained 63 individual outcomes per constructed
+profile across three authority rules: 20 of 21 episodes completed, while one
+failed on a response-stream interruption. Its full feasibility gate is false
+and its pre-vote screen formally indeterminate. Complete cases show proposal
+and unforced-vote differences, but no enforcement-induced ballot changes;
+similar welfare shifts in non-exchange controls limit mechanism specificity.
+A subsequent frozen repeatability calibration held two exchange payoff tables
+fixed across three paired seed blocks. Nineteen of 21 assigned episodes
+completed; two invalid openings remain failed. Its feasibility and prewritten
+stability triage failed: the institutional welfare contrasts changed direction
+or vanished, and same-arm variation was substantial. The audit and portable
+archive replay are documented in [Paper 3's data guide](paper3/data/README.md).
+This rules out scaling that contract-specific exploratory lead as it stands;
+it is not a general null result about institutions.
+A separate citizen-ratification pilot then compared advisory and binding
+district referendums around a seven-representative chamber. Three completed
+outsider-harm comparisons changed the agents' final proposals from an
+insider-favored policy to a ratifiable compromise, but one no-veto control
+changed too, and two binding episodes failed the frozen action-length
+limit. The pilot's prewritten feasibility and behavioral screens both failed;
+the single constructed harm table is not independent replication or a
+paper result. See [Paper 3's data guide](paper3/data/README.md) for its
+audited outcomes and portable archive.
+A subsequent distribution-matched pilot held every district's aggregate
+preferences constant while moving one outsider district from 5/9 to 4/9
+citizen approval. Across two constructed payoff games and repeated seeds,
+the agents changed their final proposal only when that outsider veto was
+binding; all 16 episodes completed and the prospectively written discovery
+screen passed. This is a clean selected-case behavioral result, not yet a
+publication-quality claim: the games share a simple template, the response
+to a known veto is expected, and only one model was tested. Its frozen
+audit and portable archive are in [Paper 3's data guide](paper3/data/README.md).
+A later private-information extension crossed voluntary representative
+disclosure with a controller-certified referendum-count bulletin on two
+new constructed games. All 24 episodes and 384 decisions completed; the
+frozen audit and portable replay pass. The binding outsider-veto changed
+agents' final proposals under both information rules, but certification
+did not improve final outcomes over voluntary disclosure in these selected
+cases. This is informative mechanism discovery, not a population estimate
+or a publishable Paper 3 result; the chamber compromise remained easy to
+pass, and one model was tested. Its complete records and limitations are
+in [Paper 3's data guide](paper3/data/README.md).
+Two frozen structured-output gates were curtailed by upstream rate limits;
+one returned a valid action, far short of the prespecified feasibility bar.
+Neither was retried or used to launch a larger pilot.
+An independently frozen Qwen3.5/Darkbloom strict-schema gate subsequently
+returned ten valid structured answers but failed two institutional-state
+checks; its conditional exchange pilot was not launched. A distinct,
+prospectively frozen route-jurisdiction gate also failed after three recorded
+calls, including an ambiguous review-binding field and an output-length stop;
+its conditional institutional pilot was not launched. A harder six-game
+ratification/disclosure extension completed 46 of 54 assignments, so its
+prespecified comparison is not identified. A separate seven-representative
+coalition/election pilot completed all 16 selected episodes, but its binding
+arms formed different early coalitions; a subsequent fixed-opportunity
+focal-response diagnostic also failed its prewritten all-case screen.
+Neither supports an electoral-credit effect, and those frozen runs were not
+repaired or selectively rescored. A separately clarified Qwen route-
+jurisdiction gate also failed its strict 12-case prerequisite after four
+answers (three exact); the conditional route pilot was not launched.
+A subsequent 24-episode, 408-decision outsider-amendment versus citizen-veto
+pilot completed with an exact audit and portable replay. Its prespecified
+amendment-action lead failed (two of four required three aligned switches;
+only five of eight required six closed final proposals retained the insider
+favorite). The veto arm's agents chose the ratifiable compromise in all
+eight selected blocks, a descriptive response to a known veto rather than
+a rescued primary result. No Paper 3 finding has passed publication-quality
+validation. The complete negative and descriptive records are in
+[Paper 3's data guide](paper3/data/README.md).
+The later fresh-population ratification discovery was interrupted after
+177 of 576 intended calls, with no terminal audit and one transport-failed
+episode. Its strict all-episode feasibility condition cannot pass; the
+prepared holdout validation was not launched. Four unresolved call
+reservations remain conservatively counted. This is not a new empirical
+finding; [Paper 3's technical guide](paper3/README.md) records the status.
+The next design decision is recorded
+in the separate Obsidian research notes.
+A later separately frozen common-transcript sponsorship pilot
+completed all 12 paired profiles and 396 actions, but its prewritten
+constituent-outcome lead failed (3 public-benefit, 1 public-harm, 4 unchanged
+split pairs; 4 stable controls). Its exact audit and portable replay are in
+[Paper 3's data guide](paper3/data/README.md); it is not a paper result.
+Most recently, a constituent-release branching pilot passed its serial
+interface check but stopped after one response reached the output-length cap.
+Only one of 20 assigned episodes completed and no game has both institutional
+arms complete. Its exact audit and portable replay preserve the 97 paid calls
+and classify the comparison as incomplete, not a behavioral null or finding;
+see [Paper 3's data guide](paper3/data/README.md).
 Their preserved outputs include negative results and instrument-validity checks;
 they are not part of the evidence for Papers 1 or 2.
 
