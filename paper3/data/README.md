@@ -1,10 +1,255 @@
 # Exploratory pilot archives
 
-## 19 October migration — no new institutional archive yet
+## 29 October — complete validation archive; exact cold replay passed
 
-One approved DeepInfra FP4 comparison is implemented but not yet frozen or
-launched. Final offline scripted pipeline verification is running; private test
-archives are fabricated software evidence, not experimental observations. The
+The fresh comparison completed all 480 decisions / 16 two-term episodes in
+481 physical requests, with its original reasoning-only failure retained.
+Exact NEW-wrapper production audit passed with ENTIRE report equality.
+Report SHA256 `e92c710c772f57fc11190aa88e9c33947eafab45c0a69321e77d0289d24213f0`.
+Frozen result: NO selected-case lead / earlier positive discovery NOT replicated;
+frame interactions have opposite signs and both aligned-control checks fail.
+This is a complete non-replication, not the earlier incomplete instrument stop.
+
+Original export execution 33199 exited 0 with NEW
+`pivot_b_independent_validation_v1_complete/` and `.zip`; never overwrite them.
+ZIP: 139,876,743 bytes / 10,906 members, SHA256
+`b44e9236864bb9c7e56af9e9ab66b855f1fb8e5a4201e0c6ecef86d329ab700a`.
+The separate post-freeze helper includes all 215 frozen sources,
+authority/readiness chains, full old/new current-root records and timeout
+amendment, completed-discovery reference data/archive, and the entire 7,872-entry
+ledger including pending/uncertified reservations and audited stage closures.
+Six private packaging tests and Ruff passed; they are software evidence only.
+ACTUAL cold replay ran the bundled NEW-wrapper CLI under Python `-I -S`,
+fresh-extracted to a resolved temporary path. Network/process denial selftests
+passed; ENTIRE amended report AND ledger snapshot matched. Child exit 0 / empty
+stderr. CRC, unique safe paths, no symlinks and generic/exact-current-key scans
+passed without exposing credentials. Genuine child argv/stdout/stderr and
+certificate: `results/paper3/validation_portable_replay_2026_10_29.json`.
+
+From a fresh extraction, using Python's standard library only:
+
+```sh
+python3 -I -S tools/paper3_validation_archive_v1.py --replay --expected-protocol 89f5dabecbaf3ba3d7bac299fb836aeb967bb241e5679d332756a2cec435e851
+```
+
+Validation accounting $2.23476130 conservatively: $1.47204778 certified settled
+and $0.76271352 full uncertified reservations. Cumulative $14.460696731 under
+TOTAL $21.31; four old pending / 406 uncertified retained. Only unused COMPLETE
+current-stage commitments closed; old gates $0.29045544 still held. Earlier
+archives/negatives/failures are unchanged. District normalized regret is not
+total citizen welfare or proof of full-mandate abandonment; this is bounded
+fresh-setting replication after disclosed technical recovery, not a paper result.
+The same follow-up is confirmed PAUSED; no successor or automatic rerun.
+
+## Historical 28 October — same-root recovery resumed; complete archive still pending
+
+The approved transport-only amendment resumed the SAME validation root with
+215 frozen source/evidence files. Saved invocation 0001 / actual PID 55804 /
+execution 28690 is the current worker; historical invocation 0000 remains paused
+and immutable. All 16 saved decisions replayed byte-exactly without model calls;
+the interrupted logical action's a2 request was admitted with identical wire and
+seed. Original raw failure, receipt, charge and all 7,408 previous ledger entries
+remain pinned. No validation finding, complete archive or cold replay is yet
+claimed. Quiet monitoring is active; cases, scientific screen and TOTAL $21.31
+authority are unchanged.
+
+External amendment protocol
+`89f5dabecbaf3ba3d7bac299fb836aeb967bb241e5679d332756a2cec435e851`
+requires `experiments/paper3_reasoning_timeout_recovery_v1.py` for subsequent
+run/audit, never the old direct CLI. The root's
+`reasoning_timeout_amendment_v1/` retains manifest, byte-exact prefix proof,
+finite remaining-frame window and actual resume observation. Future export must
+include this amendment, all 215 pinned sources/readiness/authority chains and
+the entire historical/new ledger; actual fresh-extracted network/process-guarded
+new-wrapper audit must match the ENTIRE amended report and ledger. Never
+overwrite prior artifacts or release incurred uncertainty. See the implementation
+guide for the bounded no-action retry rule and genuine software evidence.
+
+## Historical 27 October — fresh validation stopped; no complete archive claimed
+
+The new root `results/paper3/pivot_b_independent_validation_v1` is preserved with
+16 accepted decisions, 17 physical requests and its genuine paused terminal.
+A reasoning-only response stream timed out before any action arrived. This is
+an incomplete comparison, not a scientific null or failed replication. No new
+portable complete artifact or entire-report cold replay is claimed.
+
+Diagnostic `results/paper3/independent_validation_stop_2026_10_27.json` SHA256
+`fb78aa49373351c862cf1f26a8d9408383e8d12b4c63dfe1927aaf75bd6b2bb8` records
+the raw failure, checks of all 17 settlements and unchanged source/old-entry pins,
+separate certified/uncertified/pending amounts and a required human retry-policy
+decision. All unused commitments remain held. Follow-up is PAUSED; no automatic
+retry or replacement study. Completed discovery and older archives below remain
+unchanged. The raw failed response and valid billing receipt are both retained.
+
+## 26 October — complete discovery archive; exact fresh offline replay passed
+
+New directory `pivot_b_graceful_continuation_v1_complete/` and ZIP
+`pivot_b_graceful_continuation_v1_complete.zip` preserve all 480 decisions / 16
+two-term episodes, both outcome horizons and every individual harm, original
+failed attempts, billing-timeout row, recovered receipt view and financial
+uncertainty. Older archives were not overwritten or reinterpreted.
+
+ZIP: 55,277,011 bytes, 8,932 members; SHA256
+`c7cca9cfbd8656865723277217d941e16177f2e0ed35a8ac2a2a8c06a5cb04c7`.
+Report SHA256 `cce94f8ed48d86898522f918e16904b2815ce83c966d79b87652be248636df19`.
+External amendment protocol
+`31d182e9c387a1bf1eb0bc8cedc7934a478be87db3b88327adc3b513a4f1af88`.
+The bundle includes all 200 pinned source/evidence files, both readiness/authority
+chains, full continuation root/amendment/receipt supplement, referenced original
+raw prefix/start and the entire historical/new ledger. Post-freeze archive
+helper SHA256 `c498d16303814f52a8328050e894523a318371664faa38aade703b266ffb464a`;
+it did not alter frozen research sources or rules.
+
+Actual export execution 47492 / parent PID 50846 / fresh isolated child 51047
+passed ENTIRE report and financial equality. Network/child-process guard
+self-tests, generic/exact-current-key credentials, ZIP CRC, unique paths and
+no-symlink checks passed. From the extracted bundle, standard-library replay:
+
+```sh
+python3 -I -S tools/paper3_billing_archive_v1.py --replay --expected-protocol 31d182e9c387a1bf1eb0bc8cedc7934a478be87db3b88327adc3b513a4f1af88
+```
+
+Frozen discovery screen passed `selected_case_increased_distortion`: first-term
+district-regret interaction +0.167539, same sign in both selected settings.
+Two-term contrast -0.013374 differs; raw citizen-utility interactions are -35
+first-term / +13 both-term. No population, intrinsic motive, full-mandate
+abandonment, independent validation or publication claim. See implementation
+README for aligned-control cancellation and zero local ballot-tradeoff caveats.
+
+Cumulative accounted $12.225935431 includes $7.38163370 certified,
+$4.822833651 uncertified settled and $0.02146808 pending. Only audited unused
+complete-stage caps $5.43727560 closed; no uncertainty released; older gates
+$0.29045544 held. Four pending/353 uncertified entries remain. Closeout JSON:
+`results/paper3/pivot_b_graceful_continuation_v1_complete_closeout_2026_10_26.json`,
+SHA256 `8200cc503ecdac068581f9af8cb8231d983060bc548559de3664e322215592c0`.
+Follow-up paused; no successor. All earlier failures and negatives preserved.
+
+## Historical 26 October — append-only billing recovery; old archives unchanged
+
+The same graceful continuation resumed through `paper3_billing_recovery_v1.py`,
+external amendment protocol
+`31d182e9c387a1bf1eb0bc8cedc7934a478be87db3b88327adc3b513a4f1af88`.
+One actual receipt GET recovered the saved answer without another model call;
+original raw evidence, timeout/paused verdict and full historical reservation are
+unchanged. All 379 restored decisions replayed byte-exactly; the next unchanged
+request is admitted. The wrapper records a derived billing view and retains all
+original/new receipt observations. Cases, science, model/provider and total
+$19.30 cap remain unchanged. No final archive or scientific result claimed yet.
+
+New metadata in `results/paper3/pivot_b_graceful_continuation_v1/billing_amendment_v1/`
+pins 200 source/evidence files, 810 pre-amendment JSON files and 7,290 old ledger
+entries. `recovered.json` SHA256
+`b6db319d0fa67ac2d3151453c4034e7e548ff2fff4af9a97189be4a0de25ea26`;
+`prefix_replay.json` records the actual zero-API 379-decision replay. The final
+new archive must include this amendment, both readiness/authority chains,
+original raw prefix/start, whole continuation root and full historical/new ledger;
+actual fresh isolated NEW-wrapper audit must match the entire report. Never
+overwrite old archives or release incurred uncertainty. All 45 genuine offline
+checks passed; private fabricated test responses are not experimental evidence.
+
+## Historical 23 October — continuation paused; no completed-report archive claimed
+
+The durable continuation paused on a separate billing-receipt `TimeoutError`
+after a complete HTTP200 model response. The saved answer is not regenerated or
+accepted; its full $0.01398762 reservation stays uncertified. Preserved accepted
+work: 378/480 actions, 12/16 full episodes and 13/16 first terms. No final
+`report.json` exists, so no complete economic audit, new portable archive or
+full-report replay is claimed. All raw/accepted/attempt records remain in the
+original continuation root; all old archives are byte-identical.
+
+Read-only verification preserved 196 frozen files, 7,022 old entry hashes, 112
+old raw references and all 268 new settled physical records. Cumulative accounted
+$11.824383891 includes $7.05281604 certified, $4.750099771 uncertified settled and
+$0.02146808 pending. All $6.12928258 unused commitments remain held; total cap
+$19.30 unchanged. Diagnosis (not a scientific report):
+`results/paper3/pivot_b_graceful_continuation_v1_pause_2026_10_23.json`, SHA256
+`50a8ea4471269f6ce155c472096e8e5399a120c05fb62d080837ca1669c1340e`.
+Follow-up PAUSED pending a human decision; no automatic resume or model retry.
+
+## Historical 23 October launch — separate durable continuation
+
+`pivot_b_graceful_continuation_v1` launched with a separately frozen protocol
+`ad3ccdb2d3be68922cffeea6d5ed0de2c160b7299fdeeb0c9a5422692abdb964`.
+The old archive below remains byte-identical and incomplete. The continuation
+reuses its 111 accepted raw actions and preserves the failed request/cost, then
+resumes the exact pending request under an explicitly documented recovery
+amendment. No new scientific finding or continuation archive is claimed yet.
+All original assignments, parameters, thresholds and cumulative $19.30 authority
+remain; there is no separate paid qualification or fresh full-study rerun.
+
+## 22 October UTC — overload-recovery rerun incomplete, archived and paused
+
+The previous archive below remains immutable and incomplete. Fuad approved one
+fresh unchanged 16-episode comparison, total cumulative authority $19.30, with no
+separate paid qualification. Only its never-started block-1 unused $4.39135184
+was retired; all incurred/pending/uncertified charges stay counted. The fresh
+version-2 implementation passed all 49 whole-file offline checks in 318.90 seconds
+with exact 190-source before/after equality. One-time preparation passed funding
+and route checks and froze 191 source/evidence files. Batch 0 is now terminal
+(original execution 38145 / PID 92134) with 112 physical requests, three complete
+two-term episodes, no reissues and a global safety stop. Shared-pool HTTP429
+included a generation header and four HTTP404 receipt observations; frozen
+retry rules reject that ambiguity. Its full $0.01400374 reservation is retained.
+Exact audit/closeout passed; block 1 is forbidden. The retained partial evidence
+archive's actual isolated replay matched the entire audited report. Same economic games
+are reused after transport repair with fresh request seeds, not independent
+validation. The existing follow-up is paused. This failure authorizes no
+replacement experiment or gate.
+
+Archive `pivot_b_retrospective_deepinfra_pilot_v2_batch0.zip`: 56,810,195 bytes,
+8,014 members, SHA256
+`ef95dcadf92c56c53c11416c1153ffa67de1408921dd42cec012a5b580a7c352`.
+Full report SHA256
+`6fc12c31d86fd5aeb182c6e5a667039dec54d93c96b4acdc18da81bfaad303cd`.
+Production export 47574 / PID 69875 / real isolated child 70729 completed exit 0,
+empty stderr. Fresh-extracted bundled Python `-I -S` network/process-guarded
+replay, retirement/ledger bindings, CRC/path/no-symlink and generic plus exact
+current-key scans passed without key exposure. Screen `incomplete_first_term`:
+three complete episodes/four first terms of sixteen; not no effect. Stage
+$0.40121250 = $0.38720876 certified + $0.01400374 uncertified. Cumulative
+$10.625432431, four pending and 324 uncertified. Only unused block-0 $3.98974674
+closed; block-1 $4.39135184 and older gate $0.29045544 remain held. No incurred
+reservation was released, no previous frozen source or archive rewritten.
+
+## 20 October UTC — previous DeepInfra pilot incomplete, archived
+
+The bounded first block is terminal with a global safety stop: 123 physical
+requests, 122 valid actions, one ineligible answerless HTTP429, zero reissues;
+four complete two-term episodes/four first terms out of all 16 assigned. Block 1
+is forbidden. Exact production audit passed, but the scientific screen remains
+`incomplete_first_term`, not no effect. Stage accounting is $0.44447424, including
+the failed request's full reservation; cumulative $10.224219931, four pending and
+323 uncertified. Offline unused-block-0 closure passed, closing only $3.94648500
+of unspent allocation; unstarted block-1 $4.39135184 and old gate commitments
+$0.29045544 stay held. Stage accounting separates $0.42958442 certified charges
+from the failed request's $0.01488982 uncertified reservation. Original production
+export/replay (handle 55057 / PID 68919) completed exit 0, empty stderr.
+
+Locally retained `pivot_b_retrospective_deepinfra_pilot_v1_batch0.zip` is
+45,043,899 bytes with 7,937 members. SHA256:
+`72871793b208784d5338035efe5f1d6a7cd39cd1e68bd864b30bc79b0e9eb1c1`.
+Actual fresh-extracted bundled Python `-I -S` replay, with network/process guards,
+matched the entire audited report and verified historical retirement/ledger
+bindings. Report SHA256:
+`292e223979fda41061096a7b5dc8d3e8f915713fc0dd83c2aad7591505072818`.
+CRC/path/symlink and generic plus exact current-key credential scans passed.
+All 16 assignments, four full episodes, failed/partial/unstarted cases, raw and
+executed messages/ballots, both horizons, citizen harms and missingness bounds are
+retained. Integrity success is not scientific success or a publication release.
+The follow-up is paused; no block 1, replacement gate or successor is authorized.
+All earlier archives and failures remain immutable.
+
+### Historical preparation checkpoint
+
+One approved DeepInfra FP4 comparison passed all 25 required offline checks,
+including actual partial/full isolated replay of the scripted workflow. Genuine
+165-source equality/readiness passed; one-time preparation froze 166 source/evidence
+files after fresh funding/route checks. The one approved batch-0 launch command
+was launched: saved pilot/block start records, fresh funding/route admission and
+the first admitted model request were confirmed. No completed comparison or new
+institutional archive exists yet.
+Private test archives are fabricated software
+evidence, not experimental observations. The
 old resource-pilot partial ZIP below remains unchanged. Its never-started block's
 unused $4.39399734 was retired only after actual isolated replay; all 6,787
 incurred-entry hashes and uncertain costs remain. Append-only migration certificate

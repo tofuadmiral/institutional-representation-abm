@@ -74,15 +74,115 @@ interacting institutional choices.
 
 ### Paper 3 — exploratory implementation, not a manuscript
 
-**19 October: one fresh bounded comparison is being prepared.** The approved
+**29 October: the fresh comparison is COMPLETE; the earlier lead did not
+replicate.** All 480 decisions / 16 two-term episodes finished. The frozen
+first-term interaction has opposite signs in the two fresh settings, and both
+control checks fail; this is no selected-case lead, not a consistent reversal.
+The full production audit and actual isolated portable replay passed; cases,
+screens and TOTAL $21.31 authority remain unchanged. This validation accounts
+$2.23476130 including full uncertain reservations. The follow-up is paused; no
+successor was launched. See
+[the exact result and limitations](paper3/README.md).
+
+**Historical 28 October: the same validation RESUMED under an approved transport-only
+recovery.** All 16 saved decisions replayed byte-exactly without model calls;
+the interrupted request was reissued with identical wire and seed. The bounded
+amendment permits verified reasoning-only timeouts with no received action,
+retaining the old failure and charge, existing retry limits, cases and total
+$21.31 authority. Genuine 76-test verification passed; one live worker and quiet
+monitoring are confirmed. No completed validation result is claimed yet. See
+[current technical status](paper3/README.md).
+
+**Historical 27 October: fresh validation PAUSED, not complete.** After 16 accepted
+decisions, the next response stream timed out after native reasoning but before
+any action arrived. The frozen policy excludes partial-stream retries; no
+request was resent. All evidence and costs remain, and the follow-up is paused
+for a human decision about a narrowly bounded retry amendment. There is no
+validation finding yet. The completed discovery below is unchanged.
+See [technical status](paper3/README.md).
+
+**26 October: the discovery comparison is COMPLETE and independently replayed.**
+All 480 decisions and 16 two-term episodes finished. The unchanged prespecified
+screen passed: the first-term normalized district-regret interaction was
+positive in both selected settings (mean +0.16754), consistent with greater
+first-term distortion under the institutional comparison. The two-term contrast
+was -0.01337, so this is not evidence of persistent welfare loss or full-mandate
+abandonment. This is a selected-case lead on one model, not a finished paper.
+Exact production audit and actual fresh-extracted, network/process-disabled
+full-report/ledger replay passed. New portable archive and older failures are
+preserved; cumulative accounting is $12.225935431 including all uncertain and
+pending reservations under total $19.30. The follow-up is paused; no successor
+was launched. See [results and caveats](paper3/README.md) and
+[portable evidence](paper3/data/README.md).
+
+**Historical 26 October: billing-only recovery and resumption.**
+One receipt GET recovered the already-saved response with no model call. All 379
+restored decisions replayed byte-exactly, and the next original request is now
+admitted. The original timeout, response, paused verdict and full uncertain
+charge remain unchanged. The new amendment continues receipt lookup after known
+temporary errors, retaining all observations and full uncertified reservations;
+invalid/conflicting receipts and scientific safety failures still stop. All 45
+current-source checks passed, including a full 480-decision private replay.
+Cases, seeds, scientific rules, model/provider and the $19.30 total cap are
+unchanged. This remains exploratory technical recovery, not a paper result.
+
+**Historical 23 October, 21:11 New York: receipt-lookup timeout pause.**
+The model returned a complete HTTP200/tool-call response, but the separate billing
+lookup timed out. The frozen policy stops on unknown receipt errors; the answer
+was not regenerated or accepted, and its full $0.01398762 reservation remains
+uncertified. Accepted work is preserved: 378/480 actions, 12/16 full episodes and
+13/16 first terms. This is incomplete, not a null or accountability finding.
+All 196 frozen files, 7,022 historical entries, 112 original raw references and
+the previous archive are unchanged. Cumulative accounted cost is $11.824383891;
+all uncertain charges and unused commitments remain held under total $19.30.
+The follow-up is paused pending a human decision on billing-only recovery of the
+saved response, never a model reissue. No final-report audit or new archive/replay
+is claimed; see `results/paper3/pivot_b_graceful_continuation_v1_pause_2026_10_23.json`.
+
+**Historical 23 October launch: resumable recovery started.** After the explicit request to
+gracefully retry, a separately frozen continuation preserves the original archive,
+replays all 111 accepted actions without model calls, and resumes the exact pending
+request. All 31 targeted recovery/integration checks passed, including the full
+480-action scripted institution, interruption recovery and real budget adapter.
+No new paid qualification or full-study restart; scientific rules and the $19.30
+cumulative cap are unchanged. The continuation is an openly documented technical
+amendment, not pristine confirmatory evidence or independent validation.
+
+**22 October UTC: the overload-recovery comparison stopped incomplete.**
+The new transport tolerates the actual transient-error variant, honors retry
+timing and preserves all action, cost and frozen-evidence safeguards. Fuad approved
+one full rerun under a $19.30 cumulative cap. Its version-2 runner and unused-only
+funding adapter passed all 49 required offline checks in 318.90 seconds with
+exact 190-source before/after equality. One-time preparation passed fresh account
+funding and route checks and froze 191 source/evidence files. The original first
+block is now terminal: 112 physical requests, three complete two-term episodes,
+one global safety stop and no reissues. A DeepInfra shared-pool HTTP429 included
+a generation header and four unavailable (HTTP404) receipts. That combination
+is outside the approved answerless retry policy; its full $0.01400374 reservation
+is retained. Block 1 is forbidden. Exact audit/unused-cap closeout and the actual
+fresh-extracted, network-disabled full-report replay passed. The partial evidence
+archive and costs are preserved; the follow-up is paused. This incomplete run is
+neither a null finding nor an accountability result.
+
+**20 October UTC: the bounded comparison stopped incomplete.** The approved
 DeepInfra FP4 migration preserves all four institutional arms, two terms,
 seven representatives/63 synthetic citizens and the original outcome screen.
 No separate paid qualification rounds or inherited provider pass are claimed.
 The old run remains incomplete and immutable. Its approved never-started block's
 unused allocation was retired only after actual isolated replay; every incurred
 cost is preserved. The new full reservation is $8.78231108 within the unchanged
-$19 cumulative authority. Final offline scripted pipeline verification is running;
-the new institutional run has **not** been frozen, allocated or launched.
+$19 cumulative authority. All 25 required offline checks passed, including the
+scripted 480-action workflow and actual partial/full isolated archive replay.
+Exact 165-source before/after equality and genuine readiness passed. Production
+preparation passed fresh funding/route checks and froze 166 source/evidence files.
+The first block stopped after 122 valid actions and four complete two-term episodes
+out of 16 assigned. An answerless upstream HTTP429 carried `engine_overloaded`
+metadata outside the frozen retry policy; the global safety stop forbids block 1.
+Exact offline audit passed, but the scientific screen is `incomplete_first_term`,
+not a null or an accountability finding. Unused block-0 allocation is closed;
+the partial archive's actual fresh-extracted, network-disabled replay matched
+the full report and passed credential checks. No restart, replacement
+qualification or successor has been launched; the follow-up is paused.
 FP4 differs from the earlier FP8 configuration; this is not a provider comparison
 or publication evidence. [Implementation status](paper3/README.md).
 
