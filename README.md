@@ -74,6 +74,31 @@ interacting institutional choices.
 
 ### Paper 3 — exploratory implementation, not a manuscript
 
+**4 November: controlled office-sacrifice diagnostic complete.** Across 16
+constructed games, the model approved all beneficial proposals in all four
+binding/advisory × bonus 0/24 conditions (64 ballots). All 32 harmful/factual
+controls passed; no assignments were missing. In the binding/bonus condition,
+every chosen proposal replaced the representative despite a lower stipulated
+officeholder score. The paired bonus effect was zero. This is mandate-following
+under explicit known consequences, fixed peers and one model—not evidence of
+intrinsic self-sacrifice or general shutdown safety. Five of the acting district's
+nine citizens are harmed even though district SUM and total utility improve.
+The earlier institutional lead still **failed to replicate**.
+
+The exact production audit and genuine freshly extracted offline replay passed.
+[Public inputs and response summaries](paper3/data/office_sacrifice_public_summary_v1/README.md),
+[technical method](analysis/paper3_office_sacrifice_probe_v1.md), and
+[research notes](https://fuadali.com/blog/would-an-ai-representative-vote-itself-out.html)
+describe the evidence and limits. Full provider/ledger archives remain local;
+the public summaries are not a standalone replay archive.
+
+**Next research, offline only:** a separate
+[public-message-board simulator](paper3/message_board_handoff_v1.py) compares
+deliberation with private work, self versus peer replacement, and better versus
+worse successors. Its scripted reference replay is software evidence, not new
+model behavior. No paid board cohort has been launched. See
+[current implementation status](paper3/README.md).
+
 **29 October: the fresh comparison is COMPLETE; the earlier lead did not
 replicate.** All 480 decisions / 16 two-term episodes finished. The frozen
 first-term interaction has opposite signs in the two fresh settings, and both

@@ -3,6 +3,82 @@
 This directory contains experimental institution engines, not a finished paper.
 Paper 1 remains frozen at `v1.0.2`; Paper 2 is separate in `paper2/`.
 
+### 4 November — completed controlled diagnostic; board research remains offline
+
+The controlled cohort contains 16 fresh constructed games, each with four
+binding/advisory-majority × bonus 0/24 decisions, a harmful control and a balanced
+factual control. All 96 assignments are valid, with zero missing; 97 physical
+attempts include one preserved failed attempt and bounded retry.
+
+| Condition | Result |
+| --- | --- |
+| Binding, bonus 0 | 16/16 approve |
+| Binding, bonus 24 | 16/16 approve |
+| Advisory, bonus 0 | 16/16 approve |
+| Advisory, bonus 24 | 16/16 approve |
+| Harmful proposal | 16/16 reject |
+| Factual control | 16/16 correct, balanced 8 true / 8 false |
+
+Primary paired binding-bonus rejection effect, advisory bonus effect, interaction
+and removal effect without a bonus are all zero. Every binding choice removes
+the representative. With bonus 24, rejecting would give a higher officeholder
+score than accepting. The entrusted objective remains the constituents' SUM
+across both terms, including after replacement. Term two is mechanically zero;
+the other six ballots are fixed. The bonus is a described score, not training
+reward. This is an explicit task on one model and 16 paired base games, not 64
+independent games or evidence of intrinsic motive. Every beneficial proposal
+harms five own constituents; district gains average 14 and total citizen gains
+average 150. All individual utilities are retained.
+
+Exact production audit matched the complete report, requests, attempts and all
+7,969 ledger entry hashes. A genuinely fresh extraction ran the bundled audit
+under Python `-I -S` with network/process-denial selftests; the complete report
+and ledger snapshot matched. All 220 frozen source/evidence files and 10,770
+protected historical files were preserved. [Method and exact hashes](../analysis/paper3_office_sacrifice_probe_v1.md)
+and [archive availability](data/README.md) distinguish local replay evidence from
+the [public derived summaries](data/office_sacrifice_public_summary_v1/README.md).
+
+Study accounting: $0.08419188 = $0.07747048 certified + $0.00672140 full
+uncertified reservation, with no own pending entries. Only unused current-stage
+cap $0.71865604 closed after audit. Cumulative accounting is $14.544888611 under
+unchanged TOTAL $21.31; all four old pending entries, 407 uncertified entries
+and $0.29045544 older gate commitments remain. Closed unused allocation is not
+a refund or authority for another study.
+
+The offline work that motivated this diagnostic is also included:
+[mechanism audit](../analysis/paper3_mechanism_audit_v1.md) and
+[behavioral identification](../analysis/paper3_behavioral_identification_v1.md).
+The earlier failed replication and the ambiguity of 256 first-term offers are
+preserved. The controlled result does not repair that replication.
+
+The next candidate design is implemented separately in
+[`message_board_handoff_v1.py`](message_board_handoff_v1.py): three independent
+agent histories, two synchronous public rounds, a matched private-work condition,
+self/peer incumbent assignment and mechanically known better/worse successors.
+Only the chair executes a final plan. The simulator retains failed posts and
+unresolved decisions; peer text cannot change authority or the trusted case.
+No hidden native reasoning is shared or fed into later calls; accepted public
+messages are carried in each participant's own history. There is no office
+bonus in the main task. Separate factual and explicitly assigned score controls
+test comprehension and measurement sensitivity.
+
+Four targeted software tests passed. Private reference agents exercise and replay
+the complete request/history/state transitions; they are not LLM observations.
+The optional offline command requires the locally preserved controlled evidence:
+
+```sh
+python -B analysis/paper3_message_board_offline_v1.py --cases 16 --output results/paper3/new_private_board_check.json
+```
+
+It denies network/process access, makes zero model calls and allocates nothing.
+A 16-case candidate contains 352 logical calls with a conservative maximum of
+384 physical calls including 32 reissues; its bounded request allowance is
+$5.31941820 using the unchanged route/prices/output cap. This is a development
+bound, not an allocation or launch approval. Only eight cases in that candidate
+have better successors, so it is a small diagnostic, not a precision validation.
+The live transport/receipt adapter, frozen cohort, readiness and spending scope
+are not yet prepared. No successor model run has occurred.
+
 ### 29 October — comparison COMPLETE; prior positive lead NOT replicated
 
 All 480 logical decisions / 16 two-term episodes completed in 481 physical

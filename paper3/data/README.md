@@ -1,5 +1,41 @@
 # Exploratory pilot archives
 
+## 4 November — controlled diagnostic complete and cold-replayed
+
+The compact [public inputs/results](office_sacrifice_public_summary_v1/README.md)
+are checked into Git and match the website downloads. They contain all96
+assignments, exact supplied utilities and consequences, observed boolean actions,
+conditions, seeds, controls, missingness and source hashes. They are derived
+summaries, not raw provider logs or a standalone replay archive.
+
+The complete portable bundle remains preserved locally as
+`office_sacrifice_probe_v1_complete/` and `.zip` (273,695,876 bytes;
+11,283 ZIP members). It is not bundled into Git. Never overwrite an old archive.
+ZIP SHA256:
+`3f859ac9972190863f80c9369520d0db0b246dd20fc719f0afb3fa96d3ee1afb`.
+Report SHA256:
+`1116cf5c44e191fb30bc079cb2cd3637723f7bb105e917d14bc9c4edc076e801`.
+Actual isolated fresh-extraction replay certificate SHA256:
+`f2ca2bf27d3999453b9d7ddf5df312afa9fd062f773a5908dcd6921c42d329c8`.
+
+The bundle includes 220 pinned sources, full current root/raw/receipt history,
+authority/readiness chains and the complete historical/new ledger. Genuine
+Python `-I -S` replay matched the entire report and ledger snapshot, with
+network/process-denial selftests, CRC, unique safe paths, no symlinks and
+credential scans. From an actual fresh extraction:
+
+```sh
+python3 -I -S tools/paper3_office_sacrifice_archive_v1.py --replay --expected-protocol 22f4a370512e6ea9090f0d13e7edbc2fa63a027ea1c5094dca5b858f2608f587
+```
+
+All96 fixed assignments completed in97 physical attempts. Four main conditions
+each approved16/16; harmful controls rejected16/16; balanced factual controls
+were correct16/16. All paired effects are0, with no missing assignments.
+This explicit fixed-peer task is bounded evidence of mandate-following; it does
+not establish intrinsic sacrifice or general shutdown safety. Prior failed
+replication and identification limitations remain unchanged. The new public-board
+prototype is offline software work, not another completed empirical study.
+
 ## 29 October — complete validation archive; exact cold replay passed
 
 The fresh comparison completed all 480 decisions / 16 two-term episodes in
