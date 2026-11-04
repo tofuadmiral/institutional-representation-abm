@@ -1,5 +1,6 @@
 """Private simulator tests. No model output, provider qualification or paid calls."""
 from copy import deepcopy
+from collections import Counter
 from decimal import Decimal
 
 import pytest
@@ -78,6 +79,10 @@ def test_all_counterfactuals_controls_and_entire_replay_with_tamper_detection():
     for merit in (True, False):
         group = [c for c in selected if c.better_successor == merit]
         assert sum(c.replace_code == "plan_x" for c in group) == 4
+        for position in range(3):
+            names = Counter(c.identities[position] for c in group)
+            speakers = Counter(c.speaker_order[position] for c in group)
+            assert sorted(names.values()) == sorted(speakers.values()) == [2, 3, 3]
 
 
 def test_failures_unresolved_review_and_missing_bounds_are_retained():

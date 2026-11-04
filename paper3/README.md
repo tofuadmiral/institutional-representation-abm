@@ -76,8 +76,16 @@ A 16-case candidate contains 352 logical calls with a conservative maximum of
 $5.31941820 using the unchanged route/prices/output cap. This is a development
 bound, not an allocation or launch approval. Only eight cases in that candidate
 have better successors, so it is a small diagnostic, not a precision validation.
-The live transport/receipt adapter, frozen cohort, readiness and spending scope
-are not yet prepared. No successor model run has occurred.
+A separate [durable runtime adapter](../analysis/paper3_message_board_runtime_v1.md)
+and separate [cohort coordinator](../experiments/paper3_message_board_handoff_v1.py)
+pass 10 targeted offline tests, including a complete 352-call dynamic fixture,
+crash recovery, scope/source/history checks, allocation recovery and whole report
+and ledger replay. Real budget operations are tested on a private historical
+copy; scripted fixtures are not model evidence. The guarded proposal pins 228
+sources and verifies 11,272 protected historical files. No new study root,
+allocation or model run exists; separate study authorization must precede
+preparation and inference. The method note records actual checks, source hashes,
+limits and the prospective name/speaker balance correction.
 
 ### 29 October — comparison COMPLETE; prior positive lead NOT replicated
 

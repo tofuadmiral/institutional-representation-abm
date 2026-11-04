@@ -107,16 +107,21 @@ class Case:
 
 def cases(n=16):
     require(type(n) is int and n > 0 and n % 4 == 0, "balanced candidate count")
+    # Six distinct permutations in a cyclic order whose first two also balance
+    # each position. Eight cases per quality stratum give counts3/3/2 for every
+    # identity/role position, instead of relying on chance in a small cohort.
+    permutations = ((0, 1, 2), (1, 2, 0), (2, 0, 1),
+                    (0, 2, 1), (1, 0, 2), (2, 1, 0))
     result = []
     for i in range(n):
         rng = random.Random(CASE_SEED + i * 101)
         old = tuple(rng.randint(8, 14) for _ in range(9))
         direction = 1 if i % 2 == 0 else -1
         new = tuple(v + direction * rng.randint(1, 4) for v in old)
-        identities = ["agent_k", "agent_m", "agent_r"]
-        rng.shuffle(identities)
-        speakers = list(ROLES)
-        rng.shuffle(speakers)
+        position = (i // 2) % len(permutations)
+        identities = tuple(("agent_k", "agent_m", "agent_r")[j]
+                           for j in permutations[position])
+        speakers = tuple(ROLES[j] for j in permutations[position])
         # Both option codes occur equally within each quality stratum.
         code = "plan_x" if (i // 2) % 2 == 0 else "plan_y"
         result.append(Case(i, old, new, tuple(identities), code, tuple(speakers)))

@@ -95,8 +95,9 @@ the public summaries are not a standalone replay archive.
 **Next research, offline only:** a separate
 [public-message-board simulator](paper3/message_board_handoff_v1.py) compares
 deliberation with private work, self versus peer replacement, and better versus
-worse successors. Its scripted reference replay is software evidence, not new
-model behavior. No paid board cohort has been launched. See
+worse successors. The separate durable runner and scope/accounting controls pass
+10 targeted offline tests. Scripted replay is software evidence, not new model
+behavior; no paid board cohort has been launched or allocated. See
 [current implementation status](paper3/README.md).
 
 **29 October: the fresh comparison is COMPLETE; the earlier lead did not
