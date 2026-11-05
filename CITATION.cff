@@ -15,6 +15,7 @@ license: MIT
 repository-code: "https://github.com/tofuadmiral/institutional-representation-abm"
 url: "https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v2.0.0"
 version: "2.0.0"
+doi: "10.5281/zenodo.23984193"
 date-released: "2026-11-05"
 keywords:
   - institutional design

@@ -3,6 +3,8 @@
 Published preprint: [arXiv:2611.05390](https://arxiv.org/abs/2611.05390),
 *Who May Overrule the Agent? Evidence-Gated Authority in LLM Review Institutions*.
 Paper DOI: [10.48550/arXiv.2611.05390](https://doi.org/10.48550/arXiv.2611.05390).
+Software and frozen evidence DOI:
+[10.5281/zenodo.23984193](https://doi.org/10.5281/zenodo.23984193).
 
 The original submission snapshot is tagged `paper2-arxiv-v1` at commit
 `63cbef41bfe2fa3150d06c47e622faa826880ab3`. The `v2.0.0` publication release

@@ -7,7 +7,8 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Paper 1](https://img.shields.io/badge/arXiv-2608.24554-b31b1b.svg)](https://arxiv.org/abs/2608.24554)
 [![Paper 2](https://img.shields.io/badge/arXiv-2611.05390-b31b1b.svg)](https://arxiv.org/abs/2611.05390)
-[![Paper 1 archive](https://zenodo.org/badge/DOI/10.5281/zenodo.22119500.svg)](https://doi.org/10.5281/zenodo.22119500)
+[![Paper 1 archive](https://zenodo.org/badge/DOI/10.5281/zenodo.22119501.svg)](https://doi.org/10.5281/zenodo.22119501)
+[![Paper 2 archive](https://zenodo.org/badge/DOI/10.5281/zenodo.23984193.svg)](https://doi.org/10.5281/zenodo.23984193)
 
 This repository contains two completed studies and an exploratory third implementation. Paper 1 uses a
 rule-based agent-based model of democratic legislative institutions. Paper 2
@@ -49,6 +50,7 @@ Institutions**
 - [arXiv:2611.05390](https://arxiv.org/abs/2611.05390) (cs.AI; cross-listed cs.MA)
 - Paper DOI: [10.48550/arXiv.2611.05390](https://doi.org/10.48550/arXiv.2611.05390)
 - Code and frozen evidence: [`v2.0.0`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v2.0.0)
+- Archived software DOI: [10.5281/zenodo.23984193](https://doi.org/10.5281/zenodo.23984193)
 - Exact submission tree: [`paper2-arxiv-v1`](https://github.com/tofuadmiral/institutional-representation-abm/tree/paper2-arxiv-v1) (`63cbef41`)
 - [Companion blog](https://www.fuadali.com/blog/who-gets-to-overrule-an-ai-agent.html)
 - [Manuscript PDF](paper2/main.pdf)
