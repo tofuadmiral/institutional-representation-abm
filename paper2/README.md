@@ -1,7 +1,14 @@
 # Paper 2: Evidence-Gated Authority in LLM Review Institutions
 
-Submission manuscript for *Who May Overrule the Agent? Evidence-Gated Authority
-in LLM Review Institutions*.
+Published preprint: [arXiv:2611.05390](https://arxiv.org/abs/2611.05390),
+*Who May Overrule the Agent? Evidence-Gated Authority in LLM Review Institutions*.
+Paper DOI: [10.48550/arXiv.2611.05390](https://doi.org/10.48550/arXiv.2611.05390).
+
+The original submission snapshot is tagged `paper2-arxiv-v1` at commit
+`63cbef41bfe2fa3150d06c47e622faa826880ab3`. The `v2.0.0` publication release
+adds only README and citation/archive metadata to that snapshot; all executable
+code, manuscript files, and frozen evidence are identical. Later Paper 3 work
+is excluded from this release.
 
 The paper studies a two-agent decision pipeline: an upstream language-model
 agent proposes a binding action and a second language-model agent reviews it.

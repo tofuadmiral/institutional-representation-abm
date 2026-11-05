@@ -1,48 +1,33 @@
 cff-version: 1.2.0
-message: "If you use this software or its accompanying paper, please cite it as below."
-title: "Institutional Representation ABM: Parliamentary, Presidential, and Semi-Presidential Legislative Passage"
+message: "For Paper 2, cite the article below and the v2.0.0 release. Paper 1 metadata is frozen at v1.0.2."
+title: "Institutional Representation Research: Paper 2 code and frozen evidence"
 abstract: >-
-  An agent-based model comparing four democratic legislative institutions —
-  pure parliamentary, pure republican/presidential, premier-presidential
-  (France), and president-parliamentary (Russia) — on their ability to pass
-  legislation, represent constituencies, and remain operational under
-  party-system fragmentation and ideological polarisation. Full statistical
-  harness with bootstrap confidence intervals, Morris and Sobol sensitivity
-  analyses, and mechanism ablations.
+  Code and frozen model outputs for Who May Overrule the Agent? Evidence-Gated
+  Authority in LLM Review Institutions. Compares broad reviewer override with
+  evidence-gated authority across Qwen3-8B and Mistral-Small-24B, spatial-policy
+  and portfolio-transfer tasks, and a prospective retain/replace/escalate
+  validation. Based on submission commit 63cbef41; excludes later Paper 3 work.
 authors:
   - family-names: Ali
     given-names: Fuad
 type: software
 license: MIT
 repository-code: "https://github.com/tofuadmiral/institutional-representation-abm"
+url: "https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v2.0.0"
+version: "2.0.0"
+date-released: "2026-11-05"
 keywords:
-  - agent-based modelling
-  - legislative studies
   - institutional design
-  - party discipline
-  - coalition formation
-  - semi-presidentialism
-  - Morris screening
-  - Sobol sensitivity
-  - computational social science
-version: "1.0.2"
-date-released: "2026-08-26"
-doi: 10.5281/zenodo.22119501
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.22119500
-    description: "Concept DOI (resolves to the latest archived version)"
-  - type: other
-    value: "arXiv:2608.24554"
-    description: "arXiv preprint; v1 corresponds to repository tags v1.0.1/v1.0.2"
+  - multi-agent systems
+  - language models
+  - reviewer authority
+  - reproducibility
 preferred-citation:
   type: article
-  title: "Why fragmented parliaments stop passing legislation: Opposition discipline and representation across four democratic institutions"
+  title: "Who May Overrule the Agent? Evidence-Gated Authority in LLM Review Institutions"
   authors:
     - family-names: Ali
       given-names: Fuad
   year: 2026
-  url: "https://arxiv.org/abs/2608.24554"
-  identifiers:
-    - type: other
-      value: "arXiv:2608.24554"
+  doi: "10.48550/arXiv.2611.05390"
+  url: "https://arxiv.org/abs/2611.05390"

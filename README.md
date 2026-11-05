@@ -6,6 +6,7 @@
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Paper 1](https://img.shields.io/badge/arXiv-2608.24554-b31b1b.svg)](https://arxiv.org/abs/2608.24554)
+[![Paper 2](https://img.shields.io/badge/arXiv-2611.05390-b31b1b.svg)](https://arxiv.org/abs/2611.05390)
 [![Paper 1 archive](https://zenodo.org/badge/DOI/10.5281/zenodo.22119500.svg)](https://doi.org/10.5281/zenodo.22119500)
 
 This repository contains two completed studies and an exploratory third implementation. Paper 1 uses a
@@ -36,15 +37,20 @@ discipline. It also identifies a passage-representation tradeoff between
 legislative throughput and the distance of enacted policy from constituency
 preferences.
 
-The root `CITATION.cff` and `.zenodo.json` describe the frozen Paper 1 software
-release. Later commits on `main` include Paper 2 and are not the tree analyzed by
-Paper 1.
+Paper 1's metadata remains frozen at `v1.0.2`, including its version DOI.
+The root `CITATION.cff` and `.zenodo.json` now describe the Paper 2 release.
+Later commits on `main` are not the tree analyzed by either published paper.
 
-### Paper 2 — complete manuscript
+### Paper 2 — published preprint and frozen release
 
 **Who May Overrule the Agent? Evidence-Gated Authority in LLM Review
 Institutions**
 
+- [arXiv:2611.05390](https://arxiv.org/abs/2611.05390) (cs.AI; cross-listed cs.MA)
+- Paper DOI: [10.48550/arXiv.2611.05390](https://doi.org/10.48550/arXiv.2611.05390)
+- Code and frozen evidence: [`v2.0.0`](https://github.com/tofuadmiral/institutional-representation-abm/releases/tag/v2.0.0)
+- Exact submission tree: [`paper2-arxiv-v1`](https://github.com/tofuadmiral/institutional-representation-abm/tree/paper2-arxiv-v1) (`63cbef41`)
+- [Companion blog](https://www.fuadali.com/blog/who-gets-to-overrule-an-ai-agent.html)
 - [Manuscript PDF](paper2/main.pdf)
 - [Paper 2 source and reproduction guide](paper2/README.md)
 - [Frozen processed results and raw model outputs](paper2/data/README.md)
@@ -708,8 +714,19 @@ Ali, F. (2026). Why fragmented parliaments stop passing legislation:
   arXiv:2608.24554. https://arxiv.org/abs/2608.24554
 ```
 
-Paper 2 is a complete manuscript awaiting an archival identifier.
-Its title, author, and frozen evidence are recorded in `paper2/`.
+For Paper 2:
+
+```text
+Ali, F. (2026). Who May Overrule the Agent? Evidence-Gated Authority in
+  LLM Review Institutions. arXiv:2611.05390.
+  https://doi.org/10.48550/arXiv.2611.05390
+```
+
+Paper 2's `v2.0.0` release is based on September submission commit
+`63cbef41bfe2fa3150d06c47e622faa826880ab3`. Its executable code, manuscript,
+and frozen results are unchanged; only README and citation/archive metadata
+were updated for publication. The exact submission tree is tagged
+`paper2-arxiv-v1`. Paper 1's software DOI is specific to Paper 1.
 
 ## License
 
