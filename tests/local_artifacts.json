@@ -23,12 +23,14 @@
   },
   "tests/test_paper3_constituent_b_gate_runner.py": {
     "results/paper3/pivot_b_budget/authority.json": [
+      "ConstituentGateRunnerTests::test_bad_content_or_transport_stops_without_reissue_and_keeps_assignments",
       "ConstituentGateRunnerTests::test_budget_change_and_source_tamper_rejected",
       "ConstituentGateRunnerTests::test_success_archive_replay_and_no_restart"
     ]
   },
   "tests/test_paper3_constituent_b_gptoss_action_gate.py": {
     "results/paper3/pivot_b_budget/authority.json": [
+      "ToolGateRunnerTests::test_bad_answer_or_wrong_function_stops_and_retains_all_assignments",
       "ToolGateRunnerTests::test_budget_change_and_manifest_tamper_are_rejected_before_calls",
       "ToolGateRunnerTests::test_fabricated_success_exact_archive_replay_and_no_restart",
       "ToolGateRunnerTests::test_nonempty_channel_suffices_despite_inconsistent_count"
@@ -53,6 +55,7 @@
   },
   "tests/test_paper3_constituent_b_gptoss_tool_gate.py": {
     "results/paper3/pivot_b_budget/authority.json": [
+      "ToolGateRunnerTests::test_bad_answer_or_wrong_function_stops_and_retains_all_assignments",
       "ToolGateRunnerTests::test_budget_change_and_manifest_tamper_are_rejected_before_calls",
       "ToolGateRunnerTests::test_fabricated_success_exact_archive_replay_and_no_restart",
       "ToolGateRunnerTests::test_nonempty_channel_suffices_despite_inconsistent_count"
@@ -87,6 +90,7 @@
   },
   "tests/test_paper3_constituent_b_tool_gate.py": {
     "results/paper3/pivot_b_budget/authority.json": [
+      "ToolGateRunnerTests::test_bad_answer_or_wrong_function_stops_and_retains_all_assignments",
       "ToolGateRunnerTests::test_budget_change_and_manifest_tamper_are_rejected_before_calls",
       "ToolGateRunnerTests::test_fabricated_success_exact_archive_replay_and_no_restart"
     ]
@@ -726,6 +730,7 @@
       "RouteGateRunnerTests::test_fabricated_success_audit_and_no_restart",
       "RouteGateRunnerTests::test_fabricated_wrong_answer_stops_and_archives_all_assignments",
       "RouteGateRunnerTests::test_manifest_tampering_rejected",
+      "RouteGateRunnerTests::test_no_reasoning_and_http400_fail_without_reissue",
       "RouteGateRunnerTests::test_seed_collision_and_budget_baseline_change_rejected",
       "RouteGateRunnerTests::test_source_closure_includes_new_instrument_and_shared_billing_code"
     ]

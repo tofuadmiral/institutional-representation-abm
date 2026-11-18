@@ -3,7 +3,11 @@
 Install `requirements.txt`, then run `pytest tests/ -ra`. The default suite runs
 the self-contained unit, simulation, transport, budget and recovery tests without
 provider credentials or paid calls. CI also runs the two simulation smoke tests
-in `.github/workflows/ci.yml` and saves the pytest report as a workflow artifact.
+in `.github/workflows/ci.yml` and saves the pytest reports as workflow artifacts.
+CI divides the suite across four jobs by module, keeping each module's fixtures
+and parameter cases together and assigning every selected test exactly once.
+For example, `pytest tests/ --ci-shard 0 --ci-shards 4` runs the first shard;
+ordinary local runs still execute the whole suite.
 
 Some historical Paper 3 regression tests require local provider records, budget
 ledgers or full replay archives that are not distributed in a Git checkout.
