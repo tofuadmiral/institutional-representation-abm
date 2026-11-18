@@ -193,7 +193,7 @@ def test_stream_rejects_ambiguous_or_malformed_evidence(corruption):
     if corruption=="after_done":stream["lines"]+=['data: {"choices":[]}',""]
     if corruption=="multiple_models":stream["lines"][2:2]=['data: {"model":"different/model"}',""]
     if corruption=="bad_choice":stream["lines"]=[x.replace('"index": 0','"index": 1') for x in stream["lines"]]
-    assert not r.service.stream_summary(stream,r.CONFIG)["complete"]
+    assert not r.service.base.stream_summary(stream,r.CONFIG)["complete"]
 
 
 def test_seed_audit_covers_unexecuted(tmp_path):
@@ -212,7 +212,7 @@ def test_bounded_http_error_privacy_and_single_post(monkeypatch):
             requests.append(req)
             raise urllib.error.HTTPError(req.full_url,400,"bad",{},io.BytesIO(raw))
     monkeypatch.setattr(r.t,"opener",lambda:Reject())
-    out=r.service.transmit("{}",secret);text=json.dumps(out)
+    out=r.service.base.transmit("{}",secret);text=json.dumps(out)
     assert len(requests)==1 and out["http_error_body_truncated"] and out["secret_redacted"]
     for value in (secret,"private-account","account-secret","user_private","private-token"):assert value not in text
     assert "invalid request params" in text and "DeepInfra" in text

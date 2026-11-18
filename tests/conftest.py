@@ -10,6 +10,8 @@ if str(REPO_ROOT) not in sys.path:
 
 import pytest
 
+pytest_plugins = ["tests.local_artifacts"]
+
 from config import ParliamentaryConfig, RepublicanConfig
 from institutions.parliamentary import ParliamentaryModel
 from institutions.republican import RepublicanModel

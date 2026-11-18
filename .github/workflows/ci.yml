@@ -28,7 +28,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run pytest
-        run: pytest tests/ -v
+        run: pytest tests/ -ra --junitxml=results/ci-tests.xml
+
+      - name: Save test results (including local-artifact skips)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-${{ matrix.python-version }}
+          path: results/ci-tests.xml
 
       - name: Smoke-test multi-seed runner
         run: |

@@ -7,6 +7,8 @@ from types import SimpleNamespace
 
 import pytest
 
+from tests.hosted_fixtures import deepinfra_metadata
+
 from experiments import paper3_office_sacrifice_probe_v1 as w
 from paper3 import office_sacrifice_probe_v1 as d
 from paper3 import office_sacrifice_budget_v1 as budget
@@ -104,9 +106,8 @@ def private(tmp_path, monkeypatch):
             data=dict(id=identifier, model=w.route.MODEL_ALIAS, provider_name=w.route.PROVIDER,
                       total_cost=.0001))
     def admit(root, protocol, book, stage, secret):
-        old = w.load(REPO / 'results/paper3/pivot_b_independent_validation_v1/admissions/1793205286757644000.json')
         w.atomic(root / 'admissions' / (str(clock())+'.json'), dict(
-            metadata_observed_unix=clock(), protocol=protocol, metadata=old['metadata'],
+            metadata_observed_unix=clock(), protocol=protocol, metadata=deepinfra_metadata(),
             account=dict(account_funded=True, research_authority_extended=False)))
         return clock()
     return root, protocol, sent, send, lookup, book, admit

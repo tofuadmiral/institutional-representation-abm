@@ -6,6 +6,7 @@ not new qualification, behavioral success, financial authority or model calls.
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 
 import pytest
 
@@ -107,6 +108,6 @@ def test_credential_scan_rejects_without_echoing_the_key():
 
 
 def test_replay_entry_requires_isolation(tmp_path):
-    child = subprocess.run([str(REPO / ".venv/bin/python"), str(REPO / archive.ENTRY), str(tmp_path),
+    child = subprocess.run([sys.executable, str(REPO / archive.ENTRY), str(tmp_path),
         "--expected-protocol", "0"*64], capture_output=True, text=True)
     assert child.returncode != 0 and "use fresh Python -I -S" in child.stderr

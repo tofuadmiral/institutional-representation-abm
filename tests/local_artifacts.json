@@ -1,0 +1,1406 @@
+{
+  "tests/test_paper3_amendment_pilot_runner.py": {
+    "results/paper3/pivot_b_direct_ratification_gate_v1_export/bundle.json": [
+      "test_real_prerequisite_and_seed_inventory"
+    ],
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_fabricated_complete_archive_and_isolated_replay",
+      "test_invalid_actions_preserve_all_assignments",
+      "test_prelaunch_budget_and_source_guard",
+      "test_reasoning_failure_stops_without_restart"
+    ]
+  },
+  "tests/test_paper3_billing_recovery_v1.py": {
+    "results/paper3/pivot_b_graceful_continuation_v1/block-1/calls/overload-r2-1-conflict-binding_sum-18-a1.json": [
+      "test_billing_recovery_preserves_conflict_stream_route_and_usage_failures",
+      "test_four_absent_or_transient_receipts_keep_entire_reservation",
+      "test_only_dependencies_change_not_frozen_validator_or_economic_code",
+      "test_receipt_conflict_pauses_without_a_second_lookup",
+      "test_receipt_only_resume_uses_no_send_and_never_duplicates_finished_get",
+      "test_saved_complete_answer_with_receipt_timeout_is_not_regenerated_or_modified",
+      "test_saved_get_is_adopted_after_index_crash_without_lookup_reissue"
+    ]
+  },
+  "tests/test_paper3_constituent_b_gate_runner.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "ConstituentGateRunnerTests::test_budget_change_and_source_tamper_rejected",
+      "ConstituentGateRunnerTests::test_success_archive_replay_and_no_restart"
+    ]
+  },
+  "tests/test_paper3_constituent_b_gptoss_action_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "ToolGateRunnerTests::test_budget_change_and_manifest_tamper_are_rejected_before_calls",
+      "ToolGateRunnerTests::test_fabricated_success_exact_archive_replay_and_no_restart",
+      "ToolGateRunnerTests::test_nonempty_channel_suffices_despite_inconsistent_count"
+    ]
+  },
+  "tests/test_paper3_constituent_b_gptoss_discovery_runner.py": {
+    "results/paper3/pivot_b_budget": [
+      "DiscoveryRunnerTests::test_fabricated_full_path_and_isolated_archive_replay",
+      "DiscoveryRunnerTests::test_first_bad_action_stops_and_preserves_all_assignments",
+      "DiscoveryRunnerTests::test_source_and_budget_tamper_block_before_admission"
+    ],
+    "results/paper3/pivot_b_gptoss_action_gate_v1/manifest.json": [
+      "DiscoveryRunnerTests::test_request_preflight_and_cap"
+    ]
+  },
+  "tests/test_paper3_constituent_b_gptoss_novita_gate.py": {
+    "results/paper3/pivot_b_budget": [
+      "NovitaGateTests::test_changed_budget_or_source_blocks_admission",
+      "NovitaGateTests::test_fabricated_full_pass_and_isolated_replay",
+      "NovitaGateTests::test_first_failure_keeps_twelve_assignments_and_no_restart"
+    ]
+  },
+  "tests/test_paper3_constituent_b_gptoss_tool_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "ToolGateRunnerTests::test_budget_change_and_manifest_tamper_are_rejected_before_calls",
+      "ToolGateRunnerTests::test_fabricated_success_exact_archive_replay_and_no_restart",
+      "ToolGateRunnerTests::test_nonempty_channel_suffices_despite_inconsistent_count"
+    ]
+  },
+  "tests/test_paper3_constituent_b_pilot_runner.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "ConstituentPilotRunnerTests::test_budget_and_source_tampering_block_admission",
+      "ConstituentPilotRunnerTests::test_complete_fabricated_path_and_extracted_replay",
+      "ConstituentPilotRunnerTests::test_first_failure_preserves_twelve_assignments_and_blocks_phase_two"
+    ]
+  },
+  "tests/test_paper3_constituent_b_qwen_discovery.py": {
+    "results/paper3/pivot_b_budget": [
+      "QwenConstituentPilotTests::test_fabricated_full_path_and_exact_archive_replay",
+      "QwenConstituentPilotTests::test_one_invalid_action_does_not_erase_other_games",
+      "QwenConstituentPilotTests::test_transport_failures_stop_globally_and_preserve_inventory"
+    ],
+    "results/paper3/pivot_b_qwen_channel_gate_v1_portable/bundle.json": [
+      "QwenConstituentPilotTests::test_preflight_prerequisite_seeds_and_uptime"
+    ]
+  },
+  "tests/test_paper3_constituent_b_qwen_repeatability.py": {
+    "results/paper3/pivot_b_budget": [
+      "QwenConstituentRepeatabilityTests::test_fabricated_full_path_and_exact_archive_replay",
+      "QwenConstituentRepeatabilityTests::test_one_invalid_action_does_not_erase_other_games",
+      "QwenConstituentRepeatabilityTests::test_transport_failures_stop_globally_and_preserve_inventory"
+    ],
+    "results/paper3/pivot_b_qwen_channel_gate_v1_portable/bundle.json": [
+      "QwenConstituentRepeatabilityTests::test_preflight_prerequisite_seeds_and_uptime"
+    ]
+  },
+  "tests/test_paper3_constituent_b_tool_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "ToolGateRunnerTests::test_budget_change_and_manifest_tamper_are_rejected_before_calls",
+      "ToolGateRunnerTests::test_fabricated_success_exact_archive_replay_and_no_restart"
+    ]
+  },
+  "tests/test_paper3_deepseek_agenda.py": {
+    "results/paper3/bonsai_structured_agenda_a1/manifest.json": [
+      "test_early_http_failure_retained_and_auditable",
+      "test_episode_budget_stop_before_transport_replays_without_policy",
+      "test_failed_gate_prevents_all_150_calls",
+      "test_fixed_protocol_and_unchanged_decision_inputs",
+      "test_full_offline_run_exact_audit_and_terminal_idempotence"
+    ]
+  },
+  "tests/test_paper3_deepseek_budgeted_agenda.py": {
+    "results/paper3/deepseek_output_a1/sessions/terminal.json": [
+      "test_full_fifty_calls_audit_and_terminal_no_rerun",
+      "test_global_safety_halts_and_no_leaks",
+      "test_length_failure_is_retained_other_arm_runs",
+      "test_protocol_same_institution_only_budget_and_seed_change"
+    ]
+  },
+  "tests/test_paper3_deepseek_disclosure.py": {
+    "results/paper3/deepseek_plain_agenda_a1/sessions/terminal.json": [
+      "test_gate_then_shard_end_to_end_with_fabricated_model"
+    ]
+  },
+  "tests/test_paper3_deepseek_disclosure_a2.py": {
+    "results/paper3/deepseek_plain_agenda_a1/sessions/terminal.json": [
+      "test_gate_then_shard_end_to_end_with_fabricated_model"
+    ]
+  },
+  "tests/test_paper3_deepseek_disclosure_a3.py": {
+    "results/paper3/deepseek_plain_agenda_a1/sessions/terminal.json": [
+      "test_gate_then_shard_end_to_end_with_fabricated_model"
+    ]
+  },
+  "tests/test_paper3_deepseek_disclosure_audit.py": {
+    "results/paper3/deepseek_plain_agenda_a1/sessions/terminal.json": [
+      "test_audit_complete_fabricated_run_and_detects_tampering",
+      "test_incomplete_profile_gets_menu_bounds_not_imputation"
+    ]
+  },
+  "tests/test_paper3_deepseek_fresh_batch.py": {
+    "results/paper3/deepseek_output_a1/sessions/terminal.json": [
+      "test_batch_safety_halt_retains_assigned_unstarted_profiles",
+      "test_eight_profile_freeze_parallel_limit_full_replay_and_idempotence",
+      "test_interrupted_coordinator_never_relaunches"
+    ]
+  },
+  "tests/test_paper3_deepseek_fresh_profiles.py": {
+    "results/paper3/deepseek_output_a1/sessions/terminal.json": [
+      "test_complete_shard_exact_replay_and_no_restart",
+      "test_fresh_frame_all_indices_budget_and_request_identity",
+      "test_ordinary_cutoff_not_repaired_and_other_arm_runs",
+      "test_transport_error_stops_admission_in_other_shards"
+    ]
+  },
+  "tests/test_paper3_deepseek_long_agenda.py": {
+    "results/paper3/deepseek_budgeted_agenda_a1/sessions/terminal.json": [
+      "test_full_fifty_calls_audit_and_terminal_no_rerun",
+      "test_global_safety_halts_and_no_leaks",
+      "test_length_failure_is_retained_other_arm_runs",
+      "test_protocol_same_institution_only_budget_and_seed_change"
+    ]
+  },
+  "tests/test_paper3_deepseek_output.py": {
+    "results/paper3/deepseek_agenda_a1/manifest.json": [
+      "test_budget_checked_before_send",
+      "test_complete_run_exact_replay_idempotent_no_secrets",
+      "test_global_failures_no_retry",
+      "test_invalid_plain_response_retained_rest_continue",
+      "test_only_response_format_changes_and_balanced_order"
+    ]
+  },
+  "tests/test_paper3_deepseek_plain_agenda.py": {
+    "results/paper3/deepseek_output_a1/sessions/terminal.json": [
+      "test_early_http_failure_retained_and_auditable",
+      "test_episode_budget_stop_before_transport_replays_without_policy",
+      "test_failed_gate_prevents_all_150_calls",
+      "test_fixed_protocol_and_unchanged_decision_inputs",
+      "test_full_offline_run_exact_audit_and_terminal_idempotence",
+      "test_saved_accounting_failure_cannot_resume_past_halt"
+    ]
+  },
+  "tests/test_paper3_direct_ratification_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_fabricated_full_path_archive_and_replay",
+      "test_invalid_first_actions_retained_without_repair",
+      "test_reasoning_channel_failure_stops_and_preserves_inventory",
+      "test_shared_budget_not_reset",
+      "test_source_tamper_rejected"
+    ],
+    "results/paper3/pivot_b_direct_ratification_gate_v1_export/bundle.json": [
+      "test_prerequisite_freezes_bundle_manifest_not_every_duplicate_payload"
+    ]
+  },
+  "tests/test_paper3_disclosure_identification.py": {
+    "results/paper3/disclosure_weak_preference_feasibility_v1.json": [
+      "test_audit_rejects_changed_action_even_if_outcome_same",
+      "test_failed_gate_admits_no_profiles",
+      "test_full_fabricated_batch_and_replay",
+      "test_partial_or_reissued_shard_replays_without_repair",
+      "test_source_closure_includes_indirect_dependencies_and_package_initializers"
+    ]
+  },
+  "tests/test_paper3_disclosure_presentation.py": {
+    "results/paper3/disclosure_presentation_seed_check_v1.json": [
+      "test_audit_rejects_changed_action_even_if_outcome_same",
+      "test_failed_gate_admits_no_profiles",
+      "test_full_fabricated_batch_and_replay",
+      "test_partial_or_reissued_shard_replays_without_repair"
+    ],
+    "results/paper3/disclosure_weak_preference_feasibility_v1.json": [
+      "test_source_closure_includes_indirect_dependencies_and_package_initializers"
+    ]
+  },
+  "tests/test_paper3_disclosure_relabel.py": {
+    "results/paper3/deepseek_identification_v1/manifest.json": [
+      "test_audit_rejects_changed_action_even_if_outcome_same",
+      "test_changed_inherited_gate_record_refuses_worker",
+      "test_changed_request_configuration_refuses_gate_inheritance",
+      "test_full_fabricated_batch_and_replay",
+      "test_gate_is_inherited_with_no_new_inference",
+      "test_inverse_label_readout_and_failure_gate",
+      "test_partial_or_reissued_shard_replays_without_repair"
+    ],
+    "results/paper3/disclosure_weak_preference_feasibility_v1.json": [
+      "test_source_closure_includes_indirect_dependencies_and_package_initializers"
+    ]
+  },
+  "tests/test_paper3_graceful_continuation.py": {
+    "results/paper3/pivot_b_budget": [
+      "test_real_budget_adapter_private_copy_preserves_old_costs_and_reuses_same_block_allocation"
+    ],
+    "results/paper3/pivot_b_retrospective_deepinfra_pilot_v2/block-0/logicals": [
+      "test_real111_prefix_replays_byte_exactly_without_hosted_calls"
+    ]
+  },
+  "tests/test_paper3_graceful_recovery.py": {
+    "results/paper3/pivot_b_retrospective_deepinfra_pilot_v2/block-0/calls/overload-r2-0-conflict-binding_majority-21-a1.json": [
+      "test_actual_archived_failure_is_recognized_read_only"
+    ]
+  },
+  "tests/test_paper3_identification_bundle.py": {
+    "results/paper3/disclosure_weak_preference_feasibility_v1.json": [
+      "test_complete_archive_replays_after_extraction_without_site_packages",
+      "test_failed_integrity_cannot_be_archived",
+      "test_failed_terminal_run_replays_with_missing_bounds"
+    ]
+  },
+  "tests/test_paper3_independent_validation_v1.py": {
+    "paper3/data/pivot_b_graceful_continuation_v1_complete/repo/results/paper3/pivot_b_budget": [
+      "test_real_budget_private_copy_preserves7391_old_entries_and_holds_every_uncertainty"
+    ],
+    "results/paper3/independent_validation_authorization_2026_10_27.json": [
+      "test_no_actual_root_or_model_permission_in_private_checks"
+    ]
+  },
+  "tests/test_paper3_message_board_coordinator_v1.py": {
+    "results/paper3/office_sacrifice_probe_v1/manifest.json": [
+      "test_coordinator_real_first_charge_then_scripted_resume_and_entire_audit",
+      "test_scope_freeze_history_and_interrupted_allocation_are_exact"
+    ]
+  },
+  "tests/test_paper3_message_board_runtime_v1.py": {
+    "results/paper3/pivot_b_budget": [
+      "test_board_budget_private_real_history_preserves_every_older_charge"
+    ]
+  },
+  "tests/test_paper3_office_sacrifice_probe_v1.py": {
+    "results/paper3/pivot_b_budget": [
+      "test_new_budget_adapter_private_real_history_preserves_old_uncertainty"
+    ]
+  },
+  "tests/test_paper3_presentation_bundle.py": {
+    "results/paper3/disclosure_presentation_seed_check_v1.json": [
+      "test_complete_archive_replays_after_extraction_without_site_packages",
+      "test_failed_fresh_gate_exports_without_admitting_institutional_calls",
+      "test_failed_integrity_cannot_be_archived",
+      "test_failed_terminal_run_replays_with_missing_bounds"
+    ]
+  },
+  "tests/test_paper3_presentation_design.py": {
+    "results/paper3/disclosure_presentation_seed_check_v1.json": [
+      "test_wave_admission_waits_for_all_first_wave_workers"
+    ]
+  },
+  "tests/test_paper3_qwen35_darkbloom_gate.py": {
+    "results/paper3/pivot_b_qwen_jurisdiction_v1/calls/fixture-1-block-0-member_enforcement-00.json": [
+      "test_schema_exhaustive_and_settings"
+    ],
+    "results/paper3/pivot_b_qwen_jurisdiction_v1/calls/fixture-0-block-1-member_enforcement-02.json": [
+      "test_actual_isolated_archive_replay",
+      "test_fabricated_success_and_no_restart",
+      "test_failure_stops_new_admissions_preserves_assignments",
+      "test_shared_budget_baseline_is_exact",
+      "test_source_and_request_tampering_rejected"
+    ]
+  },
+  "tests/test_paper3_qwen35_exchange_pilot.py": {
+    "results/paper3/pivot_b_qwen_jurisdiction_v1/calls/fixture-1-block-0-member_enforcement-00.json": [
+      "test_schedule_action_contract_and_cost"
+    ],
+    "results/paper3/pivot_b_qwen35_darkbloom_gate_v1/manifest.json": [
+      "test_failed_gate_prohibits_pilot_freeze"
+    ]
+  },
+  "tests/test_paper3_qwen_channel_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_above_reservation_charge_is_retained_and_stops",
+      "test_actual_isolated_archive_replay",
+      "test_compound_failure_not_resampled",
+      "test_numeric_failure_blocks_compound",
+      "test_one_failure_preserved_not_global",
+      "test_safety_failures_no_retry",
+      "test_shared_budget_not_reset",
+      "test_success_and_native_evidence",
+      "test_tampering_rejected"
+    ]
+  },
+  "tests/test_paper3_qwen_coalition_discovery.py": {
+    "results/paper3/pivot_b_qwen_channel_gate_v1/manifest.json": [
+      "test_existing_budget_is_not_reset",
+      "test_freeze_tampering_before_any_call",
+      "test_full_270_call_institution_and_actual_isolated_replay",
+      "test_global_failures_preserve_all_assignments_and_archive",
+      "test_inherited_gate_is_replayed_not_assumed",
+      "test_one_episode_failure_is_not_resampled_or_global"
+    ]
+  },
+  "tests/test_paper3_qwen_jurisdiction.py": {
+    "results/paper3/pivot_b_qwen_channel_gate_v1/manifest.json": [
+      "test_existing_budget_is_not_reset",
+      "test_freeze_tampering_before_any_call",
+      "test_full_720_call_institution_and_actual_isolated_replay",
+      "test_global_failures_preserve_all_assignments_and_archive",
+      "test_inherited_gate_is_replayed_not_assumed",
+      "test_one_episode_failure_is_not_resampled_or_global",
+      "test_stage_limit_not_only_global_limit",
+      "test_stale_metadata_fails_before_admission"
+    ]
+  },
+  "tests/test_paper3_qwen_schema_gate.py": {
+    "results/paper3/pivot_b_qwen_jurisdiction_v1/calls/fixture-1-block-0-member_enforcement-00.json": [
+      "test_schema_exhaustive_and_settings"
+    ],
+    "results/paper3/pivot_b_qwen_jurisdiction_v1/calls/fixture-0-block-1-member_enforcement-02.json": [
+      "test_actual_isolated_archive_replay",
+      "test_fabricated_success_and_no_restart",
+      "test_failure_stops_new_admissions_preserves_assignments",
+      "test_shared_budget_baseline_is_exact",
+      "test_source_and_request_tampering_rejected"
+    ]
+  },
+  "tests/test_paper3_qwen_schema_gate_serial.py": {
+    "results/paper3/pivot_b_qwen_jurisdiction_v1/calls/fixture-1-block-0-member_enforcement-00.json": [
+      "test_schema_exhaustive_and_settings"
+    ],
+    "results/paper3/pivot_b_qwen_jurisdiction_v1/calls/fixture-0-block-1-member_enforcement-02.json": [
+      "test_actual_isolated_archive_replay",
+      "test_fabricated_success_and_no_restart",
+      "test_failure_stops_new_admissions_preserves_assignments",
+      "test_shared_budget_baseline_is_exact",
+      "test_source_and_request_tampering_rejected"
+    ]
+  },
+  "tests/test_paper3_ratification_disclosure_chamber_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_and_source_tamper_guard",
+      "test_control_shift_fails_screen",
+      "test_discordant_information_path_is_predefined",
+      "test_fabricated_full_path_archive_and_replay",
+      "test_invalid_first_actions_retained",
+      "test_reasoning_channel_failure_preserves_inventory"
+    ],
+    "results/paper3/pivot_b_direct_ratification_gate_v1_export/bundle.json": [
+      "test_prerequisite_inventory"
+    ]
+  },
+  "tests/test_paper3_ratification_disclosure_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_and_source_tamper_guard",
+      "test_certified_repair_path_is_predefined",
+      "test_control_shift_fails_screen",
+      "test_fabricated_full_path_archive_and_replay",
+      "test_invalid_first_actions_retained",
+      "test_reasoning_channel_failure_preserves_inventory"
+    ],
+    "results/paper3/pivot_b_direct_ratification_gate_v1_export/bundle.json": [
+      "test_prerequisite_inventory"
+    ]
+  },
+  "tests/test_paper3_ratification_population_discovery.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_and_source_tamper_guard",
+      "test_control_shift_fails_without_mechanical_reinterpretation",
+      "test_fabricated_complete_path_and_isolated_replay",
+      "test_invalid_actions_keep_all_assignments"
+    ],
+    "results/paper3/pivot_b_direct_ratification_gate_v1_export/bundle.json": [
+      "test_gate_and_endpoint_inventory"
+    ]
+  },
+  "tests/test_paper3_ratification_threshold_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_and_source_tamper_guard",
+      "test_control_shift_fails_screen",
+      "test_fabricated_full_path_archive_and_replay",
+      "test_invalid_first_actions_retained",
+      "test_reasoning_channel_failure_preserves_inventory"
+    ],
+    "results/paper3/pivot_b_direct_ratification_gate_v1_export/bundle.json": [
+      "test_prerequisite_inventory"
+    ]
+  },
+  "tests/test_paper3_reasoning_timeout_recovery_v1.py": {
+    "results/paper3/pivot_b_independent_validation_v1/block-0/calls/validation-r1-0-aligned-binding_sum-16-a1.json": [
+      "test_any_action_fragment_or_unknown_channel_still_cannot_retry",
+      "test_known_absent_transient_receipts_keep_full_reservation_not_unknown_billing",
+      "test_native_route_cost_content_secret_and_auth_guards_stay_strict",
+      "test_real_saved_timeout_now_eligible_without_modifying_its_verdict_or_charge"
+    ]
+  },
+  "tests/test_paper3_relabel_bundle.py": {
+    "results/paper3/deepseek_identification_v1/manifest.json": [
+      "test_complete_archive_replays_after_extraction_without_site_packages",
+      "test_failed_integrity_cannot_be_archived",
+      "test_failed_terminal_run_replays_with_missing_bounds"
+    ]
+  },
+  "tests/test_paper3_retrospective_anticipation_archive.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_fresh_production_replay_matches_entire_partial_and_genuine_qualification",
+      "test_actual_partial_replay_can_certify_second_frame_regardless_of_bad_content",
+      "test_existing_archive_cannot_be_replaced",
+      "test_parent_checkout_cannot_claim_fresh_isolated_replay",
+      "test_wrong_external_protocol_cannot_certify",
+      "test_zip_payload_change_cannot_certify"
+    ]
+  },
+  "tests/test_paper3_retrospective_anticipation_audit.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_service_journal_science_join_preserves_global_failures_and_both_costs"
+    ]
+  },
+  "tests/test_paper3_retrospective_anticipation_freeze.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_qualification_and_private_source_freeze_verify_in_fresh_isolated_python"
+    ],
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_arbitrary_operating_readiness_path_cannot_enter_freeze",
+      "test_external_pin_covers_data_not_only_source_and_analysis",
+      "test_insufficient_full_pilot_budget_refuses_partial_freeze_before_proof",
+      "test_missing_inventory_or_modified_protocol_and_partial_writes_rejected",
+      "test_missing_specific_scope_approval_refuses_creation",
+      "test_modified_or_removed_source_is_not_a_compatible_freeze",
+      "test_modified_private_operating_readiness_refuses_before_freeze",
+      "test_old_uncertified_reservations_are_pinned_without_release",
+      "test_private_freeze_pins_complete_cases_sources_analysis_and_all_old_evidence",
+      "test_private_operating_freeze_pins_readiness_and_all_referenced_test_sources",
+      "test_private_readiness_modified_after_freeze_fails_external_source_pin",
+      "test_unhealthy_route_rejected_without_any_metadata_fetch_or_root"
+    ]
+  },
+  "tests/test_paper3_retrospective_anticipation_operating.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_actual_default_readiness_inventory_pins_implementation_and_whole_pipeline_tests"
+    ]
+  },
+  "tests/test_paper3_retrospective_anticipation_v1.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_insufficient_total15_balance_cannot_fund_full_design_before_fetch_or_key",
+      "test_total15_funds_unchanged_full_pilot_without_spending"
+    ]
+  },
+  "tests/test_paper3_retrospective_atlas_discovery.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all16_assignments_frozen_zero_new_gate_calls_and_complete_staging",
+      "test_controller_fault_retains_prefix_without_claiming_cause",
+      "test_first_action_fault_blocks_workers_second_batch_and_is_not_null",
+      "test_full_first_batch_admission_required_before_allocation",
+      "test_partial_first_term_preserved_and_failed_run_replays",
+      "test_qualification_archive_tamper_blocks_before_requests",
+      "test_real_handover_all_principal_outcomes_replayed",
+      "test_reconstructed_request_and_metrics_tampering_rejected",
+      "test_saved_principal_or_stop_timing_tamper_rejected",
+      "test_worker_failure_retains_inflight_and_stops_new_admissions"
+    ]
+  },
+  "tests/test_paper3_retrospective_billing_discovery_v1.py": {
+    "results/paper3/pivot_b_retrospective_action_contract_offline_v1.json": [
+      "test_actual_default_path_with_offline_backend",
+      "test_all16_assignments_frozen_zero_new_gate_calls_and_complete_staging",
+      "test_answerless429_recovers_without_discarding_failed_attempt_or_changing_wire",
+      "test_bad_raw_control_after_executed_prefix_still_stops_without_reissue",
+      "test_bad_transport_rejected_before_any_state",
+      "test_bargaining_full_text_is_valid_not_channel_failure",
+      "test_controller_fault_retains_prefix_without_claiming_cause",
+      "test_first_action_fault_blocks_workers_second_batch_and_is_not_null",
+      "test_full_first_batch_admission_required_before_allocation",
+      "test_full_missing_receipts_execute_once_with_all_reservations_and_actual_replay",
+      "test_oversize_messages_execute_with_raw_retention_and_actual_isolated_replay",
+      "test_partial_first_term_preserved_and_failed_run_replays",
+      "test_qualification_archive_tamper_blocks_before_requests",
+      "test_real_handover_all_principal_outcomes_replayed",
+      "test_reconstructed_request_and_metrics_tampering_rejected",
+      "test_recovered_institution_audit_rejects_tampered_evidence",
+      "test_requested_executed_mapping_tamper_cannot_pass_replay",
+      "test_saved_principal_or_stop_timing_tamper_rejected",
+      "test_second429_stops_institution_no_third_attempt_and_replays",
+      "test_second_block_requires_full_budget_admission",
+      "test_unknown_or_conflicting_receipt_stops_without_extra_lookups_or_inference",
+      "test_worker_failure_retains_inflight_and_stops_new_admissions"
+    ]
+  },
+  "tests/test_paper3_retrospective_contract_discovery.py": {
+    "results/paper3/pivot_b_retrospective_action_contract_offline_v1.json": [
+      "test_all16_assignments_frozen_zero_new_gate_calls_and_complete_staging",
+      "test_bargaining_full_text_is_valid_not_channel_failure",
+      "test_controller_fault_retains_prefix_without_claiming_cause",
+      "test_first_action_fault_blocks_workers_second_batch_and_is_not_null",
+      "test_full_first_batch_admission_required_before_allocation",
+      "test_partial_first_term_preserved_and_failed_run_replays",
+      "test_qualification_archive_tamper_blocks_before_requests",
+      "test_real_handover_all_principal_outcomes_replayed",
+      "test_reconstructed_request_and_metrics_tampering_rejected",
+      "test_saved_principal_or_stop_timing_tamper_rejected",
+      "test_second_block_requires_full_budget_admission",
+      "test_worker_failure_retains_inflight_and_stops_new_admissions"
+    ]
+  },
+  "tests/test_paper3_retrospective_deepinfra_overload_v2.py": {
+    "results/paper3/pivot_b_budget": [
+      "test_real_transport_bridge_reissues_identical_wire_then_audits_all_costs"
+    ]
+  },
+  "tests/test_paper3_retrospective_deepinfra_pipeline_v2.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_total1930_ledger_preserves_every_prior_entry_and_only_unused_retirement"
+    ],
+    "results/paper3/pivot_b_retrospective_deepinfra_pilot_v1/manifest.json": [
+      "test_actual_overload_retry_costs_source_freeze_and_cold_archive_replay",
+      "test_unsafe_failure_still_prevents_second_block_without_any_observer"
+    ]
+  },
+  "tests/test_paper3_retrospective_deepinfra_retirement_v1.py": {
+    "results/paper3/pivot_b_budget/deepinfra_migration_authorization_2026_10_19.json": [
+      "test_changed_scope_evidence_or_cost_inventory_rejected",
+      "test_exact_current_baseline_and_explicit_unused_only_authority"
+    ],
+    "results/paper3/pivot_b_budget/entries": [
+      "test_changed_scope_evidence_or_cost_inventory_rejected"
+    ]
+  },
+  "tests/test_paper3_retrospective_deepinfra_retirement_v2.py": {
+    "results/paper3/pivot_b_budget/deepinfra_overload_authorization_2026_10_21.json": [
+      "test_changed_scope_or_evidence_rejected"
+    ],
+    "results/paper3/pivot_b_budget/entries": [
+      "test_6910_prior_charges_and_exact_human_unused_only_scope",
+      "test_dropped_pending_charge_is_not_free_budget"
+    ]
+  },
+  "tests/test_paper3_retrospective_keyed_discovery.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all16_assignments_frozen_zero_new_gate_calls_and_complete_staging",
+      "test_controller_fault_retains_prefix_without_claiming_cause",
+      "test_first_action_fault_blocks_workers_second_batch_and_is_not_null",
+      "test_partial_first_term_preserved_and_failed_run_replays",
+      "test_qualification_archive_tamper_blocks_before_requests",
+      "test_real_handover_all_principal_outcomes_replayed",
+      "test_reconstructed_request_and_metrics_tampering_rejected",
+      "test_saved_principal_or_stop_timing_tamper_rejected",
+      "test_second_batch_budget_stop_precedes_any_admission",
+      "test_worker_failure_retains_inflight_and_stops_new_admissions"
+    ]
+  },
+  "tests/test_paper3_retrospective_message_discovery_v1.py": {
+    "results/paper3/pivot_b_retrospective_action_contract_offline_v1.json": [
+      "test_actual_default_path_with_offline_backend",
+      "test_all16_assignments_frozen_zero_new_gate_calls_and_complete_staging",
+      "test_answerless429_recovers_without_discarding_failed_attempt_or_changing_wire",
+      "test_bad_raw_control_after_executed_prefix_still_stops_without_reissue",
+      "test_bad_transport_rejected_before_any_state",
+      "test_bargaining_full_text_is_valid_not_channel_failure",
+      "test_controller_fault_retains_prefix_without_claiming_cause",
+      "test_first_action_fault_blocks_workers_second_batch_and_is_not_null",
+      "test_full_first_batch_admission_required_before_allocation",
+      "test_oversize_messages_execute_with_raw_retention_and_actual_isolated_replay",
+      "test_partial_first_term_preserved_and_failed_run_replays",
+      "test_qualification_archive_tamper_blocks_before_requests",
+      "test_real_handover_all_principal_outcomes_replayed",
+      "test_reconstructed_request_and_metrics_tampering_rejected",
+      "test_recovered_institution_audit_rejects_tampered_evidence",
+      "test_requested_executed_mapping_tamper_cannot_pass_replay",
+      "test_saved_principal_or_stop_timing_tamper_rejected",
+      "test_second429_stops_institution_no_third_attempt_and_replays",
+      "test_second_block_requires_full_budget_admission",
+      "test_worker_failure_retains_inflight_and_stops_new_admissions"
+    ]
+  },
+  "tests/test_paper3_retrospective_overload_discovery.py": {
+    "paper3/data/pivot_b_retrospective_keyed_gate_v1.zip": [
+      "test_all_district_citizen_handover_and_scores_reconstructed",
+      "test_both_frames_all16_episodes_and_retained_overload_replay",
+      "test_controller_exception_prefix_retained_but_cause_not_claimed_verified",
+      "test_failed_second_term_preserves_first_term_and_isolated_missingness",
+      "test_parallel_fault_finishes_admitted_calls_without_new_admissions_and_replays",
+      "test_reconstructed_request_or_outcome_tamper_rejected",
+      "test_second_full_block_budget_admission_stops_before_allocating",
+      "test_serial_faults_stop_workers_keep16_and_do_not_become_scientific_null"
+    ]
+  },
+  "tests/test_paper3_retrospective_qualification_inheritance.py": {
+    "paper3/data/pivot_b_retrospective_score_ledger_gate_v1.zip": [
+      "test_full_fresh_inventory_compatibility_in_actual_isolated_extracted_source_snapshot",
+      "test_real_pinned_gate_archive_recomputed_read_only_and_template_inspected"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_archive_v2.py": {
+    "paper3/data/pivot_b_retrospective_anticipation_v1_batch0.zip": [
+      "test_actual_fresh_extracted_original_report_reproduces_under_new_nested_replay",
+      "test_entire_original_bundle_matches_original_zip_and_report"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_discovery.py": {
+    "results/paper3/pivot_b_retrospective_action_contract_offline_v1.json": [
+      "test_all16_assignments_frozen_zero_new_gate_calls_and_complete_staging",
+      "test_answerless429_recovers_without_discarding_failed_attempt_or_changing_wire",
+      "test_bargaining_full_text_is_valid_not_channel_failure",
+      "test_controller_fault_retains_prefix_without_claiming_cause",
+      "test_first_action_fault_blocks_workers_second_batch_and_is_not_null",
+      "test_full_first_batch_admission_required_before_allocation",
+      "test_partial_first_term_preserved_and_failed_run_replays",
+      "test_qualification_archive_tamper_blocks_before_requests",
+      "test_real_handover_all_principal_outcomes_replayed",
+      "test_reconstructed_request_and_metrics_tampering_rejected",
+      "test_recovered_institution_audit_rejects_tampered_evidence",
+      "test_saved_principal_or_stop_timing_tamper_rejected",
+      "test_second429_stops_institution_no_third_attempt_and_replays",
+      "test_second_block_requires_full_budget_admission",
+      "test_worker_failure_retains_inflight_and_stops_new_admissions"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_discovery_v2.py": {
+    "results/paper3/pivot_b_retrospective_action_contract_offline_v1.json": [
+      "test_actual_default_path_with_offline_backend",
+      "test_all16_assignments_frozen_zero_new_gate_calls_and_complete_staging",
+      "test_answerless429_recovers_without_discarding_failed_attempt_or_changing_wire",
+      "test_bad_transport_rejected_before_any_state",
+      "test_bargaining_full_text_is_valid_not_channel_failure",
+      "test_controller_fault_retains_prefix_without_claiming_cause",
+      "test_first_action_fault_blocks_workers_second_batch_and_is_not_null",
+      "test_full_first_batch_admission_required_before_allocation",
+      "test_partial_first_term_preserved_and_failed_run_replays",
+      "test_qualification_archive_tamper_blocks_before_requests",
+      "test_real_handover_all_principal_outcomes_replayed",
+      "test_reconstructed_request_and_metrics_tampering_rejected",
+      "test_recovered_institution_audit_rejects_tampered_evidence",
+      "test_saved_principal_or_stop_timing_tamper_rejected",
+      "test_second429_stops_institution_no_third_attempt_and_replays",
+      "test_second_block_requires_full_budget_admission",
+      "test_worker_failure_retains_inflight_and_stops_new_admissions"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_operating_v2.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_actual_default_readiness_inventory_pins_implementation_and_whole_pipeline_tests"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_runner_v2.py": {
+    "results/paper3/pivot_b_budget": [
+      "test_nonsecret_account_observation_includes_every_unresolved_reservation",
+      "test_total17_real_copied_financial_history_funds_full_inventory_without_writes"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_science_v2.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_service_journal_science_join_preserves_global_failures_and_both_costs"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_archive_v1.py": {
+    "paper3/data/pivot_b_retrospective_late_context_bounded_gate_v1.zip": [
+      "test_late_qualification_repeated_replay_preserves_entire_sealed_inventory"
+    ],
+    "paper3/data/pivot_b_retrospective_anticipation_recovery_v2_batch0.zip": [
+      "test_actual_fresh_extracted_original_report_reproduces_under_new_nested_replay",
+      "test_entire_original_bundle_matches_original_zip_and_report"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_complete_pipeline_v1.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_all480_actions_and_both_actual_isolated_archives_match",
+      "test_complete_neutral_control_cannot_manufacture_an_institutional_lead",
+      "test_forged_terminal_binding_in_financial_closure_cannot_pass_audit",
+      "test_successor_handover_and_rejected_second_term_use_correct_public_history",
+      "test_terminal_closure_does_not_release_old_pending_or_new_uncertified_costs"
+    ],
+    "paper3/data/pivot_b_retrospective_late_context_bounded_gate_v1/ledger": [
+      "test_sealed_historical_fixture_counts_match_full_cost_preservation_expectation"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_operating_v1.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_actual_default_readiness_inventory_pins_implementation_and_whole_pipeline_tests"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_readout_v1.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_service_journal_science_join_preserves_global_failures_and_both_costs"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_runner_v1.py": {
+    "results/paper3/pivot_b_budget": [
+      "test_nonsecret_account_observation_includes_every_unresolved_reservation",
+      "test_total19_real_copied_financial_history_funds_full_inventory_without_writes"
+    ]
+  },
+  "tests/test_paper3_retrospective_serial_discovery.py": {
+    "paper3/data/pivot_b_retrospective_keyed_gate_v1.zip": [
+      "test_all_district_citizen_handover_and_scores_reconstructed",
+      "test_both_frames_all16_episodes_and_retained_overload_replay",
+      "test_controller_exception_prefix_retained_but_cause_not_claimed_verified",
+      "test_failed_second_term_preserves_first_term_and_isolated_missingness",
+      "test_reconstructed_request_or_outcome_tamper_rejected",
+      "test_second_full_block_budget_admission_stops_before_allocating",
+      "test_serial_faults_stop_workers_keep16_and_do_not_become_scientific_null"
+    ]
+  },
+  "tests/test_paper3_retrospective_source_closure.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_complete_candidate_closure_matches_original_inventory"
+    ]
+  },
+  "tests/test_paper3_route_gate_runner.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "RouteGateRunnerTests::test_fabricated_success_audit_and_no_restart",
+      "RouteGateRunnerTests::test_fabricated_wrong_answer_stops_and_archives_all_assignments",
+      "RouteGateRunnerTests::test_manifest_tampering_rejected",
+      "RouteGateRunnerTests::test_seed_collision_and_budget_baseline_change_rejected",
+      "RouteGateRunnerTests::test_source_closure_includes_new_instrument_and_shared_billing_code"
+    ]
+  },
+  "tests/test_paper3_route_pilot_runner.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "RoutePilotRunnerTests::test_fabricated_full_pilot_and_isolated_replay",
+      "RoutePilotRunnerTests::test_gate_missing_and_budget_change_block_admission",
+      "RoutePilotRunnerTests::test_invalid_first_action_retains_all_episode_assignments"
+    ]
+  },
+  "tests/test_paper3_transport_diagnostic.py": {
+    "results/paper3/deepseek_presentation_v1/profile-1/calls/d091c6f9f18e3a623af188f87ec4be348614bb2d81f342390d1669293a203fb4.json": [
+      "test_actual_isolated_archive_replay",
+      "test_archive_credential_scan_and_offline_guard",
+      "test_bad_usage_fails_without_crashing",
+      "test_conflicting_costs_and_stream_receipt_mismatch",
+      "test_exact_wire_only_seed_changes",
+      "test_explicit_model_ids_accepted",
+      "test_failures_retained_without_extra_inference",
+      "test_four_attempts_receipt_schedule_and_no_restart",
+      "test_invalid_receipt_cannot_hide_behind_valid_one",
+      "test_invalid_stream_never_rescued_by_valid_charge",
+      "test_missing_receipt_keeps_reserve_and_valid_later_observation_certifies",
+      "test_prepare_and_source_tamper",
+      "test_protocol_invariants",
+      "test_sse_comments_multiline_and_repeated_terminal_finish",
+      "test_unstarted_cases_retained_after_immediate_failure"
+    ]
+  },
+  "tests/test_paper3_agenda_common_bounded_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_full_fabricated_path_and_exact_isolated_replay",
+      "test_invalid_ballot_preserves_shared_advocacy_and_action_prefix",
+      "test_invalid_first_action_stops_all_further_admissions",
+      "test_later_failure_keeps_all_assignments_and_missing_pair"
+    ]
+  },
+  "tests/test_paper3_agenda_common_transcript_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_full_fabricated_path_and_exact_isolated_replay",
+      "test_invalid_ballot_preserves_shared_advocacy_and_action_prefix",
+      "test_invalid_first_action_stops_all_further_admissions",
+      "test_later_failure_keeps_all_assignments_and_missing_pair"
+    ]
+  },
+  "tests/test_paper3_agenda_schema_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_and_endpoint_guard",
+      "test_complete_gate_and_isolated_replay",
+      "test_first_failure_preserved",
+      "test_frozen_source_tamper_rejected"
+    ]
+  },
+  "tests/test_paper3_agenda_sponsorship_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_full_fabricated_path_and_exact_isolated_replay",
+      "test_invalid_first_action_stops_all_further_admissions"
+    ]
+  },
+  "tests/test_paper3_coalition_contracts_runner.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_failed_gate_never_launches_institutions",
+      "test_failed_prefix_request_tampering_not_accepted_as_parse_error",
+      "test_fully_fabricated_end_to_end_replay",
+      "test_gate_native_reasoning_cannot_be_falsely_reported",
+      "test_invalid_content_keeps_all_assignments_without_retry",
+      "test_one_transport_failure_does_not_kill_other_episodes",
+      "test_repeated_transport_failure_stops_new_calls",
+      "test_source_or_manifest_tampering_rejected",
+      "test_uncertified_or_nonreasoning_gate_stops"
+    ]
+  },
+  "tests/test_paper3_contracts_archive.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_extracted_replay_retains_complete_and_failed_evidence",
+      "test_live_export_refused"
+    ]
+  },
+  "tests/test_paper3_contracts_format.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_complete_fake_run_and_no_restart",
+      "test_evidence_tamper_rejected",
+      "test_freeze_and_metadata_tampering_rejected",
+      "test_invalid_plain_retained_no_retries_and_schema_selected",
+      "test_new_stage_cannot_reset_shared_budget",
+      "test_safety_failures_stop_admissions_keep_assignments",
+      "test_single_transport_failure_keeps_rest_without_replacement",
+      "test_syntax_or_control_failure_cannot_pass"
+    ]
+  },
+  "tests/test_paper3_contracts_format_archive.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_zip_relocation_preserves_report",
+      "test_live_export_refused"
+    ]
+  },
+  "tests/test_paper3_contracts_json_mode.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_isolated_archive_replay",
+      "test_bad_content_or_wrong_controls_do_not_trigger_resampling",
+      "test_complete_new_gate_and_no_restart",
+      "test_global_budget_not_reset",
+      "test_live_archive_refused",
+      "test_one_transport_failure_no_global_stop_or_replacement",
+      "test_provenance_tampering_detected",
+      "test_safety_failure_retains_all_assignments_and_reserves",
+      "test_seed_inventory_includes_unexecuted"
+    ]
+  },
+  "tests/test_paper3_direct_ratification_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_guard",
+      "test_complete_gate_and_exact_portable_replay",
+      "test_first_failure_stops_without_repair",
+      "test_frozen_source_tamper_rejected"
+    ]
+  },
+  "tests/test_paper3_disclosure_complete_replay.py": {
+    "results/paper3/deepseek_plain_agenda_a1/sessions/terminal.json": [
+      "test_complete_exact_replay",
+      "test_detects_tampering",
+      "test_extra_call_rejected"
+    ]
+  },
+  "tests/test_paper3_electoral_accountability_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_complete_fabricated_pathway_and_portable_archive",
+      "test_failed_episode_kept_in_denominator_and_replays",
+      "test_gate_failure_stops_before_episodes_and_replays"
+    ]
+  },
+  "tests/test_paper3_electoral_controlled_opportunity.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_complete_selected_case_lead_replays",
+      "test_invalid_action_remains_missing_and_replays"
+    ]
+  },
+  "tests/test_paper3_mandate_release_branch_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_completed_first_branch_survives_second_branch_failure",
+      "test_first_invalid_action_stops_without_repair",
+      "test_mechanical_ballot_difference_is_not_behavioral_lead",
+      "test_three_person_final_offer_stops_without_repair"
+    ]
+  },
+  "tests/test_paper3_mandate_release_episode_gate_v2.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_first_invalid_action_stops_without_repair",
+      "test_three_person_final_offer_stops_without_repair",
+      "test_two_complete_episodes_are_technical_only"
+    ]
+  },
+  "tests/test_paper3_mandate_release_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_guard",
+      "test_complete_gate_and_isolated_replay",
+      "test_failure_preserves_unstarted_calls"
+    ]
+  },
+  "tests/test_paper3_mandate_release_gonogo.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_completed_first_branch_survives_second_branch_failure",
+      "test_first_invalid_action_stops_without_repair",
+      "test_mechanical_ballot_difference_is_not_behavioral_lead",
+      "test_three_person_final_offer_stops_without_repair"
+    ]
+  },
+  "tests/test_paper3_mandate_release_pilot.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_first_invalid_action_stops_without_repair",
+      "test_full_mechanical_difference_is_not_behavioral_lead"
+    ]
+  },
+  "tests/test_paper3_qwen_contract_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_above_reservation_charge_is_retained_and_stops",
+      "test_actual_isolated_archive_replay",
+      "test_compound_failure_not_resampled",
+      "test_numeric_failure_blocks_compound",
+      "test_one_failure_preserved_not_global",
+      "test_safety_failures_no_retry",
+      "test_shared_budget_not_reset",
+      "test_success_and_native_evidence",
+      "test_tampering_rejected"
+    ]
+  },
+  "tests/test_paper3_qwen_mandate_diagnostic.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_isolated_archive_replay",
+      "test_budget_is_shared_not_reset",
+      "test_complete_factual_run_and_no_restart",
+      "test_evidence_tamper_rejected",
+      "test_failures_stop_and_preserve_every_assignment",
+      "test_single_transport_failure_does_not_replace_or_stop_independent_cases",
+      "test_stale_metadata_refuses_before_admission",
+      "test_wrong_or_invalid_answers_retained_without_repair"
+    ]
+  },
+  "tests/test_paper3_ratification_population_validation_batch1.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_and_source_tamper_guard",
+      "test_fabricated_complete_path_and_isolated_replay",
+      "test_invalid_actions_keep_all_assignments",
+      "test_no_interim_behavioral_report_for_a_different_fabricated_policy"
+    ]
+  },
+  "tests/test_paper3_ratification_population_validation_batch2.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_budget_and_source_tamper_guard",
+      "test_fabricated_complete_path_and_isolated_replay",
+      "test_invalid_actions_keep_all_assignments",
+      "test_no_interim_behavioral_report_for_a_different_fabricated_policy"
+    ]
+  },
+  "tests/test_paper3_retrospective_anticipation_complete_pipeline.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_all480_actions_and_both_actual_isolated_archives_match",
+      "test_complete_neutral_control_cannot_manufacture_an_institutional_lead",
+      "test_forged_terminal_binding_in_financial_closure_cannot_pass_audit",
+      "test_successor_handover_and_rejected_second_term_use_correct_public_history",
+      "test_terminal_closure_does_not_release_old_pending_or_new_uncertified_costs"
+    ]
+  },
+  "tests/test_paper3_retrospective_anticipation_coordinator.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_batch0_local_failures_retain_all16_cases_and_entire_budget",
+      "test_batch1_without_actual_replay_callback_refused_before_transport",
+      "test_changed_prefreeze_ledger_preserves_new_entry_and_cannot_launch",
+      "test_endpoint_is_observed_once_after_expensive_second_block_replay",
+      "test_fresh_route_observation_required_before_allocation_or_start",
+      "test_interrupted_start_preserves_data_and_never_invents_terminal",
+      "test_modified_runtime_provenance_cannot_pass_scientific_audit",
+      "test_replay_certificate_must_match_entire_partial_report",
+      "test_replay_delay_cannot_make_stale_supplied_metadata_into_a_valid_start",
+      "test_safe_content_failures_do_not_selectively_block_second_assigned_frame",
+      "test_two_endpoint_observation_modes_cannot_silently_choose_one",
+      "test_unsafe_first_block_preserves_failed_cost_and_blocks_second_frame"
+    ]
+  },
+  "tests/test_paper3_retrospective_atlas_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_complete_all_tasks_and_isolated_replay",
+      "test_failed_gate_isolated_replay",
+      "test_partial_stream_and_http429_never_reissued",
+      "test_stop_without_retries_and_preserve_reservations"
+    ]
+  },
+  "tests/test_paper3_retrospective_atlas_nullable_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_complete_all_tasks_and_isolated_replay",
+      "test_failed_gate_isolated_replay",
+      "test_partial_stream_and_http429_never_reissued",
+      "test_stop_without_retries_and_preserve_reservations"
+    ]
+  },
+  "tests/test_paper3_retrospective_atlas_presence_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_complete_all_tasks_and_isolated_replay",
+      "test_failed_gate_isolated_replay",
+      "test_partial_stream_and_http429_never_reissued",
+      "test_stop_without_retries_and_preserve_reservations"
+    ]
+  },
+  "tests/test_paper3_retrospective_contract_gate.py": {
+    "results/paper3/pivot_b_retrospective_action_contract_offline_v1.json": [
+      "test_all_facts_actions_and_isolated_replay_accept_exact_text_contract",
+      "test_complete_all_tasks_and_isolated_replay",
+      "test_dual_channel_stops_even_when_both_actions_agree",
+      "test_failed_gate_isolated_replay",
+      "test_partial_stream_and_http429_never_reissued",
+      "test_stop_without_retries_and_preserve_reservations"
+    ]
+  },
+  "tests/test_paper3_retrospective_contract_gate_v2.py": {
+    "results/paper3/pivot_b_retrospective_action_contract_offline_v1.json": [
+      "test_all_facts_actions_and_isolated_replay_accept_exact_text_contract",
+      "test_complete_all_tasks_and_isolated_replay",
+      "test_dual_channel_stops_even_when_both_actions_agree",
+      "test_failed_gate_isolated_replay",
+      "test_partial_stream_and_http429_never_reissued",
+      "test_stop_without_retries_and_preserve_reservations"
+    ]
+  },
+  "tests/test_paper3_retrospective_deepinfra_pipeline_v1.py": {
+    "results/paper3/pivot_b_retrospective_resource_pilot_v1/manifest.json": [
+      "test_actual_full_sixteen_episode_execution_partial_and_full_isolated_replay",
+      "test_terminal_root_is_not_restartable_and_tampered_bundle_is_rejected"
+    ]
+  },
+  "tests/test_paper3_retrospective_deepseek_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all_eighteen_fabricated_and_fresh_isolated_replay",
+      "test_serial_failure_preserves_all_assignments_and_old_unsettled",
+      "test_stale_metadata_blocks_all_admission"
+    ]
+  },
+  "tests/test_paper3_retrospective_episode_journal.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_actual_fresh_extracted_stdlib_only_network_disabled_full_replay",
+      "test_changed_or_incomplete_evidence_cannot_match_exact_replay",
+      "test_complete_journal_cannot_accept_another_event_or_release_spending_authority",
+      "test_fake_logical_evidence_copy_is_not_referenced_as_original",
+      "test_physical_financial_journal_and_full_controller_replay",
+      "test_recomputed_hash_chain_cannot_hide_a_changed_controller_event",
+      "test_unknown_failure_preserves_full_cost_and_all_missing_outcomes_in_replay"
+    ]
+  },
+  "tests/test_paper3_retrospective_extended_budget.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_above_bound_charge_is_retained_and_prevents_further_admission",
+      "test_authority_mutation_after_initialization_stops_all_transactions",
+      "test_cannot_claim_old_stage_or_adopt_scope_without_explicit_hash",
+      "test_certified_releases_only_own_entry_and_exact_stage_scope_can_be_shared",
+      "test_concurrent_whole_block_admission_cannot_earmark_same_money_twice",
+      "test_entire_stage_cap_must_fit_before_allocation",
+      "test_interrupted_write_prevents_admission",
+      "test_invalid_reservations_fail_before_writing_entry",
+      "test_pinned_scope_and_pre_stage_inventory_immutable",
+      "test_process_shared_admission_cannot_overspend_current_total",
+      "test_reservation_guards_recheck_combined_stage_and_total_used",
+      "test_total_fifteen_not_twenty_seven_and_original_snapshot_still_ten",
+      "test_uncertified_cannot_release_own_or_old_reservations",
+      "test_unspent_caps_remain_earmarked_until_append_only_terminal_closure"
+    ]
+  },
+  "tests/test_paper3_retrospective_group_budget.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_audit_can_reopen_complete_group_with_explicit_original_stage_pins",
+      "test_closing_one_audited_block_never_releases_other_block_or_unknown_costs",
+      "test_concurrent_full_studies_cannot_earmark_the_same_remaining_balance",
+      "test_crash_materializing_second_block_preserves_both_caps_admits_zero_and_never_repairs",
+      "test_entire_study_is_admitted_before_either_block_and_cannot_restart",
+      "test_inadmissible_combined_budget_creates_neither_group_nor_stages",
+      "test_missing_or_changed_group_evidence_cannot_release_commitments"
+    ]
+  },
+  "tests/test_paper3_retrospective_independent_calls.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_audit_rejects_evidence_scope_and_closure_tampering",
+      "test_content_failure_is_not_retried_and_next_independent_action_can_run",
+      "test_controller_bridge_two_episodes_with_local_failure_and_all_missingness",
+      "test_declared_logical_limit_stops_without_another_reservation",
+      "test_full_two_term_economic_arms_execute_through_real_service_with_fake_wire",
+      "test_no_second_or_unapproved_reissue_and_global_stop",
+      "test_no_transport_restart_and_no_duplicate_action",
+      "test_one_exact_reissue_delays_and_keeps_both_reservations",
+      "test_physical_row_preserved_logical_reference_and_full_uncertified_cost",
+      "test_reissue_audit_rejects_changed_recovery_or_delay",
+      "test_source_divergence_after_spending_is_not_certified_as_terminal_closure",
+      "test_unknown_transport_exception_preserves_pending_cost_and_stops",
+      "test_unsafe_never_local_or_reissued",
+      "test_writer_lock_and_logical_concurrency_reject_parallel_work"
+    ]
+  },
+  "tests/test_paper3_retrospective_keyed_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all_eighteen_primary_and_fresh_isolated_replay",
+      "test_early_recovery_rejected_even_with_self_consistent_evidence_hash",
+      "test_no_recovery_of_content_native_billing_length_identity_failures",
+      "test_recovery_event_tampering_rejected",
+      "test_recovery_request_tampering_rejected",
+      "test_shared_eight_dollar_limit_blocks_a_fresh_allocation",
+      "test_stale_metadata_and_cumulative_authority_block_before_admission",
+      "test_third_transport_failure_exhausts_global_recovery_cap",
+      "test_two_identical_transport_recoveries_preserve_reservations_and_replay",
+      "test_wrong_recovery_answer_stops_without_third_attempt"
+    ]
+  },
+  "tests/test_paper3_retrospective_labeled_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all_eighteen_fabricated_and_fresh_isolated_replay",
+      "test_serial_failure_preserves_all_assignments_and_old_unsettled",
+      "test_stale_metadata_blocks_all_admission"
+    ]
+  },
+  "tests/test_paper3_retrospective_late_context_bounded_runner_v1.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all_sixteen_tasks_exact_isolated_replay_and_no_restart",
+      "test_approval_hash_and_budget_admission_are_real_guards",
+      "test_cooldown_evidence_tampering_rejected",
+      "test_exact_legal_channels_and_full_raw_executed_replay",
+      "test_fourth_consecutive_429_is_terminal_and_no_replacement_task",
+      "test_gate_deadline_blocks_new_admissions_but_keeps_received_answer",
+      "test_illegal_typed_votes_fail_gate_without_any_action_coercion",
+      "test_noneligible_rate_shapes_are_never_reissued",
+      "test_output_limit_is_a_gate_failure_not_institution_authority",
+      "test_partial_allocation_can_never_restart_even_without_a_start_record",
+      "test_physical_admission_error_diagnostic_survives_exact_replay",
+      "test_post_response_integrity_failure_prevents_acceptance_and_next_request",
+      "test_single_exact_429_reissue_after_full_cooldown_and_full_reservations",
+      "test_tenth_total_rate_failure_stops_without_tenth_reissue",
+      "test_three_per_action_and_nine_total_without_parent_failure_counter",
+      "test_unhealthy_route_never_creates_root_or_allocation",
+      "test_unknown_or_unsafe_evidence_stops_with_all_assignments_retained"
+    ]
+  },
+  "tests/test_paper3_retrospective_late_context_runner_v1.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all_sixteen_tasks_exact_isolated_replay_and_no_restart",
+      "test_exact_legal_channels_and_full_raw_executed_replay",
+      "test_illegal_typed_votes_fail_gate_without_any_action_coercion",
+      "test_output_limit_is_a_gate_failure_not_institution_authority",
+      "test_partial_allocation_can_never_restart_even_without_a_start_record",
+      "test_post_response_integrity_failure_prevents_acceptance_and_next_request",
+      "test_second_429_is_terminal_and_no_replacement_task",
+      "test_single_exact_429_reissue_after_full_cooldown_and_full_reservations",
+      "test_unhealthy_route_never_creates_root_or_allocation",
+      "test_unknown_or_unsafe_evidence_stops_with_all_assignments_retained"
+    ]
+  },
+  "tests/test_paper3_retrospective_overload_live.py": {
+    "paper3/data/pivot_b_retrospective_keyed_gate_v1.zip": [
+      "test_approval_gate_closure_and_no_calls_or_allocations_at_freeze",
+      "test_live_mode_fabricated_first_block_exact_isolated_replay",
+      "test_production_requires_fresh_observation_before_allocating",
+      "test_wrong_protocol_stops_before_endpoint_or_key"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_budget_v2.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_above_bound_charge_is_not_clipped",
+      "test_changed_stage_or_group_fails_closed",
+      "test_closure_releases_only_unused_new_cap_and_retains_uncertified_cost",
+      "test_competing_processes_cannot_double_earmark",
+      "test_competing_processes_cannot_overspend",
+      "test_extension_not_new_allowance_and_old_views_unchanged",
+      "test_full_pre_freeze_financial_baseline_must_match",
+      "test_group_partial_materialization_retains_all_money_admits_nothing",
+      "test_new_account_does_not_reset_costs_or_release_old_reservations",
+      "test_no_namespace_migration_or_historical_stage_collision",
+      "test_old_unused_commitment_stays_earmarked_not_silently_abandoned",
+      "test_partial_write_blocks_every_admission",
+      "test_prior_entries_frozen_and_stage_pins_not_optional",
+      "test_whole_authority_chain_rechecked_on_each_transaction"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_calls_v2.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_audit_rejects_changed_logical_and_physical_provenance",
+      "test_audit_rejects_retry_evidence_tampering",
+      "test_bad_action_not_reissued_next_independent_episode_allowed",
+      "test_block_cap_forty_independent_of_per_action_cap",
+      "test_complete_answer_crossing_deadline_retained_but_no_next_admission",
+      "test_cooldown_that_would_exceed_deadline_never_shortened",
+      "test_deadline_reached_during_cooldown_keeps_failed_evidence",
+      "test_failure_or_deadline_controller_journal_replays_exact_missingness",
+      "test_fourth_failure_stops_no_fifth_attempt",
+      "test_full_480_action_sixteen_episode_four_arm_controller_path",
+      "test_native_channel_route_and_usage_failure_never_reissued",
+      "test_no_duplicate_action_restart_or_parallel_worker",
+      "test_source_change_after_answer_preserves_record_but_refuses_false_closure",
+      "test_three_reissues_exact_wire_and_escalating_cooldowns",
+      "test_unknown_exception_keeps_pending_reservation_and_stops",
+      "test_valid_content_and_absent_receipts_preserve_full_cost"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_complete_pipeline_v2.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_all480_actions_and_both_actual_isolated_archives_match",
+      "test_complete_neutral_control_cannot_manufacture_an_institutional_lead",
+      "test_forged_terminal_binding_in_financial_closure_cannot_pass_audit",
+      "test_successor_handover_and_rejected_second_term_use_correct_public_history",
+      "test_terminal_closure_does_not_release_old_pending_or_new_uncertified_costs"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_coordinator_v2.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_batch1_requires_audited_closure_even_with_matching_fabricated_replay",
+      "test_both_assigned_blocks_continue_safe_failures_regardless_of_effect_after_closure",
+      "test_bounded_recovery_preserves_identical_wire_and_failed_cost",
+      "test_changed_financial_baseline_cannot_start_requests_or_silently_reprepare",
+      "test_entire_group_is_reserved_before_first_answer_and_all_content_failures_remain",
+      "test_no_unrun_closure_or_cached_replay_authority",
+      "test_partial_initialization_never_invents_terminal_or_licenses_restart",
+      "test_stale_route_prevents_start_and_allocation",
+      "test_terminal_and_allocation_provenance_cannot_supply_changed_science",
+      "test_unsafe_stop_blocks_second_frame_without_replacing_cases"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_freeze_v2.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_complete_private_freeze_and_source_verification_preserve_every_incurred_entry",
+      "test_external_protocol_pins_data_as_well_as_source",
+      "test_new_account_cannot_erase_uncertified_history_or_fit_partial_study",
+      "test_partial_persistence_cannot_be_reprepared_or_verified",
+      "test_private_source_or_authority_mutation_cannot_pass_freeze",
+      "test_retirement_tamper_refuses_before_private_root_creation",
+      "test_unhealthy_exact_route_denied_without_private_freeze_or_network"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_retirement_v2.py": {
+    "paper3/data/pivot_b_retrospective_anticipation_v1_batch0/ledger": [
+      "test_bool_coercion_and_nonfinite_clock_rejected",
+      "test_forged_empty_history_or_changed_actual_reservation_rejected",
+      "test_only_pinned_disposition_changes_new_adapter_unused_cap",
+      "test_real_disposition_creation_is_not_exercised_by_these_fixtures",
+      "test_retirement_scope_is_not_a_generic_cap_release",
+      "test_unrelated_stage_cannot_be_approved_via_pins"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_budget_v1.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_above_bound_charge_is_not_clipped",
+      "test_changed_stage_or_group_fails_closed",
+      "test_closure_releases_only_unused_new_cap_and_retains_uncertified_cost",
+      "test_competing_processes_cannot_double_earmark",
+      "test_competing_processes_cannot_overspend",
+      "test_extension_not_new_allowance_and_old_views_unchanged",
+      "test_full_pre_freeze_financial_baseline_must_match",
+      "test_group_partial_materialization_retains_all_money_admits_nothing",
+      "test_new_account_does_not_reset_costs_or_release_old_reservations",
+      "test_no_namespace_migration_or_historical_stage_collision",
+      "test_old_unused_commitment_stays_earmarked_not_silently_abandoned",
+      "test_partial_write_blocks_every_admission",
+      "test_prior_entries_frozen_and_stage_pins_not_optional",
+      "test_whole_authority_chain_rechecked_on_each_transaction"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_calls_v1.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_audit_rejects_changed_logical_and_physical_provenance",
+      "test_audit_rejects_retry_evidence_tampering",
+      "test_bad_action_not_reissued_next_independent_episode_allowed",
+      "test_block_cap_forty_independent_of_per_action_cap",
+      "test_complete_answer_crossing_deadline_retained_but_no_next_admission",
+      "test_cooldown_that_would_exceed_deadline_never_shortened",
+      "test_deadline_reached_during_cooldown_keeps_failed_evidence",
+      "test_failure_or_deadline_controller_journal_replays_exact_missingness",
+      "test_fourth_failure_stops_no_fifth_attempt",
+      "test_full_480_action_sixteen_episode_four_arm_controller_path",
+      "test_native_channel_route_and_usage_failure_never_reissued",
+      "test_no_duplicate_action_restart_or_parallel_worker",
+      "test_real_service_length_stop_isolated_without_clearing_stop_or_inventing_action",
+      "test_source_change_after_answer_preserves_record_but_refuses_false_closure",
+      "test_three_reissues_exact_wire_and_escalating_cooldowns",
+      "test_unknown_exception_keeps_pending_reservation_and_stops",
+      "test_valid_content_and_absent_receipts_preserve_full_cost"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_coordinator_v1.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_batch1_requires_audited_closure_even_with_matching_fabricated_replay",
+      "test_both_assigned_blocks_continue_safe_failures_regardless_of_effect_after_closure",
+      "test_bounded_recovery_preserves_identical_wire_and_failed_cost",
+      "test_changed_financial_baseline_cannot_start_requests_or_silently_reprepare",
+      "test_entire_group_is_reserved_before_first_answer_and_all_content_failures_remain",
+      "test_no_unrun_closure_or_cached_replay_authority",
+      "test_partial_initialization_never_invents_terminal_or_licenses_restart",
+      "test_stale_route_prevents_start_and_allocation",
+      "test_terminal_and_allocation_provenance_cannot_supply_changed_science",
+      "test_unsafe_stop_blocks_second_frame_without_replacing_cases"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_freeze_v1.py": {
+    "results/paper3/pivot_b_retrospective_score_ledger_gate_v1/manifest.json": [
+      "test_complete_private_freeze_and_source_verification_preserve_every_incurred_entry",
+      "test_external_protocol_pins_data_as_well_as_source",
+      "test_new_account_cannot_erase_uncertified_history_or_fit_partial_study",
+      "test_partial_persistence_cannot_be_reprepared_or_verified",
+      "test_private_source_or_authority_mutation_cannot_pass_freeze",
+      "test_retirement_tamper_refuses_before_private_root_creation",
+      "test_unhealthy_exact_route_denied_without_private_freeze_or_network"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_retirement_v1.py": {
+    "paper3/data/pivot_b_retrospective_late_context_bounded_gate_v1/ledger": [
+      "test_any_incurred_entry_change_rejects_disposition",
+      "test_boolean_coercion_and_nonfinite_timestamps_fail",
+      "test_certificate_is_not_a_generic_release_or_cached_pass",
+      "test_full_nine_dollar_admission_requires_the_pinned_disposition",
+      "test_historical_stage_cannot_be_closed_or_reserved_by_total19",
+      "test_only_approved_unused_B1_released_and_old_views_stay_frozen",
+      "test_test_copy_never_enters_actual_budget",
+      "test_wrong_stage_pin_and_repeat_retirement_rejected"
+    ]
+  },
+  "tests/test_paper3_retrospective_runner.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_complete_fabricated_run_is_not_scientific_success_and_replays_isolated",
+      "test_failed_factual_gate_retains_all_assignments_and_blocks_discovery",
+      "test_first_term_survives_second_term_failure_and_no_restart",
+      "test_interface_or_transport_failure_does_not_become_a_scientific_null"
+    ]
+  },
+  "tests/test_paper3_retrospective_score_ledger_gate_v1.py": {
+    "results/paper3/pivot_b_budget/authority_extension_2026_10_03.json": [
+      "test_all_facts_actions_and_isolated_replay_accept_exact_text_contract",
+      "test_complete_all_tasks_and_isolated_replay",
+      "test_default_backend_is_actual_transport",
+      "test_dual_channel_stops_even_when_both_actions_agree",
+      "test_factual_failure_remains_failed_and_independent_cases_continue",
+      "test_failed_gate_isolated_replay",
+      "test_four404_preserve_all_reservations_and_isolated_replay",
+      "test_inconsistent_native_usage_is_global_even_with_valid_action",
+      "test_legal_instrument_illegal_votes_fail_without_repair_or_global_stop",
+      "test_one_identical_wire_seed_reissue_after300_and_portable_replay",
+      "test_partial_stream_and_http429_never_reissued",
+      "test_second_rate_limit_never_reissued",
+      "test_stop_without_retries_and_preserve_reservations",
+      "test_tampered_reissue_evidence_rejected",
+      "test_unconfirmed_or_partial_rate_limit_never_reissued"
+    ]
+  },
+  "tests/test_paper3_retrospective_serial_live.py": {
+    "paper3/data/pivot_b_retrospective_keyed_gate_v1.zip": [
+      "test_approval_gate_closure_and_no_calls_or_allocations_at_freeze",
+      "test_live_mode_fabricated_first_block_exact_isolated_replay",
+      "test_production_requires_fresh_observation_before_allocating",
+      "test_unapproved_second_paid_stage_stops_before_metadata_or_key",
+      "test_wrong_protocol_stops_before_endpoint_or_key"
+    ]
+  },
+  "tests/test_paper3_retrospective_serialization_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all_facts_actions_and_isolated_replay_accept_exact_text_contract",
+      "test_complete_all_tasks_and_isolated_replay",
+      "test_default_backend_is_actual_transport",
+      "test_dual_channel_stops_even_when_both_actions_agree",
+      "test_factual_failure_remains_failed_and_independent_cases_continue",
+      "test_failed_gate_isolated_replay",
+      "test_four404_preserve_all_reservations_and_isolated_replay",
+      "test_inconsistent_native_usage_is_global_even_with_valid_action",
+      "test_legal_instrument_illegal_votes_fail_without_repair_or_global_stop",
+      "test_partial_stream_and_http429_never_reissued",
+      "test_stop_without_retries_and_preserve_reservations"
+    ]
+  },
+  "tests/test_paper3_retrospective_serialization_retry_gate.py": {
+    "results/paper3/pivot_b_budget/authority_extension_2026_10_03.json": [
+      "test_all_facts_actions_and_isolated_replay_accept_exact_text_contract",
+      "test_complete_all_tasks_and_isolated_replay",
+      "test_default_backend_is_actual_transport",
+      "test_dual_channel_stops_even_when_both_actions_agree",
+      "test_factual_failure_remains_failed_and_independent_cases_continue",
+      "test_failed_gate_isolated_replay",
+      "test_four404_preserve_all_reservations_and_isolated_replay",
+      "test_inconsistent_native_usage_is_global_even_with_valid_action",
+      "test_legal_instrument_illegal_votes_fail_without_repair_or_global_stop",
+      "test_one_identical_wire_seed_reissue_after300_and_portable_replay",
+      "test_partial_stream_and_http429_never_reissued",
+      "test_second_rate_limit_never_reissued",
+      "test_stop_without_retries_and_preserve_reservations",
+      "test_tampered_reissue_evidence_rejected",
+      "test_unconfirmed_or_partial_rate_limit_never_reissued"
+    ]
+  },
+  "tests/test_paper3_retrospective_transport_gate.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_all_eighteen_primary_and_fresh_isolated_replay",
+      "test_early_recovery_rejected_even_with_self_consistent_evidence_hash",
+      "test_no_recovery_of_content_native_billing_length_identity_failures",
+      "test_recovery_event_tampering_rejected",
+      "test_recovery_request_tampering_rejected",
+      "test_shared_eight_dollar_limit_blocks_a_fresh_allocation",
+      "test_stale_metadata_and_cumulative_authority_block_before_admission",
+      "test_third_transport_failure_exhausts_global_recovery_cap",
+      "test_two_identical_transport_recoveries_preserve_reservations_and_replay",
+      "test_wrong_recovery_answer_stops_without_third_attempt"
+    ]
+  },
+  "tests/test_paper3_route_qwen_gate_v2.py": {
+    "results/paper3/pivot_b_budget/authority.json": [
+      "test_complete_fabricated_gate_and_archive",
+      "test_wrong_factual_answer_stops_and_replays"
+    ]
+  },
+  "tests/test_paper3_retrospective_recovery_design_v2.py": {
+    "results/paper3": [
+      "test_current_historical_seed_inventory_has_no_overlap"
+    ]
+  },
+  "tests/test_paper3_retrospective_resource_design_v1.py": {
+    "results/paper3": [
+      "test_current_historical_seed_inventory_has_no_overlap"
+    ]
+  }
+}

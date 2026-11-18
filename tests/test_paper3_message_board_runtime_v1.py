@@ -7,6 +7,8 @@ import shutil
 
 import pytest
 
+from tests.hosted_fixtures import deepinfra_metadata
+
 from paper3 import message_board_runtime_v1 as w
 from paper3 import message_board_budget_v1 as budget
 from tests.test_paper3_graceful_continuation import FakeLedger
@@ -117,9 +119,8 @@ def setup(tmp_path, n=16):
             data=dict(id=identifier, model=w.route.MODEL_ALIAS, provider_name=w.route.PROVIDER, total_cost=.0001))
 
     def admit(root, protocol, book, stage, secret):
-        old = w.load(REPO / "results/paper3/pivot_b_independent_validation_v1/admissions/1793205286757644000.json")
         w.atomic(root / "admissions" / (str(clock()) + ".json"), dict(protocol=protocol,
-            metadata_observed_unix=clock(), metadata=old["metadata"],
+            metadata_observed_unix=clock(), metadata=deepinfra_metadata(),
             account=dict(account_funded=True, research_authority_extended=False)))
         return clock()
 
