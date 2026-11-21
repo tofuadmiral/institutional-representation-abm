@@ -10,7 +10,7 @@
 [![Paper 1 archive](https://zenodo.org/badge/DOI/10.5281/zenodo.22119501.svg)](https://doi.org/10.5281/zenodo.22119501)
 [![Paper 2 archive](https://zenodo.org/badge/DOI/10.5281/zenodo.23984193.svg)](https://doi.org/10.5281/zenodo.23984193)
 
-This repository contains two completed studies and an exploratory third implementation. Paper 1 uses a
+This repository contains two completed studies and a third working paper. Paper 1 uses a
 rule-based agent-based model of democratic legislative institutions. Paper 2
 uses open-weight language models in a proposer-reviewer decision pipeline. The
 shared question is how institutional rules shape the translation from represented
@@ -74,11 +74,11 @@ interacting institutional choices.
   <img src="paper2/figures/state_conditional_effects.png" width="88%" alt="State-conditional effects of evidence-gated versus broad review authority">
 </p>
 
-### Paper 3: AI representatives, negotiation and delegated authority (in progress)
+### Paper 3: **Vetoes and missed agreements in language-model bargaining** (working draft)
 
-Paper 3 explores how AI representatives can negotiate and make collective decisions while remaining accountable to the people they represent. We are testing how institutional rules, peer messages and permission constraints affect whether agents follow their mandates, using controlled multi-agent experiments.
+Paper 3 asks how voting rules change the deals AI representatives make for their constituencies. In three-party bargaining games, GPT-4.1 representatives passed 15 deals in 24 conflict branches under majority rule. Every deal left one party worse off. With unanimity, only two passed, although every game had a compromise that benefited all three parties.
 
-So far, we have explored coalition accountability, officeholder incentives, replacement and negotiation. Early leads have not consistently survived follow-up tests. Recent experiments point to a more focused question: why can an agent correctly state a permission constraint and then choose an unauthorized action? These are exploratory findings in synthetic settings, primarily with one model; a manuscript is still in development. See the [Paper 3 overview](paper3/README.md).
+In 60 new games with Qwen, the party at risk had already asked for a mutually beneficial deal in every game. Showing the proposer how many parties gained from each plan raised the number of such deals enacted from 6 to 31. Both versions saw the same request, payoffs and voting-rule reminder. [Paper draft](paper3/manuscript/main.pdf) · [Blog draft](paper3/manuscript/blog.md) · [Data and analysis](paper3/manuscript/README.md)
 
 ## Quick start
 

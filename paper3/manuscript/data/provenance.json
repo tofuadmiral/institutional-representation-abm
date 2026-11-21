@@ -1,0 +1,34 @@
+{
+  "voting-rules": {
+    "protocol_sha256": "0f5c4ac5110fce805e4c0957c2b194f08f16dd545eb6a752e42fa4c2c9512205",
+    "audited_report_sha256": "29f5e96a0c82f9455ab7a2fe8785e7606e79138eeb781e0665238aba70f493be",
+    "actions": 396,
+    "missing": 0,
+    "case_seed": 2026111901,
+    "export_sha256": "aea851d0cd07203d37b704bd36b67135b724633c73ca263ad1251bf7761d980e"
+  },
+  "offer-replay": {
+    "protocol_sha256": "1ca85deaa9369ade23e9fac77e717d383d6f51b686718152a63888e486d54331",
+    "audited_report_sha256": "adc760cd904cf8333d12d4a8bf79c16b53e0b85fad677ae1300061a977634f33",
+    "actions": 144,
+    "missing": 0,
+    "case_seed": 2026111903,
+    "export_sha256": "e9af2250c71a156c83c4d72f0a5eef99654c4ba36c3ede71d77d1133ffb94726"
+  },
+  "counts-and-reminder": {
+    "protocol_sha256": "b481a215162db1a7b767b451647da6bdc77c7d2f5965d6dcd6e0e2cba61d858a",
+    "audited_report_sha256": "f34b3b1aed867d823db31209eed91af1e5d7086f712961e59c4db49083e7d1fd",
+    "actions": 564,
+    "missing": 0,
+    "case_seed": 2026112001,
+    "export_sha256": "2f06d84a6dbd740a3ac4d1d6ca8335e3f9e4aa44b3bac0f47beefe98bffa79ce"
+  },
+  "matched-reminder": {
+    "protocol_sha256": "13a1da1c47a34b23c530ee838f24a47df2834b51a1f7544db4a8a44c5d658a7c",
+    "audited_report_sha256": "1ec894cf0469d85f3fdfdab43e07ae0adc9f80a8d2dfd206055cd189201cb2d5",
+    "actions": 540,
+    "missing": 0,
+    "case_seed": 2026112101,
+    "export_sha256": "acc54a913eacaa5dd406e53568eb9f96c7cc5a50bf0ff22bea767083f40c223f"
+  }
+}
