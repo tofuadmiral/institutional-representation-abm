@@ -4,8 +4,10 @@ import gzip
 import hashlib
 import json
 from collections import Counter, defaultdict
+from decimal import Decimal
 from pathlib import Path
 
+import numpy as np
 from scipy.stats import beta, binomtest
 
 DATA = Path(__file__).resolve().parent / "data"
@@ -54,6 +56,10 @@ def qwen_games(study):
         proposer, claimant = state["agenda"], state["claimant"]
         requested = request["action"]["plan"]
         gains = {p: sum(u[a] > plans[fallback][a] for a in u) for p, u in plans.items()}
+        assert sorted(gains.values()) == [0, 2, 3, 3]
+        if study == "matched-reminder":
+            compromises = [p for p in plans if gains[p] == 3]
+            assert requested == max(compromises, key=lambda p: plans[p][claimant])
         offers = {}
         for arm in ("ordinary", "counts"):
             offer = actions[arm, "offer", proposer]
@@ -141,9 +147,67 @@ def verify_replay():
                     sum(x > y for x, y in zip(u, table[sq])) >= state["required_yes"]]
         correct = plan in feasible and table[plan][actor] == max(table[p][actor] for p in feasible)
         assert plan == row["replay_offer"] and int(row["frontier"]) == correct
-    rates = {arm: sum(int(r["frontier"]) for r in rows if r["arm"] == arm)/36
-             for arm in ("ordinary", "coalition", "labelled", "both")}
-    return 50*(rates["coalition"]-rates["ordinary"]+rates["both"]-rates["labelled"])
+    return rows
+
+
+def paired_contrast(games, ticks_per_point, comparisons):
+    """Exact game bootstrap percentiles and Bonferroni-adjusted sign-flip test.
+
+    Each integer is one game's paired difference before division by the
+    number of within-game observations. Convolution enumerates resampled
+    totals without materializing all n**n bootstrap samples.
+    """
+    ticks = np.asarray(games, dtype=int)
+    n = len(ticks)
+    offset = ticks.min()
+    mass = np.bincount(ticks - offset) / n
+    distribution = np.array([1.0])
+    for _ in range(n):
+        distribution = np.convolve(distribution, mass)
+    quantiles = np.searchsorted(np.cumsum(distribution), [0.025, 0.975])
+    interval = (quantiles / n + offset) / ticks_per_point
+
+    totals = np.array([0])
+    for value in ticks[ticks != 0]:
+        totals = np.concatenate((totals + value, totals - value))
+    p = np.mean(abs(totals) >= abs(ticks.sum()))
+    return dict(estimate=ticks.mean() / ticks_per_point, interval=interval.tolist(),
+                adjusted_p=min(1.0, comparisons * p))
+
+
+def gpt_comparisons(branches, replay):
+    # Each game has two observations per rule and two per message condition.
+    cases = defaultdict(dict)
+    for row in branches:
+        cases[row["case_id"]][row["rule"], row["mode"]] = row
+    assert len(cases) == 18 and all(len(case) == 4 for case in cases.values())
+    for field, contrast in [
+        ("harmful_exclusion", "rule"),
+        ("minimum_utility", "rule"),
+        ("proposer_concession", "mode"),
+    ]:
+        differences = []
+        for case in cases.values():
+            total = 0
+            for (rule, mode), row in case.items():
+                positive = rule == "unanimity" if contrast == "rule" else mode == "full_messages"
+                points = 100 * Decimal(row[field])
+                assert points == int(points)
+                total += points if positive else -points
+            differences.append(int(total))
+        print(field, json.dumps(paired_contrast(differences, 2, 4)))
+
+    # Two rules crossed with two label conditions give four observations per aid arm.
+    cases = defaultdict(dict)
+    for row in replay:
+        cases[row["case"]][row["rule"], row["arm"]] = int(row["frontier"])
+    assert len(cases) == 18 and all(len(case) == 8 for case in cases.values())
+    differences = [
+        sum(score if arm in ("both", "coalition") else -score
+            for (_, arm), score in case.items()) * 100
+        for case in cases.values()
+    ]
+    print("coalition aid (pp)", json.dumps(paired_contrast(differences, 4, 3)))
 
 
 def main():
@@ -151,7 +215,7 @@ def main():
     for rule in ("majority", "unanimity"):
         sample = [b for b in branches if b["rule"] == rule and b["family"] == "conflict"]
         print(rule, "conflict agreements", sum(int(b["agreement"]) for b in sample), "/", len(sample))
-    print("GPT-4.1 coalition-aid effect (pp)", verify_replay())
+    gpt_comparisons(branches, verify_replay())
     all_games = []
     for study in ("counts-and-reminder", "matched-reminder"):
         rows = qwen_games(study)

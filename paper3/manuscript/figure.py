@@ -27,7 +27,7 @@ def panels():
 
     second = []
     for study, labels in (
-        ("counts-and-reminder", ("Payoffs alone", "Payoffs + reminder + counts")),
+        ("counts-and-reminder", ("Standard instructions", "Standard + reminder + counts")),
         ("matched-reminder", ("Matched reminder", "Matched reminder + counts")),
     ):
         games = qwen_games(study)

@@ -6,15 +6,20 @@ In 60 games with a unanimous voting rule, two proposers saw the same request and
 
 ## Reproduce the results
 
-From this directory, run the following with Python, SciPy, Matplotlib, and a LaTeX installation that includes latexmk.
+From the repository root, run `python paper3/manuscript/reproduce.py` with the dependencies in `requirements.txt` installed. To also rebuild the figure and paper, change into `paper3/manuscript/` and run the following with LaTeX and latexmk installed.
 
 ~~~sh
-python reproduce.py
 python figure.py
 latexmk -pdf main.tex
 ~~~
 
-The first command verifies the four compressed action files, reconstructs offers and votes, checks the game-level tables, and prints the paired differences, intervals and exact tests for the Qwen studies. The second draws [the figure](bargaining-outcomes.pdf) from the same files. All three steps run offline.
+The analysis verifies the four compressed action files against their recorded hashes, reconstructs offers and votes, and checks the game-level tables. For the GPT-4.1 comparisons it averages within each of the 18 games and computes marginal percentile intervals from the full empirical game-bootstrap distribution. This removes Monte Carlo variation in the earlier draft’s lower bounds for minimum payoff (2.78 to 2.72) and proposer concession (−12.50 to −12.42). It enumerates game-level sign flips and applies the original Bonferroni family sizes of four for voting rules and three for replay. For each Qwen cohort it reports the paired table, conservative interval and exact two-sided binomial test on discordant pairs.
+
+The figure script draws [the figure](bargaining-outcomes.pdf) from the same files. All three steps run offline.
+
+## Prepare the arXiv source archive
+
+From `paper3/manuscript/`, run `tar -czf arxiv-submission.tar.gz main.tex bargaining-outcomes.pdf`. The bibliography is in `main.tex`. To check the upload locally, extract the archive into an empty directory and run `latexmk -pdf main.tex` there.
 
 ## Read the games
 
