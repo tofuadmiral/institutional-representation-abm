@@ -2,7 +2,7 @@
 
 [Working paper (PDF)](main.pdf) · [Companion blog draft](blog.md) · [LaTeX source](main.tex)
 
-In 60 games with a unanimous voting rule, two proposers saw the same request and payoffs. Giving one proposer a count of how many constituencies gained from each plan raised mutually beneficial agreements from 6 to 31. The paired comparison includes 26 games that improved, one that switched in the other direction, five that passed in both conditions, and 28 that passed in neither.
+Qwen played three representatives in 60 games. One requested a plan, another chose the offer, and all three had to vote yes for it to pass. In each game two copies of the proposer saw the same request and payoffs. Giving one proposer a count of how many constituencies gained from each plan raised mutually beneficial agreements from 6 to 31. The paired comparison includes 26 games that improved, one that switched in the other direction, five that passed in both conditions, and 28 that passed in neither.
 
 ## Reproduce the results
 
@@ -19,7 +19,7 @@ The figure script draws [the figure](bargaining-outcomes.pdf) from the same file
 
 ## Prepare the arXiv source archive
 
-From `paper3/manuscript/`, run `tar -czf arxiv-submission.tar.gz main.tex bargaining-outcomes.pdf`. The bibliography is in `main.tex`. To check the upload locally, extract the archive into an empty directory and run `latexmk -pdf main.tex` there.
+From `paper3/manuscript/`, run `tar -czf arxiv-submission.tar.gz main.tex bargaining-outcomes.pdf`. The bibliography is in `main.tex`. Copy the title, author and abstract for the submission form from [the arXiv metadata](arxiv-metadata.txt). To check the upload locally, extract the archive into an empty directory and run `latexmk -pdf main.tex` there.
 
 ## Read the games
 
